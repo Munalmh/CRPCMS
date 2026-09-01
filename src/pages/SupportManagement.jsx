@@ -194,7 +194,7 @@ export default function SupportManagement() {
 {/* List View (Hidden by Default) */}
 <div className="hidden h-[calc(100vh-220px)] overflow-y-auto bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant" id="list-view">
 {/* Minimal table structure placeholder for list view */}
-<table className="w-full text-left border-collapse">
+<table className="w-full text-left border-collapse min-w-[800px]">
 <thead className="bg-surface-container sticky top-0 z-10">
 <tr>
 <th className="p-4 font-table-header text-table-header text-on-surface-variant font-medium">Service / Task</th>

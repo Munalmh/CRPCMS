@@ -44,7 +44,7 @@ export default function RescueHandover() {
                  </div>
 </div>
 </div>
-<div className="grid grid-cols-2 gap-y-6 gap-x-4">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-4">
 <div>
 <span className="font-label-caps text-label-caps text-on-surface-variant block mb-1">OPERATION DATE</span>
 <span className="font-body-lg text-body-lg text-on-surface font-semibold">Oct 24, 2023 - 14:30</span>
@@ -168,7 +168,7 @@ export default function RescueHandover() {
                  The receiving agency acknowledges responsibility for immediate shelter, medical screening, and initiation of standard protection protocols as per the prevailing legal framework.
              </p>
 {/* Signature Block inside document */}
-<div className="grid grid-cols-2 gap-12 mt-12 pt-8">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12 pt-8">
 <div>
 <div className="border-b border-outline-variant pb-2 mb-2 min-h-[60px] flex items-end">
 {/* Handover Agent Signature would go here */}

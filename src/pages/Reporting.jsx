@@ -92,7 +92,7 @@ export default function Reporting() {
 <span className="font-label-caps text-label-caps text-on-surface-variant">Success Rate</span>
 </div>
 </div>
-<div className="mt-4 grid grid-cols-2 gap-4">
+<div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
 <div>
 <div className="font-label-caps text-label-caps text-on-surface-variant">Target</div>
 <div className="font-body-lg text-body-lg text-on-surface font-semibold">85%</div>

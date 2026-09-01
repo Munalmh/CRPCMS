@@ -141,7 +141,7 @@ export default function Reintegration() {
 <div className="absolute -left-12 top-1/2 -translate-y-1/2 font-label-caps text-label-caps text-on-surface [writing-mode:vertical-rl]">Safety</div>
 </div>
 </div>
-<div className="grid grid-cols-2 gap-4 mt-8">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
 <div className="bg-surface-container p-3 rounded-lg text-center">
 <p className="font-label-caps text-label-caps text-on-surface-variant mb-1">Overall Score</p>
 <p className="font-headline-md text-headline-md text-primary">75%</p>

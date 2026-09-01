@@ -30,7 +30,7 @@ export default function CaseClosure() {
 <h2 className="font-headline-md text-headline-md text-on-surface">Closure Request Form</h2>
 </div>
 <form className="space-y-8" id="closure-form">
-<div className="grid grid-cols-2 gap-6">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div className="flex flex-col gap-2">
 <label className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Case ID</label>
 <div className="h-input-height px-4 bg-surface-container rounded flex items-center shadow-sm">

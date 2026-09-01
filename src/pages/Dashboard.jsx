@@ -8,7 +8,7 @@ export default function Dashboard() {
   return (
     <>
       <div className="flex flex-col w-full px-8 pb-8 gap-6 max-w-[1440px] mx-auto">
-<div className="flex items-end justify-between mt-8">
+<div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mt-8 gap-4">
 <div>
 <h2 className="font-display-lg text-display-lg text-on-surface">Overview</h2>
 <p className="font-body-lg text-body-lg text-on-surface-variant mt-1">High-level summary and active priorities.</p>
@@ -91,7 +91,7 @@ export default function Dashboard() {
 <button className="text-primary font-label-caps text-label-caps hover:underline">VIEW ALL</button>
 </div>
 <div className="overflow-x-auto">
-<table className="w-full text-left border-collapse">
+<table className="w-full text-left border-collapse min-w-[800px]">
 <thead>
 <tr className="bg-surface-container-low font-table-header text-table-header text-on-surface-variant">
 <th className="p-4 whitespace-nowrap">Case ID</th>

@@ -49,7 +49,7 @@ export default function UserManagement() {
 </div>
 <main className="flex-1 overflow-x-auto p-margin-desktop">
 <div className="bg-surface rounded-xl shadow-sm border border-outline-variant/40 overflow-hidden">
-<table className="w-full text-left border-collapse">
+<table className="w-full text-left border-collapse min-w-[1000px]">
 <thead>
 <tr className="bg-surface-container-lowest border-b border-outline-variant/50">
 <th className="p-4 font-table-header text-table-header text-on-surface uppercase tracking-wider w-[250px]">User</th>

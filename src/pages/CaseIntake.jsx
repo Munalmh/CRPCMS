@@ -9,12 +9,12 @@ export default function CaseIntake() {
     <>
       <div className="flex flex-col w-full relative">
 {/* Duplicate Match Alert Banner (Absolute overlay for demonstration, or fixed at top of content area) */}
-<div className="absolute top-4 right-4 z-50 max-w-md w-full bg-error-container text-on-error-container p-6 rounded-xl shadow-xl transform transition-transform duration-300 ease-in-out translate-y-0 opacity-100 flex items-start gap-4" id="duplicate-alert">
+<div className="absolute top-4 left-4 right-4 md:left-auto md:right-4 z-50 w-[calc(100%-2rem)] md:w-full md:max-w-md bg-error-container text-on-error-container p-6 rounded-xl shadow-xl transform transition-transform duration-300 ease-in-out translate-y-0 opacity-100 flex items-start gap-4" id="duplicate-alert">
 <span className="material-symbols-outlined text-error text-3xl">warning</span>
 <div className="flex-1">
 <h3 className="font-headline-sm text-headline-sm mb-1 text-error">Duplicate Match Found</h3>
 <p className="font-body-sm text-body-sm mb-4">Potential Longitudinal Profile Match Found (CAS-8871) for "Sarah Johnson" - Link or Create New?</p>
-<div className="flex gap-3">
+<div className="flex flex-col sm:flex-row gap-3">
 <button className="px-4 py-2 bg-error text-on-error rounded font-body-sm text-body-sm hover:bg-error/90 transition-colors shadow-md">Link Profile</button>
 <button className="px-4 py-2 text-error bg-transparent border border-error rounded font-body-sm text-body-sm hover:bg-error/10 transition-colors">Create New</button>
 </div>

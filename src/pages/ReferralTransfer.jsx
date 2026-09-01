@@ -31,7 +31,7 @@ export default function ReferralTransfer() {
 </div>
 <button className="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-caps text-label-caps tracking-widest uppercase hover:bg-primary/90 transition-colors shadow-sm">Initialize Transfer</button>
 </div>
-<div className="grid grid-cols-2 gap-4 mt-4 relative z-10">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 relative z-10">
 <div className="flex flex-col gap-2">
 <label className="font-table-header text-table-header text-on-surface-variant">Select Beneficiary Record</label>
 <select className="h-[36px] bg-surface rounded-md px-3 font-body-md text-body-md text-on-surface border border-outline-variant focus:border-primary focus:outline-none shadow-sm">
@@ -95,7 +95,7 @@ export default function ReferralTransfer() {
 <div className="bg-surface-container rounded-2xl p-6 shadow-md">
 <h3 className="font-headline-sm text-headline-sm text-on-surface mb-4">Recent Outgoing Transfers</h3>
 <div className="overflow-x-auto">
-<table className="w-full text-left">
+<table className="w-full text-left min-w-[800px]">
 <thead>
 <tr className="border-b border-outline-variant/30">
 <th className="pb-2 font-table-header text-table-header text-on-surface-variant">ID</th>

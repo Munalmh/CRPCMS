@@ -42,7 +42,7 @@ export default function PrivacyAudit() {
 </div>
 </div>
 <div className="overflow-x-auto">
-<table className="w-full text-left border-collapse">
+<table className="w-full text-left border-collapse min-w-[800px]">
 <thead>
 <tr className="bg-surface-container-highest border-b border-outline-variant">
 <th className="py-3 px-6 font-table-header text-table-header text-on-surface-variant whitespace-nowrap">TIMESTAMP</th>
@@ -154,7 +154,7 @@ export default function PrivacyAudit() {
 </div>
 </div>
 </div>
-<div className="grid grid-cols-2 gap-6">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm relative overflow-hidden group">
 <div className="absolute -right-8 -top-8 w-32 h-32 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors"></div>
 <div className="flex items-center justify-between mb-4 relative z-10">

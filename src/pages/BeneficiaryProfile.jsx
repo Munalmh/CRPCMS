@@ -32,15 +32,15 @@ export default function BeneficiaryProfile() {
 </div>
 <h1 className="font-display-lg text-display-lg text-on-surface m-0 tracking-tight">Sarah Johnson</h1>
 <div className="flex flex-wrap gap-x-6 gap-y-2 mt-2">
-<div className="flex items-center gap-2 text-on-surface-variant">
+<div className="flex flex-wrap items-center gap-2 text-on-surface-variant">
 <span className="material-symbols-outlined text-[18px]">cake</span>
 <span className="font-body-md text-body-md">DOB: Mar 14, 2015 (8y)</span>
 </div>
-<div className="flex items-center gap-2 text-on-surface-variant">
+<div className="flex flex-wrap items-center gap-2 text-on-surface-variant">
 <span className="material-symbols-outlined text-[18px]">female</span>
 <span className="font-body-md text-body-md">Female</span>
 </div>
-<div className="flex items-center gap-2 text-on-surface-variant">
+<div className="flex flex-wrap items-center gap-2 text-on-surface-variant">
 <span className="material-symbols-outlined text-[18px]">location_on</span>
 <span className="font-body-md text-body-md">District 4 Shelter</span>
 </div>
@@ -73,7 +73,7 @@ export default function BeneficiaryProfile() {
 </div>
 <div className="max-w-[1440px] mx-auto w-full px-margin-desktop py-8 -mt-6 z-20 relative">
 <div className="bg-surface rounded-t-xl shadow-md overflow-hidden">
-<div className="flex border-b border-outline-variant/30 bg-surface-container-lowest">
+<div className="flex overflow-x-auto border-b border-outline-variant/30 bg-surface-container-lowest scrollbar-hide">
 <button className="tab-btn px-6 py-4 font-headline-sm text-body-lg text-primary border-b-2 border-primary bg-surface transition-colors focus:outline-none flex items-center gap-2" data-target="tab-identity">
 <span className="material-symbols-outlined text-[20px]">account_tree</span>
           Identity &amp; Household
@@ -173,7 +173,7 @@ export default function BeneficiaryProfile() {
                  Medical History
                </h3>
 <div className="overflow-x-auto">
-<table className="w-full text-left border-collapse">
+<table className="w-full text-left border-collapse min-w-[800px]">
 <thead>
 <tr className="border-b-2 border-surface-variant">
 <th className="py-2 px-3 font-table-header text-table-header text-on-surface-variant uppercase tracking-wider">Date</th>

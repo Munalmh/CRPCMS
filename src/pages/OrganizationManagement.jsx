@@ -85,7 +85,7 @@ export default function OrganizationManagement() {
 <div className="px-8 pb-12 flex-1">
 <div className="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden flex flex-col h-[600px]">
 <div className="overflow-x-auto">
-<table className="w-full text-left border-collapse">
+<table className="w-full text-left border-collapse min-w-[800px]">
 <thead className="bg-surface-container-low sticky top-0 z-10 border-b border-outline-variant">
 <tr>
 <th className="px-6 py-3 font-table-header text-table-header text-on-surface-variant uppercase tracking-wider">Organization Name</th>
@@ -238,7 +238,7 @@ export default function OrganizationManagement() {
 <label className="block font-body-sm text-body-sm text-on-surface mb-1 font-medium">Legal Entity Name</label>
 <input className="w-full h-9 rounded bg-surface border border-outline-variant px-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm text-on-surface" placeholder="e.g. Save the Children International" type="text"/>
 </div>
-<div className="grid grid-cols-2 gap-4">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div>
 <label className="block font-body-sm text-body-sm text-on-surface mb-1 font-medium">Registration Number</label>
 <input className="w-full h-9 rounded bg-surface border border-outline-variant px-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm text-on-surface font-label-caps" placeholder="REG-####" type="text"/>
@@ -263,7 +263,7 @@ export default function OrganizationManagement() {
 <label className="block font-body-sm text-body-sm text-on-surface mb-1 font-medium">Street Address</label>
 <input className="w-full h-9 rounded bg-surface border border-outline-variant px-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm text-on-surface" placeholder="123 Main St" type="text"/>
 </div>
-<div className="grid grid-cols-2 gap-4">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div>
 <label className="block font-body-sm text-body-sm text-on-surface mb-1 font-medium">City</label>
 <input className="w-full h-9 rounded bg-surface border border-outline-variant px-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm text-on-surface" placeholder="City" type="text"/>

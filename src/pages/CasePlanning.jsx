@@ -221,7 +221,7 @@ export default function CasePlanning() {
               </div>
 </div>
 </div>
-<div className="grid grid-cols-2 gap-4 mt-2 relative z-10">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2 relative z-10">
 <div className="flex flex-col">
 <span className="font-label-caps text-label-caps text-on-surface-variant uppercase">Risk Level</span>
 <span className="font-body-md text-body-md text-error font-semibold flex items-center gap-1">
