@@ -1,254 +1,160 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef } from 'react';
 
 export default function BeneficiaryProfile() {
-  // If there are tabs (like in BeneficiaryProfile), we can add basic state
-  const [activeTab, setActiveTab] = useState('tab-identity');
-  
+  const formRef = useRef(null);
+  const statusRef = useRef(null);
+  const STORAGE_KEY = 'Child_Profile_Form';
+
+  const handlePrint = () => window.print();
+
+  const handleClear = () => {
+    if (!window.confirm('Clear all entered information?')) return;
+    const container = formRef.current;
+    if (!container) return;
+    container.querySelectorAll('input, select, textarea').forEach((el) => {
+      if (el.type === 'radio' || el.type === 'checkbox') el.checked = false;
+      else el.value = '';
+    });
+    localStorage.removeItem(STORAGE_KEY);
+  };
+
+  const handleSaveDraft = () => {
+    const container = formRef.current;
+    if (!container) return;
+    const data = {};
+    container.querySelectorAll('input, select, textarea').forEach((el, i) => {
+      const key = el.name || el.id || `f${i}`;
+      data[key] = el.type === 'radio' ? el.checked : el.value;
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    if (statusRef.current) {
+      statusRef.current.style.display = 'block';
+      setTimeout(() => {
+        if (statusRef.current) statusRef.current.style.display = 'none';
+      }, 2200);
+    }
+  };
+
   return (
     <>
-      <div className="flex flex-col w-full">
-<div className="bg-surface-container relative pb-12 overflow-hidden shadow-sm">
-<div className="absolute inset-0 z-0">
-<div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full mix-blend-multiply filter blur-3xl opacity-50 translate-x-1/3 -translate-y-1/3"></div>
-<div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-surface-tint/5 rounded-full mix-blend-multiply filter blur-3xl opacity-50 -translate-x-1/2 translate-y-1/2"></div>
-</div>
-<div className="max-w-[1440px] mx-auto px-margin-desktop relative z-10 pt-10">
-<div className="flex flex-col md:flex-row gap-8 items-start md:items-center">
-<div className="relative shrink-0">
-<img className="w-32 h-32 md:w-40 md:h-40 rounded-xl object-cover shadow-md z-10 relative" data-alt="Professional, clinical portrait photograph of a young girl, child beneficiary, neutral background, soft studio lighting, documentary style, conveying dignity and resilience, maintaining modern corporate aesthetic with subtle deep blue and slate gray tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmDQWdmaD-M-Kg_5Ld5PRYb7tlg4TADTWsSg6WkOyjCzzbQosICeBM2gLDXKWudNG3gRdAXSUyPFhM_5hr57JV2CIWe_8fTjvTS-k7A-1bMWf_hf18QE6xOY5qYiq0KFWdmezg_vbJbP6ORXtDer6npJhfNY18pws6iPfjOBlGtSoRquZ0CTP38yiwRx8WdFkWtDx4oufL6Jy75Xc7Pmut1neSMHK1_L-dUapKkvQD2J_RNHvwEnfJ"/>
-<div className="absolute -bottom-3 -right-3 bg-surface-container-highest px-3 py-1 rounded-full shadow-sm z-20 flex items-center gap-1.5 border-outline-variant">
-<span className="material-symbols-outlined text-[16px] text-primary">verified_user</span>
-<span className="font-label-caps text-label-caps text-primary tracking-wide">VERIFIED</span>
-</div>
-</div>
-<div className="flex-1 flex flex-col gap-3">
-<div className="flex items-center gap-3">
-<span className="font-label-caps text-label-caps text-on-surface-variant bg-surface-variant px-2 py-1 rounded">CAS-8902</span>
-<div className="flex items-center gap-1.5 px-2 py-1 rounded bg-secondary-container text-on-secondary-container">
-<span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-<span className="font-label-caps text-label-caps uppercase">Active</span>
-</div>
-</div>
-<h1 className="font-display-lg text-display-lg text-on-surface m-0 tracking-tight">Sarah Johnson</h1>
-<div className="flex flex-wrap gap-x-6 gap-y-2 mt-2">
-<div className="flex flex-wrap items-center gap-2 text-on-surface-variant">
-<span className="material-symbols-outlined text-[18px]">cake</span>
-<span className="font-body-md text-body-md">DOB: Mar 14, 2015 (8y)</span>
-</div>
-<div className="flex flex-wrap items-center gap-2 text-on-surface-variant">
-<span className="material-symbols-outlined text-[18px]">female</span>
-<span className="font-body-md text-body-md">Female</span>
-</div>
-<div className="flex flex-wrap items-center gap-2 text-on-surface-variant">
-<span className="material-symbols-outlined text-[18px]">location_on</span>
-<span className="font-body-md text-body-md">District 4 Shelter</span>
-</div>
-</div>
-</div>
-<div className="flex flex-col gap-4 w-full md:w-auto shrink-0 bg-surface rounded-xl p-5 shadow-sm">
-<div className="flex flex-col gap-1">
-<span className="font-label-caps text-label-caps text-on-surface-variant uppercase">Current Stage</span>
-<div className="flex items-center gap-3">
-<span className="material-symbols-outlined text-[24px] text-primary">assessment</span>
-<span className="font-headline-sm text-headline-sm text-primary">Assessment</span>
-</div>
-</div>
-<div className="w-full bg-surface-variant h-1.5 rounded-full overflow-hidden">
-<div className="bg-primary w-[45%] h-full rounded-full transition-all duration-1000 ease-out" style={{ width: '45%' }}></div>
-</div>
-<div className="flex gap-3 mt-2">
-<button className="flex-1 px-4 py-2 bg-surface hover:bg-surface-variant text-on-surface font-body-md text-body-md rounded shadow-sm transition-colors flex items-center justify-center gap-2 group">
-<span className="material-symbols-outlined text-[18px] group-hover:scale-110 transition-transform">edit_document</span>
-               Request Change
-             </button>
-<Link to="/referral-transfer" className="flex-1 px-4 py-2 bg-primary hover:bg-primary/90 text-on-primary font-body-md text-body-md rounded shadow-md hover:shadow-xl transition-all flex items-center justify-center gap-2 group">
-<span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">move_up</span>
-               Initiate Referral
-             </Link>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div className="max-w-[1440px] mx-auto w-full px-margin-desktop py-8 -mt-6 z-20 relative">
-<div className="bg-surface rounded-t-xl shadow-md overflow-hidden">
-<div className="flex overflow-x-auto border-b border-outline-variant/30 bg-surface-container-lowest scrollbar-hide">
-<button className="tab-btn px-6 py-4 font-headline-sm text-body-lg text-primary border-b-2 border-primary bg-surface transition-colors focus:outline-none flex items-center gap-2" data-target="tab-identity">
-<span className="material-symbols-outlined text-[20px]">account_tree</span>
-          Identity &amp; Household
-        </button>
-<button className="tab-btn px-6 py-4 font-headline-sm text-body-lg text-on-surface-variant border-b-2 border-transparent hover:text-primary hover:bg-surface-container-low transition-colors focus:outline-none flex items-center gap-2" data-target="tab-protection">
-<span className="material-symbols-outlined text-[20px]">medical_services</span>
-          Protection &amp; Medical
-        </button>
-<button className="tab-btn px-6 py-4 font-headline-sm text-body-lg text-on-surface-variant border-b-2 border-transparent hover:text-primary hover:bg-surface-container-low transition-colors focus:outline-none flex items-center gap-2" data-target="tab-timeline">
-<span className="material-symbols-outlined text-[20px]">history</span>
-          Longitudinal Timeline
-        </button>
-</div>
-<div className="p-6 md:p-8 min-h-[500px]">
-<div className="tab-pane active flex flex-col gap-8" id="tab-identity">
-<form className="space-y-2" onSubmit={e => e.preventDefault()}>
+      <style>{`
+        .beneficiary-shell{--p:#234a7c;--pl:#e8eef5;--b:#d7dee8;--t:#1f2937;--bg:#f4f7fb;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--t)}
+        .beneficiary-shell *{box-sizing:border-box}
+        .beneficiary-shell .shell{max-width:1180px;margin:28px auto;padding:0 18px}
+        .beneficiary-shell .card{background:#fff;border:1px solid var(--b);border-radius:14px;box-shadow:0 5px 18px rgba(31,41,55,.07);overflow:hidden}
+        .beneficiary-shell .head{background:linear-gradient(135deg,#234a7c,#315f96);color:#fff;padding:24px 28px}
+        .beneficiary-shell .head h1{margin:0 0 5px;font-size:24px}
+        .beneficiary-shell .head p{margin:0;font-size:13px;opacity:.9}
+        .beneficiary-shell .body{padding:25px}
+        .beneficiary-shell .section{margin:0 0 18px;padding:10px 14px;background:var(--pl);color:var(--p);border-left:5px solid var(--p);border-radius:5px;font-size:15px;font-weight:700}
+        .beneficiary-shell .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:24px}
+        .beneficiary-shell .full{grid-column:1/-1}
+        .beneficiary-shell .field{display:flex;flex-direction:column;gap:6px}
+        .beneficiary-shell label{font-size:13px;font-weight:700}
+        .beneficiary-shell input,.beneficiary-shell select,.beneficiary-shell textarea{width:100%;border:1px solid #cfd7e3;border-radius:8px;padding:10px 11px;font:inherit;font-size:13px;background:#fff;outline:none}
+        .beneficiary-shell input:focus,.beneficiary-shell select:focus,.beneficiary-shell textarea:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(35,74,124,.1)}
+        .beneficiary-shell textarea{min-height:105px;resize:vertical}
+        .beneficiary-shell .options{display:flex;flex-wrap:wrap;gap:9px}
+        .beneficiary-shell .option{border:1px solid var(--b);padding:9px 11px;border-radius:8px;background:#fafbfd;font-weight:400}
+        .beneficiary-shell table{width:100%;border-collapse:collapse;margin:0 0 24px;font-size:12px;overflow:auto}
+        .beneficiary-shell th,.beneficiary-shell td{border:1px solid var(--b);padding:8px;vertical-align:top}
+        .beneficiary-shell th{background:var(--pl);color:var(--p);text-align:left}
+        .beneficiary-shell td input,.beneficiary-shell td select,.beneficiary-shell td textarea{border:0;padding:3px;box-shadow:none;background:transparent}
+        .beneficiary-shell .actions{display:flex;justify-content:flex-end;gap:9px;border-top:1px solid var(--b);padding-top:18px}
+        .beneficiary-shell button{border:0;border-radius:8px;padding:10px 17px;font-weight:700;cursor:pointer}
+        .beneficiary-shell .primary{background:var(--p);color:white}
+        .beneficiary-shell .secondary{background:#eef2f7;color:#26364a}
+        .beneficiary-shell .status{display:none;margin-top:12px;padding:9px 11px;border-radius:8px;background:#edf7ef;color:#25613a;font-size:13px}
+        @media(max-width:760px){
+          .beneficiary-shell .grid{grid-template-columns:1fr}
+          .beneficiary-shell .full{grid-column:auto}
+          .beneficiary-shell .body{padding:17px}
+          .beneficiary-shell .shell{margin:12px auto}
+          .beneficiary-shell table{font-size:10px;display:block;overflow-x:auto}
+        }
+        @media print{
+          .beneficiary-shell{background:white}
+          .beneficiary-shell .shell{max-width:none;margin:0}
+          .beneficiary-shell .card{box-shadow:none;border:0}
+          .beneficiary-shell .actions{display:none}
+          .beneficiary-shell .head{background:#234a7c!important}
+        }
+      `}</style>
 
-<div class="grid">
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Profile Intake Date</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" type="date" /></div><div></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Name of Child</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Date of Birth (DD/MM/YYYY)</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" placeholder="DD/MM/YYYY" /></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Sex</label><select className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all"><option></option><option>Male</option><option>Female</option><option>Other</option></select></div>
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Address</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div>
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Previous Academic Status / School</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Father's Name (name, age etc.)</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Mother's Name</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Grandfather's Name</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Grandmother's Name</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div>
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Legal Documents of Child</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Occupation of Family</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Primary Income Source of Family</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div>
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Siblings</label><textarea placeholder="Name, age, sex and other relevant details" className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div>
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Other Relatives (Name and Relationship with the Child)</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div>
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Any Other Information Provided by Child</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Height and Weight</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Health Status</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Relationship with Family</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Contact Details</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" placeholder="Phone / Mobile / Email" /></div>
-</div>
-<h3 className="font-headline-sm text-headline-sm text-secondary mt-8 mb-4 border-b border-outline-variant/30 pb-2">2. Rescue / Handover Information</h3>\n<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Date of Rescue / Handover</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" type="date" /></div>
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Circumstance of Rescue / Handover</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div>
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Organization / Place from Where Child Was Rescued From / Handed Over</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Time Spent in Organization Before Handover</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Reason Why Child Was in the Organization / Job</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div>
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">With Whom the Child Travelled to India / Work Location</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div>
-</div>
-<h3 className="font-headline-sm text-headline-sm text-secondary mt-8 mb-4 border-b border-outline-variant/30 pb-2">3. Case Study and Assessment</h3>\n<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Case Study</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Reintegration Status</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Education</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Vocational Training</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Risk Factors</label><textarea placeholder="Child labor; other identified risks..." className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Immediate Support</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div>
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Future Plan</label><textarea placeholder="Short term:\\nMedium term:\\nLong term:" className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Follow Up Plan</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Observation by Team</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"></textarea></div>
-</div>
-<div className="flex justify-end gap-4 mt-8 pt-6 border-t border-outline-variant/30"><button className="px-6 py-2 rounded-lg font-body-md text-body-md font-semibold text-secondary hover:bg-surface-variant transition-colors" type="button">Clear</button><button className="px-6 py-2 rounded-lg font-body-md text-body-md font-semibold bg-primary text-on-primary hover:bg-primary/90 shadow-md transition-transform active:scale-95" type="button">Save Draft</button></div>
-</form>
-</div>
-<div className="tab-pane hidden flex flex-col gap-6" id="tab-protection">
-<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div className="bg-error-container/20 rounded-xl p-6 shadow-sm">
-<h3 className="font-headline-sm text-headline-sm text-on-surface mb-4 flex items-center gap-2">
-<span className="material-symbols-outlined text-error">warning</span>
-                 Protection Concerns
-               </h3>
-<div className="space-y-4">
-<div className="bg-surface p-4 rounded-lg shadow-sm">
-<div className="flex justify-between items-start mb-2">
-<div className="font-headline-sm text-body-lg text-on-surface">Risk Category: Neglect</div>
-<span className="px-2 py-1 bg-error/10 text-error rounded font-label-caps text-[10px] uppercase tracking-wider">High Severity</span>
-</div>
-<p className="font-body-md text-body-md text-on-surface-variant">Reported irregular attendance at school and signs of malnutrition observed by community worker. Living conditions assessed as inadequate during preliminary home visit.</p>
-</div>
-</div>
-</div>
-<div className="bg-surface-container-low rounded-xl p-6 shadow-sm">
-<h3 className="font-headline-sm text-headline-sm text-on-surface mb-4 flex items-center gap-2">
-<span className="material-symbols-outlined text-primary">monitor_heart</span>
-                 Medical History
-               </h3>
-<div className="overflow-x-auto">
-<table className="w-full text-left border-collapse min-w-[800px]">
-<thead>
-<tr className="border-b-2 border-surface-variant">
-<th className="py-2 px-3 font-table-header text-table-header text-on-surface-variant uppercase tracking-wider">Date</th>
-<th className="py-2 px-3 font-table-header text-table-header text-on-surface-variant uppercase tracking-wider">Evaluation</th>
-<th className="py-2 px-3 font-table-header text-table-header text-on-surface-variant uppercase tracking-wider">Status</th>
-</tr>
-</thead>
-<tbody className="font-body-md text-body-md text-on-surface">
-<tr className="border-b border-surface-variant/50 hover:bg-surface/50 transition-colors">
-<td className="py-3 px-3">Oct 15, 2023</td>
-<td className="py-3 px-3">Initial Pediatric Assessment</td>
-<td className="py-3 px-3"><span className="px-2 py-0.5 bg-surface-variant text-on-surface-variant rounded text-xs">Completed</span></td>
-</tr>
-<tr className="border-b border-surface-variant/50 hover:bg-surface/50 transition-colors">
-<td className="py-3 px-3">Nov 02, 2023</td>
-<td className="py-3 px-3">Nutritional Screening</td>
-<td className="py-3 px-3"><span className="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded text-xs">Follow-up Req</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div className="tab-pane hidden" id="tab-timeline">
-<div className="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 overflow-hidden">
-<div className="p-4 bg-surface-container-low border-b border-outline-variant/30 flex justify-between items-center">
-<h3 className="font-headline-sm text-headline-sm text-on-surface">Chronological Audit History</h3>
-<button className="text-primary font-label-caps text-label-caps flex items-center gap-1 hover:underline">
-<span className="material-symbols-outlined text-[16px]">download</span> EXPORT PDF
-               </button>
-</div>
-<div className="p-6 relative pl-10 md:pl-16">
-<div className="absolute left-6 md:left-10 top-6 bottom-6 w-0.5 bg-surface-variant"></div>
-<div className="space-y-8">
-<div className="relative group">
-<div className="absolute -left-[30px] md:-left-[46px] w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-sm z-10">
-<span className="material-symbols-outlined text-[16px] text-on-primary">assessment</span>
-</div>
-<div className="bg-surface shadow-sm rounded-lg p-4 border border-outline-variant/20 hover:shadow-md transition-shadow">
-<div className="flex justify-between items-start mb-2">
-<div>
-<span className="font-label-caps text-label-caps text-on-surface-variant bg-surface-container px-2 py-0.5 rounded">STATE CHANGE</span>
-<h4 className="font-headline-sm text-body-lg text-on-surface mt-1">Moved to Assessment Stage</h4>
-</div>
-<div className="text-right">
-<div className="font-body-sm text-body-sm text-on-surface-variant">Nov 10, 2023</div>
-<div className="font-label-caps text-label-caps text-primary">09:42 AM</div>
-</div>
-</div>
-<p className="font-body-md text-body-md text-on-surface-variant">Case transitioned from Intake to Assessment. Assigned to worker ID: CMS-4920.</p>
-</div>
-</div>
-<div className="relative group">
-<div className="absolute -left-[30px] md:-left-[46px] w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center shadow-sm z-10">
-<span className="material-symbols-outlined text-[16px] text-on-surface-variant">note_add</span>
-</div>
-<div className="bg-surface shadow-sm rounded-lg p-4 border border-outline-variant/20 hover:shadow-md transition-shadow">
-<div className="flex justify-between items-start mb-2">
-<div>
-<span className="font-label-caps text-label-caps text-on-surface-variant bg-surface-container px-2 py-0.5 rounded">DOCUMENT ADDED</span>
-<h4 className="font-headline-sm text-body-lg text-on-surface mt-1">Initial Home Visit Report Uploaded</h4>
-</div>
-<div className="text-right">
-<div className="font-body-sm text-body-sm text-on-surface-variant">Oct 28, 2023</div>
-</div>
-</div>
-<div className="flex items-center gap-2 mt-2 p-2 bg-surface-container-low rounded inline-flex">
-<span className="material-symbols-outlined text-on-surface-variant text-[18px]">picture_as_pdf</span>
-<span className="font-body-sm text-body-sm text-on-surface">home_visit_oct28.pdf</span>
-</div>
-</div>
-</div>
-<div className="relative group">
-<div className="absolute -left-[30px] md:-left-[46px] w-8 h-8 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center shadow-sm z-10">
-<span className="material-symbols-outlined text-[16px]">login</span>
-</div>
-<div className="bg-surface shadow-sm rounded-lg p-4 border border-outline-variant/20 hover:shadow-md transition-shadow">
-<div className="flex justify-between items-start mb-2">
-<div>
-<span className="font-label-caps text-label-caps text-on-surface-variant bg-surface-container px-2 py-0.5 rounded">CASE CREATION</span>
-<h4 className="font-headline-sm text-body-lg text-on-surface mt-1">Case Intake Registered</h4>
-</div>
-<div className="text-right">
-<div className="font-body-sm text-body-sm text-on-surface-variant">Oct 12, 2023</div>
-</div>
-</div>
-<p className="font-body-md text-body-md text-on-surface-variant">Initial registration via Hotline Referral. Temporary ID assigned.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+      <div className="beneficiary-shell" ref={formRef}>
+        <div className="shell">
+          <div className="card">
+            <div className="head">
+              <h1>Child Profile Form</h1>
+              <p>Digital child profile intake, rescue/handover and assessment record</p>
+            </div>
+            <div className="body">
 
+              <div className="section">1. Basic Information</div>
+              <div className="grid">
+                <div className="field"><label>Profile Intake Date</label><input type="date" /></div>
+                <div></div>
+                <div className="field"><label>Name of Child</label><input /></div>
+                <div className="field"><label>Date of Birth (DD/MM/YYYY)</label><input placeholder="DD/MM/YYYY" /></div>
+                <div className="field">
+                  <label>Sex</label>
+                  <select><option></option><option>Male</option><option>Female</option><option>Other</option></select>
+                </div>
+                <div className="field full"><label>Address</label><textarea></textarea></div>
+                <div className="field full"><label>Previous Academic Status / School</label><textarea></textarea></div>
+                <div className="field"><label>Father's Name (name, age etc.)</label><input /></div>
+                <div className="field"><label>Mother's Name</label><input /></div>
+                <div className="field"><label>Grandfather's Name</label><input /></div>
+                <div className="field"><label>Grandmother's Name</label><input /></div>
+                <div className="field full"><label>Legal Documents of Child</label><textarea></textarea></div>
+                <div className="field"><label>Occupation of Family</label><input /></div>
+                <div className="field"><label>Primary Income Source of Family</label><input /></div>
+                <div className="field full"><label>Siblings</label><textarea placeholder="Name, age, sex and other relevant details"></textarea></div>
+                <div className="field full"><label>Other Relatives (Name and Relationship with the Child)</label><textarea></textarea></div>
+                <div className="field full"><label>Any Other Information Provided by Child</label><textarea></textarea></div>
+                <div className="field"><label>Height and Weight</label><input /></div>
+                <div className="field"><label>Health Status</label><textarea></textarea></div>
+                <div className="field"><label>Relationship with Family</label><textarea></textarea></div>
+                <div className="field"><label>Contact Details</label><input placeholder="Phone / Mobile / Email" /></div>
+              </div>
+
+              <div className="section">2. Rescue / Handover Information</div>
+              <div className="grid">
+                <div className="field"><label>Date of Rescue / Handover</label><input type="date" /></div>
+                <div className="field full"><label>Circumstance of Rescue / Handover</label><textarea></textarea></div>
+                <div className="field full"><label>Organization / Place from Where Child Was Rescued From / Handed Over</label><input /></div>
+                <div className="field"><label>Time Spent in Organization Before Handover</label><input /></div>
+                <div className="field"><label>Reason Why Child Was in the Organization / Job</label><textarea></textarea></div>
+                <div className="field full"><label>With Whom the Child Travelled to India / Work Location</label><input /></div>
+              </div>
+
+              <div className="section">3. Case Study and Assessment</div>
+              <div className="grid">
+                <div className="field full"><label>Case Study</label><textarea></textarea></div>
+                <div className="field"><label>Reintegration Status</label><textarea></textarea></div>
+                <div className="field"><label>Education</label><textarea></textarea></div>
+                <div className="field"><label>Vocational Training</label><textarea></textarea></div>
+                <div className="field"><label>Risk Factors</label><textarea placeholder="Child labor; other identified risks..."></textarea></div>
+                <div className="field"><label>Immediate Support</label><textarea></textarea></div>
+                <div className="field full">
+                  <label>Future Plan</label>
+                  <textarea placeholder={'Short term:\nMedium term:\nLong term:'}></textarea>
+                </div>
+                <div className="field"><label>Follow Up Plan</label><textarea></textarea></div>
+                <div className="field"><label>Observation by Team</label><textarea></textarea></div>
+              </div>
+
+              <div className="actions">
+                <button className="secondary" type="button" onClick={handlePrint}>Print / Save PDF</button>
+                <button className="secondary" type="button" onClick={handleClear}>Clear</button>
+                <button className="primary" type="button" onClick={handleSaveDraft}>Save Draft</button>
+              </div>
+              <div ref={statusRef} className="status">Draft saved in this browser.</div>
+
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

@@ -1,189 +1,307 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef } from 'react';
 
 export default function Reintegration() {
-  // If there are tabs (like in BeneficiaryProfile), we can add basic state
-  const [activeTab, setActiveTab] = useState('tab-identity');
-  
+  const formRef = useRef(null);
+  const statusRef = useRef(null);
+  const STORAGE_KEY = 'child_reintegration_reunification_form';
+
+  const handlePrint = () => window.print();
+
+  const handleClear = () => {
+    if (!window.confirm('Clear all entered information?')) return;
+    const container = formRef.current;
+    if (!container) return;
+    container.querySelectorAll('input, select, textarea').forEach((el) => {
+      if (el.type === 'checkbox' || el.type === 'radio') el.checked = false;
+      else el.value = '';
+    });
+    localStorage.removeItem(STORAGE_KEY);
+  };
+
+  const handleSaveDraft = () => {
+    const container = formRef.current;
+    if (!container) return;
+    const data = {};
+    container.querySelectorAll('input, select, textarea').forEach((el, i) => {
+      const key = el.name || el.id || `f${i}`;
+      data[key] = el.type === 'checkbox' ? el.checked : el.value;
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    if (statusRef.current) {
+      statusRef.current.style.display = 'block';
+      setTimeout(() => {
+        if (statusRef.current) statusRef.current.style.display = 'none';
+      }, 2200);
+    }
+  };
+
   return (
     <>
-      <div className="flex flex-col w-full relative h-full">
-{/* Subtle Gradient Background */}
-<div className="absolute inset-0 w-full h-full pointer-events-none opacity-40 z-0 bg-gradient-to-br from-surface-container-low via-surface to-surface-container"></div>
-<div className="relative z-10 w-full px-12 py-10">
-{/* Section Header */}
-<div className="flex items-end justify-between mb-16">
-<div className="max-w-xl">
-<p className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-2 flex items-center gap-2"><span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>family_restroom</span> Case ID: #RP-8842-X</p>
-<h1 className="font-display-lg text-display-lg text-on-surface mb-4">Reintegration Planning</h1>
-<p className="font-body-lg text-body-lg text-on-surface-variant">Manage the family tracing process, assess caregiver readiness, and finalize placement approvals for child reintegration.</p>
-</div>
-<div className="flex flex-col items-end">
-<span className="inline-flex items-center gap-2 px-4 py-2 bg-secondary-container text-on-secondary-container rounded-full font-label-caps text-label-caps uppercase shadow-sm">
-<span aria-hidden="true" className="w-2 h-2 rounded-full bg-primary"></span>
-                  In Progress
-              </span>
-<p className="font-body-sm text-body-sm text-on-surface-variant mt-2 text-right">Target Date: Oct 24, 2024</p>
-</div>
-</div>
-{/* Bento Grid Layout */}
-<div className="grid grid-cols-12 gap-6 w-full">
-{/* Left Column: Tracker & Tracing Details */}
-<div className="col-span-12 lg:col-span-7 flex flex-col gap-6">
-{/* Multi-Stage Tracker Card */}
-<div className="bg-surface-container-lowest rounded-xl p-8 shadow-md relative overflow-hidden group">
-{/* Decorative blur */}
-<div className="absolute -top-12 -right-12 w-32 h-32 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all duration-700"></div>
-<h2 className="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-3">
-<span className="material-symbols-outlined text-on-surface-variant">timeline</span>
-                      Reintegration Pathway
-                  </h2>
-<div className="relative pl-6">
-{/* Vertical Timeline Line */}
-<div className="absolute left-[15px] top-4 bottom-8 w-0.5 bg-outline-variant/30"></div>
-{/* Stage 1: Family Tracing */}
-<div className="relative mb-8 pb-4">
-<div className="absolute -left-[30px] top-1 w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm">
-<span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>check</span>
-</div>
-<div className="flex justify-between items-start mb-2">
-<div>
-<h3 className="font-headline-sm text-headline-sm text-on-surface leading-none">Family Tracing</h3>
-<p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Initial contact established with extended relatives.</p>
-</div>
-<span className="font-label-caps text-label-caps text-on-surface-variant">Oct 02, 2024</span>
-</div>
-<div className="mt-4 p-4 bg-surface-container-low rounded-lg shadow-sm border border-outline-variant/20 flex items-center gap-4">
-<img className="w-12 h-12 rounded-full object-cover shadow-sm" data-alt="A portrait photo of an older man with kind eyes, sitting outdoors, shallow depth of field, warm natural lighting, representing an extended family member." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYQ09Lf38X1tMcbvn1eNRDS233L1-2Voo-e4WiypAW2ay9kVp6ioVwcuZlpzql2rOHtKpPT3ispjNlxWrKZZ26mgo7tSDg2zMq1aMSbLYjG9nvSQ--uGeZUkhl8cZPd4w3V-OYwSBbCokoZ5FGzQG6-FNITh3Clcn6rxZ4vLV_qkP9UMCiB2BZvJFLCGb6PChvmmnfuOyN6YRHzz1vMouqXXP3mhL9CROBHBhS81g5zD2k1TDXWLX-"/>
-<div>
-<p className="font-body-md text-body-md font-bold text-on-surface">Elias Thorne (Grandfather)</p>
-<p className="font-body-sm text-body-sm text-on-surface-variant">Located in District 4, Village West.</p>
-</div>
-</div>
-</div>
-{/* Stage 2: Assessment (Active) */}
-<div className="relative mb-8 pb-4">
-<div className="absolute -left-[30px] top-1 w-6 h-6 rounded-full bg-surface-container-lowest border-2 border-primary flex items-center justify-center shadow-sm">
-<div className="w-2 h-2 rounded-full bg-primary"></div>
-</div>
-<div className="flex justify-between items-start mb-2">
-<div>
-<h3 className="font-headline-sm text-headline-sm text-primary leading-none">Caregiver Assessment</h3>
-<p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Evaluating readiness indicators and household capacity.</p>
-</div>
-<span className="font-label-caps text-label-caps text-primary bg-primary-container/10 px-2 py-1 rounded-sm">Current Phase</span>
-</div>
-</div>
-{/* Stage 3: Preparation */}
-<div className="relative mb-8 pb-4 opacity-50">
-<div className="absolute -left-[30px] top-1 w-6 h-6 rounded-full bg-surface-container-low border-2 border-outline-variant flex items-center justify-center">
-</div>
-<div className="flex justify-between items-start mb-2">
-<div>
-<h3 className="font-headline-sm text-headline-sm text-on-surface leading-none">Child &amp; Family Preparation</h3>
-<p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Counseling and logistical arrangements prior to handover.</p>
-</div>
-</div>
-</div>
-{/* Stage 4: Reunification */}
-<div className="relative opacity-50">
-<div className="absolute -left-[30px] top-1 w-6 h-6 rounded-full bg-surface-container-low border-2 border-outline-variant flex items-center justify-center">
-</div>
-<div className="flex justify-between items-start mb-2">
-<div>
-<h3 className="font-headline-sm text-headline-sm text-on-surface leading-none">Reunification Approval</h3>
-<p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Final supervisor sign-off and physical handover.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-{/* Location Map Placeholder */}
-<div className="bg-surface-container-lowest rounded-xl shadow-md overflow-hidden h-64 relative group">
-<div className="w-full h-full bg-cover bg-center transition-transform duration-1000 group-hover:scale-105" data-location="Kigali, Rwanda" style={{ backgroundColor: '#e2e8f0' }}></div>
-<div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
-<p className="font-label-caps text-label-caps text-white uppercase tracking-wider mb-1 opacity-80">Proposed Placement Location</p>
-<p className="font-body-lg text-body-lg text-white font-medium">District 4, Sector B</p>
-</div>
-</div>
-</div>
-{/* Right Column: Assessment & Gate */}
-<div className="col-span-12 lg:col-span-5 flex flex-col gap-6">
-{/* Caregiver Assessment Radar */}
-<div className="bg-surface-container-highest rounded-xl p-8 shadow-lg text-on-surface relative">
-<h2 className="font-headline-md text-headline-md mb-2">Caregiver Readiness</h2>
-<p className="font-body-sm text-body-sm text-on-surface-variant mb-6">Composite score based on home visit data (Oct 10, 2024).</p>
-<div className="w-full aspect-square relative flex items-center justify-center mb-4">
-{/* Simple CSS Radar Chart Visualization (Decorative) */}
-<div className="relative w-full h-full max-w-[280px] max-h-[280px]">
-{/* Axis Backgrounds */}
-<div className="absolute inset-0 m-auto w-full h-full rounded-full border border-outline-variant/30"></div>
-<div className="absolute inset-0 m-auto w-[75%] h-[75%] rounded-full border border-outline-variant/30"></div>
-<div className="absolute inset-0 m-auto w-[50%] h-[50%] rounded-full border border-outline-variant/30"></div>
-<div className="absolute inset-0 m-auto w-[25%] h-[25%] rounded-full border border-outline-variant/30"></div>
-{/* Crosshairs */}
-<div className="absolute top-0 bottom-0 left-1/2 w-px bg-outline-variant/30 -translate-x-1/2"></div>
-<div className="absolute left-0 right-0 top-1/2 h-px bg-outline-variant/30 -translate-y-1/2"></div>
-{/* Data Polygon (Faux SVG) */}
-<svg className="absolute inset-0 w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 100 100">
-{/* Financial(Top: 60%), Community(Right: 80%), Emotional(Bottom: 90%), Safety(Left: 70%) */}
-{/* Coords: Top(50, 20), Right(90, 50), Bottom(50, 95), Left(15, 50) */}
-<polygon className="fill-primary/20 stroke-primary stroke-2" points="50,20 90,50 50,95 15,50" style={{ strokeLinejoin: 'round' }}></polygon>
-<circle className="fill-primary" cx="50" cy="20" r="2"></circle>
-<circle className="fill-primary" cx="90" cy="50" r="2"></circle>
-<circle className="fill-primary" cx="50" cy="95" r="2"></circle>
-<circle className="fill-primary" cx="15" cy="50" r="2"></circle>
-</svg>
-{/* Labels */}
-<div className="absolute -top-6 left-1/2 -translate-x-1/2 font-label-caps text-label-caps text-on-surface">Financial</div>
-<div className="absolute -right-16 top-1/2 -translate-y-1/2 font-label-caps text-label-caps text-on-surface [writing-mode:vertical-rl] rotate-180">Community</div>
-<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 font-label-caps text-label-caps text-on-surface">Emotional</div>
-<div className="absolute -left-12 top-1/2 -translate-y-1/2 font-label-caps text-label-caps text-on-surface [writing-mode:vertical-rl]">Safety</div>
-</div>
-</div>
-<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-<div className="bg-surface-container p-3 rounded-lg text-center">
-<p className="font-label-caps text-label-caps text-on-surface-variant mb-1">Overall Score</p>
-<p className="font-headline-md text-headline-md text-primary">75%</p>
-</div>
-<div className="bg-surface-container p-3 rounded-lg text-center">
-<p className="font-label-caps text-label-caps text-on-surface-variant mb-1">Risk Level</p>
-<p className="font-headline-md text-headline-md text-secondary">Low</p>
-</div>
-</div>
-</div>
-{/* Supervisor Gate */}
-<div className="bg-surface-container-lowest rounded-xl p-8 shadow-md flex-1 flex flex-col justify-between">
-<div>
-<h2 className="font-headline-md text-headline-md text-on-surface mb-2 flex items-center gap-2">
-<span className="material-symbols-outlined text-outline">verified_user</span>
-                          Supervisor Approval
-                      </h2>
-<p className="font-body-sm text-body-sm text-on-surface-variant mb-6">Final sign-off is required before physical reunification can occur. All prerequisite assessments must be completed.</p>
-<div className="bg-surface-container-low p-4 rounded-lg mb-6 border-l-4 border-error/50">
-<p className="font-body-sm text-body-sm text-on-surface font-medium flex items-start gap-2">
-<span className="material-symbols-outlined text-error/70 text-[18px]">warning</span>
-                               Action Blocked: Awaiting Assessment Completion
-                           </p>
-</div>
-<div className="space-y-4">
-<div>
-<label className="font-label-caps text-label-caps text-on-surface-variant block mb-1">Digital Signature</label>
-<div className="w-full h-[input-height] bg-surface-container-low rounded border border-outline-variant border-dashed flex items-center justify-center opacity-50 cursor-not-allowed">
-<span className="font-body-sm text-body-sm text-outline">Sign Here</span>
-</div>
-</div>
-</div>
-</div>
-<button className="w-full py-3 mt-6 bg-primary/50 text-white font-label-caps text-label-caps uppercase tracking-wider rounded-lg flex items-center justify-center gap-2 cursor-not-allowed transition-all" disabled="">
-<span className="material-symbols-outlined text-[18px]">lock</span>
-                      Authorize Reunification
-                  </button>
-</div>
-</div>
-</div>
-</div>
-</div>
+      <style>{`
+        .reintegration-shell{--p:#234a7c;--pl:#e8eef5;--b:#d7dee8;--t:#1f2937;--bg:#f4f7fb;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--t)}
+        .reintegration-shell *{box-sizing:border-box}
+        .reintegration-shell .shell{max-width:1180px;margin:26px auto;padding:0 18px}
+        .reintegration-shell .card{background:#fff;border:1px solid var(--b);border-radius:14px;box-shadow:0 5px 18px rgba(31,41,55,.07);overflow:hidden}
+        .reintegration-shell .head{background:linear-gradient(135deg,#234a7c,#315f96);color:#fff;padding:24px 28px}
+        .reintegration-shell .head h1{margin:0 0 5px;font-size:24px}
+        .reintegration-shell .head p{margin:0;font-size:13px;opacity:.9}
+        .reintegration-shell .body{padding:25px}
+        .reintegration-shell .section{margin:0 0 18px;padding:10px 14px;background:var(--pl);color:var(--p);border-left:5px solid var(--p);border-radius:5px;font-size:15px;font-weight:700}
+        .reintegration-shell .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:23px}
+        .reintegration-shell .full{grid-column:1/-1}
+        .reintegration-shell .field{display:flex;flex-direction:column;gap:6px}
+        .reintegration-shell label{font-size:13px;font-weight:700}
+        .reintegration-shell input,.reintegration-shell select,.reintegration-shell textarea{width:100%;border:1px solid #cfd7e3;border-radius:8px;padding:10px 11px;font:inherit;font-size:13px;background:#fff;outline:none}
+        .reintegration-shell textarea{min-height:95px;resize:vertical}
+        .reintegration-shell input:focus,.reintegration-shell select:focus,.reintegration-shell textarea:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(35,74,124,.1)}
+        .reintegration-shell .checks{display:flex;flex-wrap:wrap;gap:10px}
+        .reintegration-shell .check{padding:9px 11px;border:1px solid var(--b);border-radius:8px;background:#fafbfd;font-size:13px}
+        .reintegration-shell table{width:100%;border-collapse:collapse;margin-bottom:23px;font-size:12px}
+        .reintegration-shell th,.reintegration-shell td{border:1px solid var(--b);padding:8px;vertical-align:top}
+        .reintegration-shell th{background:var(--pl);color:var(--p);text-align:left}
+        .reintegration-shell td input,.reintegration-shell td textarea{border:0;padding:3px;background:transparent}
+        .reintegration-shell .actions{display:flex;justify-content:flex-end;gap:9px;border-top:1px solid var(--b);padding-top:18px}
+        .reintegration-shell button{border:0;border-radius:8px;padding:10px 17px;font-weight:700;cursor:pointer}
+        .reintegration-shell .primary{background:var(--p);color:#fff}
+        .reintegration-shell .secondary{background:#eef2f7;color:#26364a}
+        .reintegration-shell .status{display:none;margin-top:12px;padding:9px 11px;border-radius:8px;background:#edf7ef;color:#25613a;font-size:13px}
+        @media(max-width:760px){
+          .reintegration-shell .grid{grid-template-columns:1fr}
+          .reintegration-shell .full{grid-column:auto}
+          .reintegration-shell .body{padding:17px}
+          .reintegration-shell .shell{margin:12px auto}
+          .reintegration-shell table{display:block;overflow-x:auto}
+        }
+        @media print{
+          .reintegration-shell{background:#fff}
+          .reintegration-shell .shell{max-width:none;margin:0}
+          .reintegration-shell .card{box-shadow:none;border:0}
+          .reintegration-shell .actions{display:none}
+        }
+      `}</style>
+
+      <div className="reintegration-shell" ref={formRef}>
+        <div className="shell">
+          <div className="card">
+            <div className="head">
+              <h1>Child Reunification / Reintegration Action Plan Form</h1>
+              <p>Digital case planning and follow-up record for children leaving a child care home</p>
+            </div>
+            <div className="body">
+
+              <div className="section">A. Child Information</div>
+              <div className="grid">
+                <div className="field"><label>Child's Full Name</label><input type="text" /></div>
+                <div className="field"><label>Address</label><input type="text" /></div>
+                <div className="field"><label>Date of Leaving Child Care Home</label><input type="date" /></div>
+                <div className="field"><label>Age</label><input type="text" /></div>
+                <div className="field"><label>Class / Grade</label><input type="text" /></div>
+                <div className="field"><label>Father's Name</label><input type="text" /></div>
+                <div className="field"><label>Mother's Name</label><input type="text" /></div>
+                <div className="field"><label>Contact Number</label><input type="text" /></div>
+                <div className="field full"><label>Reason for Leaving the Child Care Home</label><textarea></textarea></div>
+              </div>
+
+              <div className="section">B. Person Receiving the Child</div>
+              <div className="grid">
+                <div className="field"><label>Name of Person Receiving the Child</label><input type="text" /></div>
+                <div className="field"><label>Contact Number</label><input type="text" /></div>
+                <div className="field"><label>Address</label><input type="text" /></div>
+                <div className="field"><label>Relationship with Child</label><input type="text" /></div>
+                <div className="field full"><label>Destination / Intended Occupation or Work After Leaving the Child Care Home</label><textarea></textarea></div>
+              </div>
+
+              <div className="section">C. Information Regarding Other Family Members (Living Members Only)</div>
+              <table>
+                <thead>
+                  <tr><th>S.N.</th><th>Full Name</th><th>Age</th><th>Relationship</th><th>Education</th><th>Occupation</th><th>Contact / Remarks</th></tr>
+                </thead>
+                <tbody>
+                  {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+                    <tr key={n}>
+                      <td>{n}</td>
+                      <td><input /></td>
+                      <td><input /></td>
+                      <td><input /></td>
+                      <td><input /></td>
+                      <td><input /></td>
+                      <td><input /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <div className="section">D. Visit / Follow-up Plan</div>
+              <div className="grid">
+                <div className="field"><label>Visit Frequency</label><input type="text" placeholder="Monthly / Quarterly / Semi-annual / Annual" /></div>
+                <div className="field"><label>Planned Visit Date</label><input type="date" /></div>
+                <div className="field"><label>Staff / Support Person</label><input type="text" /></div>
+                <div className="field"><label>Signature</label><input type="text" /></div>
+              </div>
+
+              <div className="section">E. Financial Support Plan</div>
+              <div className="grid">
+                <div className="field">
+                  <label>Is financial support required for reintegration?</label>
+                  <select><option></option><option>Yes</option><option>No</option></select>
+                </div>
+                <div className="field"><label>Reason / Purpose for Financial Support</label><input type="text" /></div>
+                <div className="field"><label>Estimated Amount (NPR)</label><input type="number" /></div>
+                <div className="field"><label>Duration of Support</label><input type="text" /></div>
+                <div className="field full"><label>Other Financial Support Details</label><textarea></textarea></div>
+              </div>
+
+              <div className="section">F. Educational Support Plan</div>
+              <div className="grid">
+                <div className="field"><label>Who Will Provide Educational Support?</label><input type="text" /></div>
+                <div className="field"><label>Duration of Support</label><input type="text" /></div>
+                <div className="field full"><label>What Educational Support Is Required?</label><textarea></textarea></div>
+                <div className="field full"><label>Other Educational Support Details</label><textarea></textarea></div>
+              </div>
+
+              <div className="section">G. Skill-Based Training Plan</div>
+              <div className="grid">
+                <div className="field"><label>Skill / Vocational Training Required</label><input type="text" /></div>
+                <div className="field"><label>Training Provider / Location</label><input type="text" /></div>
+                <div className="field"><label>Training Duration</label><input type="text" /></div>
+                <div className="field"><label>Who Will Provide / Fund the Training?</label><input type="text" /></div>
+              </div>
+
+              <div className="section">H. Possible Employment Plan (Only for Children Requiring Employment Support)</div>
+              <div className="grid">
+                <div className="field"><label>Agency / Institution Coordinating Employment</label><input type="text" /></div>
+                <div className="field"><label>Agency / Institution Able to Provide Employment</label><input type="text" /></div>
+                <div className="field full"><label>Other Employment Plan / Details</label><textarea></textarea></div>
+              </div>
+
+              <div className="section">I. Family Support Plan (Only for Families in Extreme Poverty — Short-Term Support)</div>
+              <div className="grid">
+                <div className="field full"><label>Type of Family Support Required</label><textarea></textarea></div>
+                <div className="field"><label>Duration of Support</label><input type="text" /></div>
+                <div className="field"><label>Estimated Amount Required (NPR)</label><input type="number" /></div>
+                <div className="field full"><label>Reason for Providing Support</label><textarea></textarea></div>
+              </div>
+
+              <div className="section">J. Consent and Child Protection Commitment</div>
+              <div className="field full">
+                <label>Consent Statement</label>
+                <textarea
+                  style={{ minHeight: '170px' }}
+                  defaultValue="I confirm that I have understood and accepted the information and commitments stated in this form. I agree to protect the child from discrimination, abuse, neglect, exploitation and all forms of violence and to support an environment in which the child's fundamental rights are respected."
+                />
+              </div>
+              <div className="grid">
+                <div className="field"><label>Name of Person Giving Consent</label><input type="text" /></div>
+                <div className="field"><label>Relationship with Child</label><input type="text" /></div>
+                <div className="field"><label>Address</label><input type="text" /></div>
+                <div className="field"><label>Contact Number</label><input type="text" /></div>
+                <div className="field"><label>Date</label><input type="date" /></div>
+                <div className="field"><label>Signature</label><input type="text" /></div>
+                <div className="field"><label>Thumbprint / Other Verification</label><input type="text" /></div>
+                <div className="field"><label>Child's Relationship with Signatory</label><input type="text" /></div>
+              </div>
+
+              <div className="section">K. On Behalf of the Child Care Home</div>
+              <div className="grid">
+                <div className="field"><label>Name of Representative</label><input type="text" /></div>
+                <div className="field"><label>Position</label><input type="text" /></div>
+                <div className="field"><label>Signature</label><input type="text" /></div>
+                <div className="field"><label>Organization Stamp / Seal</label><input type="text" /></div>
+              </div>
+
+              <hr style={{ border: 0, borderTop: '2px solid #d7dee8', margin: '32px 0' }} />
+
+              <div className="head" style={{ borderRadius: '10px', marginBottom: '24px' }}>
+                <h1>Child Reunification / Reintegration Survey Form</h1>
+                <p>Assessment of children residing in the child care home for reunification / reintegration</p>
+              </div>
+
+              <div className="section">A. Complete Child Information</div>
+              <div className="grid">
+                <div className="field"><label>Child's Full Name</label><input type="text" /></div>
+                <div className="field"><label>Address</label><input type="text" /></div>
+                <div className="field"><label>Date of Arrival at Child Care Home</label><input type="date" /></div>
+                <div className="field full"><label>Reason for Arrival at Child Care Home</label><textarea></textarea></div>
+              </div>
+
+              <div className="section">B. Family Information</div>
+              <div className="grid">
+                <div className="field"><label>Father's Name</label><input type="text" /></div>
+                <div className="field"><label>Father's Current Condition</label><input type="text" /></div>
+                <div className="field"><label>Father's Occupation</label><input type="text" /></div>
+                <div className="field"><label>Mother's Name</label><input type="text" /></div>
+                <div className="field"><label>Mother's Current Condition</label><input type="text" /></div>
+                <div className="field"><label>Mother's Occupation</label><input type="text" /></div>
+                <div className="field"><label>Number of Brothers</label><input type="text" /></div>
+                <div className="field"><label>Number of Sisters</label><input type="text" /></div>
+                <div className="field"><label>Total Family Members</label><input type="text" /></div>
+                <div className="field full"><label>Other Employed / Income-Earning Persons in the Family</label><textarea></textarea></div>
+              </div>
+
+              <div className="section">C. Economic Information</div>
+              <div className="grid">
+                <div className="field"><label>Monthly Family Income (NPR)</label><input type="number" /></div>
+                <div className="field"><label>Monthly Family Expenditure (NPR)</label><input type="number" /></div>
+                <div className="field"><label>Monthly Savings (NPR)</label><input type="number" /></div>
+              </div>
+              <div className="field">
+                <label>House Condition</label>
+                <div className="checks">
+                  <label className="check"><input type="checkbox" /> Permanent / Concrete</label>
+                  <label className="check"><input type="checkbox" /> Temporary / Mud</label>
+                  <label className="check"><input type="checkbox" /> Tin / Other</label>
+                </div>
+              </div>
+              <div className="grid">
+                <div className="field"><label>Number of Rooms</label><input type="text" /></div>
+                <div className="field"><label>Land / Property Details</label><input type="text" placeholder="Khet / Bari / Ghaderi / Other" /></div>
+              </div>
+
+              <div className="section">D. Method Used for the Survey</div>
+              <div className="checks">
+                <label className="check"><input type="checkbox" /> Community Interaction</label>
+                <label className="check"><input type="checkbox" /> Family Discussion / Home Visit</label>
+                <label className="check"><input type="checkbox" /> Direct Observation</label>
+                <label className="check"><input type="checkbox" /> Telephone Interview</label>
+              </div>
+
+              <div className="section">E. Type of Support Desired by the Family</div>
+              <div className="field full"><label>Support Required by Family</label><textarea></textarea></div>
+
+              <div className="section">F. Surveyor's Opinion / Recommendation</div>
+              <div className="field full">
+                <label>Opinion on Whether Reunification / Reintegration Is Possible, With Reasons</label>
+                <textarea style={{ minHeight: '180px' }}></textarea>
+              </div>
+
+              <div className="section">G. Person Providing Information</div>
+              <div className="grid">
+                <div className="field"><label>Name</label><input type="text" /></div>
+                <div className="field"><label>Relationship with Child</label><input type="text" /></div>
+                <div className="field"><label>Address</label><input type="text" /></div>
+                <div className="field"><label>Contact Number</label><input type="text" /></div>
+                <div className="field"><label>Signature</label><input type="text" /></div>
+                <div className="field"><label>Date</label><input type="date" /></div>
+              </div>
+
+              <div className="section">H. Staff Member Collecting Information</div>
+              <div className="grid">
+                <div className="field"><label>Name</label><input type="text" /></div>
+                <div className="field"><label>Position</label><input type="text" /></div>
+                <div className="field"><label>Signature</label><input type="text" /></div>
+              </div>
+
+              <div className="actions">
+                <button className="secondary" type="button" onClick={handlePrint}>Print / Save PDF</button>
+                <button className="secondary" type="button" onClick={handleClear}>Clear</button>
+                <button className="primary" type="button" onClick={handleSaveDraft}>Save Draft</button>
+              </div>
+              <div ref={statusRef} className="status">Draft saved in this browser.</div>
+
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

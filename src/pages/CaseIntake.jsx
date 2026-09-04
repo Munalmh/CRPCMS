@@ -1,94 +1,231 @@
-
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef } from 'react';
 
 export default function CaseIntake() {
+  const formRef = useRef(null);
+  const statusRef = useRef(null);
+  const STORAGE_KEY = 'Child_Entry___Admission_Form';
+
+  const handlePrint = () => window.print();
+
+  const handleClear = () => {
+    if (!window.confirm('Clear all entered information?')) return;
+    const container = formRef.current;
+    if (!container) return;
+    container.querySelectorAll('input, select, textarea').forEach((el) => {
+      if (el.type === 'radio' || el.type === 'checkbox') el.checked = false;
+      else el.value = '';
+    });
+    localStorage.removeItem(STORAGE_KEY);
+  };
+
+  const handleSaveDraft = () => {
+    const container = formRef.current;
+    if (!container) return;
+    const data = {};
+    container.querySelectorAll('input, select, textarea').forEach((el, i) => {
+      const key = el.name || el.id || `f${i}`;
+      data[key] = el.type === 'radio' ? el.checked : el.value;
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    if (statusRef.current) {
+      statusRef.current.style.display = 'block';
+      setTimeout(() => {
+        if (statusRef.current) statusRef.current.style.display = 'none';
+      }, 2200);
+    }
+  };
+
   return (
     <>
-      <div className="flex flex-col w-full relative">
-        <div className="px-margin-desktop py-8 max-w-[1440px] mx-auto w-full flex-1">
-          {/* Header Section */}
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <h1 className="font-display-lg text-display-lg text-on-surface mb-2 tracking-tight">Case Intake & Triage</h1>
-              <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl">Child Entry / Admission Form Record</p>
+      <style>{`
+        .case-intake-shell{--p:#234a7c;--pl:#e8eef5;--b:#d7dee8;--t:#1f2937;--bg:#f4f7fb;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--t)}
+        .case-intake-shell *{box-sizing:border-box}
+        .case-intake-shell .shell{max-width:1180px;margin:28px auto;padding:0 18px}
+        .case-intake-shell .card{background:#fff;border:1px solid var(--b);border-radius:14px;box-shadow:0 5px 18px rgba(31,41,55,.07);overflow:hidden}
+        .case-intake-shell .head{background:linear-gradient(135deg,#234a7c,#315f96);color:#fff;padding:24px 28px}
+        .case-intake-shell .head h1{margin:0 0 5px;font-size:24px}
+        .case-intake-shell .head p{margin:0;font-size:13px;opacity:.9}
+        .case-intake-shell .body{padding:25px}
+        .case-intake-shell .section{margin:0 0 18px;padding:10px 14px;background:var(--pl);color:var(--p);border-left:5px solid var(--p);border-radius:5px;font-size:15px;font-weight:700}
+        .case-intake-shell .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:24px}
+        .case-intake-shell .full{grid-column:1/-1}
+        .case-intake-shell .field{display:flex;flex-direction:column;gap:6px}
+        .case-intake-shell label{font-size:13px;font-weight:700}
+        .case-intake-shell input,.case-intake-shell select,.case-intake-shell textarea{width:100%;border:1px solid #cfd7e3;border-radius:8px;padding:10px 11px;font:inherit;font-size:13px;background:#fff;outline:none}
+        .case-intake-shell input:focus,.case-intake-shell select:focus,.case-intake-shell textarea:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(35,74,124,.1)}
+        .case-intake-shell textarea{min-height:105px;resize:vertical}
+        .case-intake-shell .options{display:flex;flex-wrap:wrap;gap:9px}
+        .case-intake-shell .option{border:1px solid var(--b);padding:9px 11px;border-radius:8px;background:#fafbfd;font-weight:400}
+        .case-intake-shell table{width:100%;border-collapse:collapse;margin:0 0 24px;font-size:12px;overflow:auto}
+        .case-intake-shell th,.case-intake-shell td{border:1px solid var(--b);padding:8px;vertical-align:top}
+        .case-intake-shell th{background:var(--pl);color:var(--p);text-align:left}
+        .case-intake-shell td input,.case-intake-shell td select,.case-intake-shell td textarea{border:0;padding:3px;box-shadow:none;background:transparent}
+        .case-intake-shell .actions{display:flex;justify-content:flex-end;gap:9px;border-top:1px solid var(--b);padding-top:18px}
+        .case-intake-shell button{border:0;border-radius:8px;padding:10px 17px;font-weight:700;cursor:pointer}
+        .case-intake-shell .primary{background:var(--p);color:white}
+        .case-intake-shell .secondary{background:#eef2f7;color:#26364a}
+        .case-intake-shell .status{display:none;margin-top:12px;padding:9px 11px;border-radius:8px;background:#edf7ef;color:#25613a;font-size:13px}
+        @media(max-width:760px){
+          .case-intake-shell .grid{grid-template-columns:1fr}
+          .case-intake-shell .full{grid-column:auto}
+          .case-intake-shell .body{padding:17px}
+          .case-intake-shell .shell{margin:12px auto}
+          .case-intake-shell table{font-size:10px;display:block;overflow-x:auto}
+        }
+        @media print{
+          .case-intake-shell{background:white}
+          .case-intake-shell .shell{max-width:none;margin:0}
+          .case-intake-shell .card{box-shadow:none;border:0}
+          .case-intake-shell .actions{display:none}
+          .case-intake-shell .head{background:#234a7c!important}
+        }
+      `}</style>
+
+      <div className="case-intake-shell" ref={formRef}>
+        <div className="shell">
+          <div className="card">
+            <div className="head">
+              <h1>Child Entry / Admission Form</h1>
+              <p>Digital admission and child background record</p>
             </div>
-          </div>
-          
-          <div className="flex flex-col lg:flex-row gap-8">
-            {/* Wizard Navigation Sidebar */}
-            <aside className="w-full lg:w-64 shrink-0 relative hidden lg:block">
-              <div className="sticky top-24 bg-surface-container rounded-2xl p-6 shadow-md">
-                <h3 className="font-headline-sm text-headline-sm text-on-surface mb-6">Intake Workflow</h3>
-                <ul className="space-y-6 relative before:content-[''] before:absolute before:left-3.5 before:top-4 before:bottom-4 before:w-[2px] before:bg-outline-variant/30">
-                  <li className="relative flex items-start gap-4">
-                    <div className="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center z-10 shadow-md shrink-0">
-                      <span className="font-body-md text-body-md font-bold">1</span>
-                    </div>
-                    <div>
-                      <p className="font-headline-sm text-base text-primary">Admission Form</p>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Full child record</p>
-                    </div>
-                  </li>
-                  <li className="relative flex items-start gap-4 opacity-60">
-                    <div className="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant border border-outline-variant flex items-center justify-center z-10 shrink-0">
-                      <span className="font-body-md text-body-md font-bold">2</span>
-                    </div>
-                    <div>
-                      <p className="font-body-md text-body-md text-on-surface font-semibold">Risk Assessment</p>
-                    </div>
-                  </li>
-                </ul>
+            <div className="body">
+
+              <div className="section">A. Child's Personal Details</div>
+              <div className="grid">
+                <div className="field"><label>Entry / Intake Date</label><input type="date" /></div>
+                <div className="field"><label>Name of Child</label><input /></div>
+                <div className="field"><label>Date of Birth</label><input placeholder="DD/MM/YYYY" /></div>
+                <div className="field"><label>Place of Birth</label><input /></div>
+                <div className="field full"><label>Address at Birth</label><input placeholder="District / Municipality or Rural Municipality / Ward No." /></div>
+                <div className="field full"><label>Current / Permanent Address</label><input placeholder="District / Municipality or Rural Municipality / Ward No." /></div>
+                <div className="field"><label>Religion</label><input /></div>
+                <div className="field"><label>Weight</label><input /></div>
+                <div className="field"><label>Height</label><input /></div>
+                <div className="field"><label>Health Status</label><textarea></textarea></div>
+                <div className="field full"><label>Doctor's General Report</label><textarea></textarea></div>
+                <div className="field full"><label>Photo</label><input type="file" accept="image/*" /></div>
               </div>
-            </aside>
 
-            {/* Main Form Area */}
-            <div className="flex-1 min-w-0">
-              <div className="bg-surface-container-lowest rounded-2xl p-6 md:p-8 shadow-lg border border-outline-variant/40">
-                <form className="space-y-2" onSubmit={e => e.preventDefault()}>
-                  
-<h2 className="font-headline-sm text-headline-sm text-secondary mt-8 mb-4 flex items-center border-b border-outline-variant/30 pb-2">A. Child's Personal Details</h2><div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Entry / Intake Date</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" type="date" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Name of Child</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Date of Birth</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" placeholder="DD/MM/YYYY" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Place of Birth</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div>
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Address at Birth</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" placeholder="District / Municipality or Rural Municipality / Ward No." /></div>
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Current / Permanent Address</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" placeholder="District / Municipality or Rural Municipality / Ward No." /></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Religion</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Weight</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Height</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Health Status</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y" ></textarea></div>
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Doctor's General Report</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y" ></textarea></div><div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Photo</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" type="file" accept="image/*" /></div></div>
-<h2 className="font-headline-sm text-headline-sm text-secondary mt-8 mb-4 flex items-center border-b border-outline-variant/30 pb-2">B. Educational Status</h2><div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Educational Status</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y" ></textarea></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">School Name (if previously attended)</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">School Address</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Class / Grade</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div></div>
-<h2 className="font-headline-sm text-headline-sm text-secondary mt-8 mb-4 flex items-center border-b border-outline-variant/30 pb-2">C. Father's / Male Guardian's Details</h2><div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Name</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Age</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Physical Condition</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y" ></textarea></div><div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Address</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Is Father Alive?</label><select className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all"><option></option><option>Yes</option><option>No</option></select></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">If Alive, Occupation</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">If Deceased, Year of Death</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">If Deceased, Place of Death</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div>
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Reason / Circumstances of Death</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y" ></textarea></div><div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Movable Property Left by Father</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y" ></textarea></div><div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Immovable Property Left by Father</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y" ></textarea></div></div>
-<h2 className="font-headline-sm text-headline-sm text-secondary mt-8 mb-4 flex items-center border-b border-outline-variant/30 pb-2">D. Mother's / Female Guardian's Details</h2><div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Name</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Age</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Physical Condition</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y" ></textarea></div><div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Address</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Is Mother Alive?</label><select className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all"><option></option><option>Yes</option><option>No</option></select></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">If Alive, Occupation</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">If Deceased, Year of Death</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">If Deceased, Place of Death</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div>
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Reason / Circumstances of Death</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y" ></textarea></div><div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Movable Property Left by Mother</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y" ></textarea></div><div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Immovable Property Left by Mother</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y" ></textarea></div></div>
-<h2 className="font-headline-sm text-headline-sm text-secondary mt-8 mb-4 flex items-center border-b border-outline-variant/30 pb-2">E. Uncle, Aunt, Siblings and Other Relatives</h2>
-<div className="overflow-x-auto w-full mt-4"><table className="w-full text-left border-collapse min-w-[800px]"><thead><tr><th className="p-3 bg-surface-container-low font-table-header text-table-header text-on-surface-variant border-b border-outline-variant">S.N.</th><th className="p-3 bg-surface-container-low font-table-header text-table-header text-on-surface-variant border-b border-outline-variant">Full Name</th><th className="p-3 bg-surface-container-low font-table-header text-table-header text-on-surface-variant border-b border-outline-variant">Age</th><th className="p-3 bg-surface-container-low font-table-header text-table-header text-on-surface-variant border-b border-outline-variant">Relationship</th><th className="p-3 bg-surface-container-low font-table-header text-table-header text-on-surface-variant border-b border-outline-variant">Occupation</th><th className="p-3 bg-surface-container-low font-table-header text-table-header text-on-surface-variant border-b border-outline-variant">Address</th></tr></thead><tbody>
-<tr><td className="p-2 border-b border-outline-variant/30">1</td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td></tr><tr><td className="p-2 border-b border-outline-variant/30">2</td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td></tr><tr><td className="p-2 border-b border-outline-variant/30">3</td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td></tr><tr><td className="p-2 border-b border-outline-variant/30">4</td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td></tr><tr><td className="p-2 border-b border-outline-variant/30">5</td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td></tr><tr><td className="p-2 border-b border-outline-variant/30">6</td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td></tr><tr><td className="p-2 border-b border-outline-variant/30">7</td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td></tr><tr><td className="p-2 border-b border-outline-variant/30">8</td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td></tr><tr><td className="p-2 border-b border-outline-variant/30">9</td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td></tr><tr><td className="p-2 border-b border-outline-variant/30">10</td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td><td className="p-2 border-b border-outline-variant/30"><input className="w-full bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant/50 text-sm focus:border-primary outline-none" /></td></tr>
-</tbody></table></div>
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">F. Other Family Background / Reason for the Child's Admission to the Child Home</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y"  ></textarea></div>
-<h2 className="font-headline-sm text-headline-sm text-secondary mt-8 mb-4 flex items-center border-b border-outline-variant/30 pb-2">G. Person / Organization Bringing the Child for Admission</h2><div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Name</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">If Individual — Age</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Address</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y" ></textarea></div><div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Occupation / Organizational Details</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y" ></textarea></div><div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Official / Business Address</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y" ></textarea></div><div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">If the Child Came for Admission Voluntarily — Details</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y" ></textarea></div><div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Undertaking / Verification</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y" ></textarea></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Thumbprint (if individual)</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Official Stamp (if organization)</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div></div>
-<h2 className="font-headline-sm text-headline-sm text-secondary mt-8 mb-4 flex items-center border-b border-outline-variant/30 pb-2">H. Recommendation / Supporting Documents</h2><div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Copy of Citizenship Certificate</label><select className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all"><option></option><option>Attached</option><option>Not Attached</option></select></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Recommendation by Any Authority</label><select className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all"><option></option><option>Yes</option><option>No</option></select></div>
-<div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">If Yes — Recommending Authority</label><div className="flex flex-wrap gap-3 mt-2"><label className="flex items-center gap-2 border border-outline-variant px-3 py-2 rounded-lg bg-surface-container-lowest cursor-pointer hover:border-primary/50 transition-colors"><input type="checkbox" className="w-4 h-4 text-primary bg-surface border-outline-variant rounded focus:ring-primary" /> Local Administration</label><label className="flex items-center gap-2 border border-outline-variant px-3 py-2 rounded-lg bg-surface-container-lowest cursor-pointer hover:border-primary/50 transition-colors"><input type="checkbox" className="w-4 h-4 text-primary bg-surface border-outline-variant rounded focus:ring-primary" /> Local Police</label><label className="flex items-center gap-2 border border-outline-variant px-3 py-2 rounded-lg bg-surface-container-lowest cursor-pointer hover:border-primary/50 transition-colors"><input type="checkbox" className="w-4 h-4 text-primary bg-surface border-outline-variant rounded focus:ring-primary" /> Government / Registered Organization</label></div></div>
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Date of Application / Submission</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" type="date" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Name of Applicant / Person Submitting</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5 md:col-span-2"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Other Legal Documents</label><textarea className="bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all min-h-[105px] resize-y" ></textarea></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Date of Child's Admission</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" type="date" /></div></div>
-<h2 className="font-headline-sm text-headline-sm text-secondary mt-8 mb-4 flex items-center border-b border-outline-variant/30 pb-2">I. Staff Member Conducting the Admission</h2><div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Signature</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Full Name</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Designation / Position</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div><div className="flex flex-col gap-1.5"><label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Grade / Level</label><input className="h-input-height bg-surface px-3 py-2 rounded-lg border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm transition-all" /></div></div>
+              <div className="section">B. Educational Status</div>
+              <div className="grid">
+                <div className="field full"><label>Educational Status</label><textarea></textarea></div>
+                <div className="field"><label>School Name (if previously attended)</label><input /></div>
+                <div className="field"><label>School Address</label><input /></div>
+                <div className="field"><label>Class / Grade</label><input /></div>
+              </div>
 
-                  
-                  {/* Form Actions */}
-                  <div className="flex justify-end gap-4 mt-12 pt-6 border-t border-outline-variant/30">
-                    <button className="px-6 py-2 rounded-lg font-body-md text-body-md font-semibold text-secondary hover:bg-surface-variant transition-colors" type="button">Clear Form</button>
-                    <button className="px-6 py-2 rounded-lg font-body-md text-body-md font-semibold bg-surface border border-outline-variant text-on-surface shadow-sm hover:bg-surface-container transition-colors" type="button">Save Draft</button>
-                    <button className="px-6 py-2 rounded-lg font-body-md text-body-md font-semibold bg-primary text-on-primary hover:bg-primary/90 shadow-md flex items-center gap-2 transition-transform active:scale-95" type="button">
-                      <Link to="/assessment" className="flex items-center gap-2 text-inherit">Proceed to Step 2 <span className="material-symbols-outlined text-[18px]">arrow_forward</span></Link>
-                    </button>
+              <div className="section">C. Father's / Male Guardian's Details</div>
+              <div className="grid">
+                <div className="field"><label>Name</label><input /></div>
+                <div className="field"><label>Age</label><input /></div>
+                <div className="field full"><label>Physical Condition</label><textarea></textarea></div>
+                <div className="field full"><label>Address</label><input /></div>
+                <div className="field">
+                  <label>Is Father Alive?</label>
+                  <select><option></option><option>Yes</option><option>No</option></select>
+                </div>
+                <div className="field"><label>If Alive, Occupation</label><input /></div>
+                <div className="field"><label>If Deceased, Year of Death</label><input /></div>
+                <div className="field"><label>If Deceased, Place of Death</label><input /></div>
+                <div className="field full"><label>Reason / Circumstances of Death</label><textarea></textarea></div>
+                <div className="field full"><label>Movable Property Left by Father</label><textarea></textarea></div>
+                <div className="field full"><label>Immovable Property Left by Father</label><textarea></textarea></div>
+              </div>
+
+              <div className="section">D. Mother's / Female Guardian's Details</div>
+              <div className="grid">
+                <div className="field"><label>Name</label><input /></div>
+                <div className="field"><label>Age</label><input /></div>
+                <div className="field full"><label>Physical Condition</label><textarea></textarea></div>
+                <div className="field full"><label>Address</label><input /></div>
+                <div className="field">
+                  <label>Is Mother Alive?</label>
+                  <select><option></option><option>Yes</option><option>No</option></select>
+                </div>
+                <div className="field"><label>If Alive, Occupation</label><input /></div>
+                <div className="field"><label>If Deceased, Year of Death</label><input /></div>
+                <div className="field"><label>If Deceased, Place of Death</label><input /></div>
+                <div className="field full"><label>Reason / Circumstances of Death</label><textarea></textarea></div>
+                <div className="field full"><label>Movable Property Left by Mother</label><textarea></textarea></div>
+                <div className="field full"><label>Immovable Property Left by Mother</label><textarea></textarea></div>
+              </div>
+
+              <div className="section">E. Uncle, Aunt, Siblings and Other Relatives</div>
+              <table>
+                <thead>
+                  <tr><th>S.N.</th><th>Full Name</th><th>Age</th><th>Relationship</th><th>Occupation</th><th>Address</th></tr>
+                </thead>
+                <tbody>
+                  {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
+                    <tr key={n}>
+                      <td>{n}</td>
+                      <td><input /></td>
+                      <td><input /></td>
+                      <td><input /></td>
+                      <td><input /></td>
+                      <td><input /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <div className="field full">
+                <label>F. Other Family Background / Reason for the Child's Admission to the Child Home</label>
+                <textarea style={{ minHeight: '180px' }}></textarea>
+              </div>
+
+              <div className="section">G. Person / Organization Bringing the Child for Admission</div>
+              <div className="grid">
+                <div className="field"><label>Name</label><input /></div>
+                <div className="field"><label>If Individual — Age</label><input /></div>
+                <div className="field full"><label>Address</label><textarea></textarea></div>
+                <div className="field full"><label>Occupation / Organizational Details</label><textarea></textarea></div>
+                <div className="field full"><label>Official / Business Address</label><textarea></textarea></div>
+                <div className="field full"><label>If the Child Came for Admission Voluntarily — Details</label><textarea></textarea></div>
+                <div className="field full"><label>Undertaking / Verification</label><textarea></textarea></div>
+                <div className="field"><label>Thumbprint (if individual)</label><input /></div>
+                <div className="field"><label>Official Stamp (if organization)</label><input /></div>
+              </div>
+
+              <div className="section">H. Recommendation / Supporting Documents</div>
+              <div className="grid">
+                <div className="field">
+                  <label>Copy of Citizenship Certificate</label>
+                  <select><option></option><option>Attached</option><option>Not Attached</option></select>
+                </div>
+                <div className="field">
+                  <label>Recommendation by Any Authority</label>
+                  <select><option></option><option>Yes</option><option>No</option></select>
+                </div>
+                <div className="field full">
+                  <label>If Yes — Recommending Authority</label>
+                  <div className="options">
+                    <label className="option"><input type="checkbox" /> Local Administration</label>
+                    <label className="option"><input type="checkbox" /> Local Police</label>
+                    <label className="option"><input type="checkbox" /> Government / Registered Organization</label>
                   </div>
-                </form>
+                </div>
+                <div className="field"><label>Date of Application / Submission</label><input type="date" /></div>
+                <div className="field"><label>Name of Applicant / Person Submitting</label><input /></div>
+                <div className="field full"><label>Other Legal Documents</label><textarea></textarea></div>
+                <div className="field"><label>Date of Child's Admission</label><input type="date" /></div>
               </div>
+
+              <div className="section">I. Staff Member Conducting the Admission</div>
+              <div className="grid">
+                <div className="field"><label>Signature</label><input /></div>
+                <div className="field"><label>Full Name</label><input /></div>
+                <div className="field"><label>Designation / Position</label><input /></div>
+                <div className="field"><label>Grade / Level</label><input /></div>
+              </div>
+
+              <div className="actions">
+                <button className="secondary" type="button" onClick={handlePrint}>Print / Save PDF</button>
+                <button className="secondary" type="button" onClick={handleClear}>Clear</button>
+                <button className="primary" type="button" onClick={handleSaveDraft}>Save Draft</button>
+              </div>
+              <div ref={statusRef} className="status">Draft saved in this browser.</div>
+
             </div>
           </div>
         </div>
