@@ -62,10 +62,10 @@ export default function BeneficiaryProfile() {
 <span className="material-symbols-outlined text-[18px] group-hover:scale-110 transition-transform">edit_document</span>
                Request Change
              </button>
-<button className="flex-1 px-4 py-2 bg-primary hover:bg-primary/90 text-on-primary font-body-md text-body-md rounded shadow-md hover:shadow-xl transition-all flex items-center justify-center gap-2 group">
+<Link to="/referral-transfer" className="flex-1 px-4 py-2 bg-primary hover:bg-primary/90 text-on-primary font-body-md text-body-md rounded shadow-md hover:shadow-xl transition-all flex items-center justify-center gap-2 group">
 <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">move_up</span>
                Initiate Referral
-             </button>
+             </Link>
 </div>
 </div>
 </div>

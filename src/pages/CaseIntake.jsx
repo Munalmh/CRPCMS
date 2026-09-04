@@ -15,7 +15,7 @@ export default function CaseIntake() {
 <h3 className="font-headline-sm text-headline-sm mb-1 text-error">Duplicate Match Found</h3>
 <p className="font-body-sm text-body-sm mb-4">Potential Longitudinal Profile Match Found (CAS-8871) for "Sarah Johnson" - Link or Create New?</p>
 <div className="flex flex-col sm:flex-row gap-3">
-<button className="px-4 py-2 bg-error text-on-error rounded font-body-sm text-body-sm hover:bg-error/90 transition-colors shadow-md">Link Profile</button>
+<Link to="/beneficiary-profile" className="px-4 py-2 bg-error text-on-error rounded font-body-sm text-body-sm hover:bg-error/90 transition-colors shadow-md inline-block text-center">Link Profile</Link>
 <button className="px-4 py-2 text-error bg-transparent border border-error rounded font-body-sm text-body-sm hover:bg-error/10 transition-colors">Create New</button>
 </div>
 </div>

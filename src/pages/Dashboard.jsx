@@ -88,7 +88,7 @@ export default function Dashboard() {
 <h3 className="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
 <span className="material-symbols-outlined text-primary">table_chart</span> Active Cases Overview
           </h3>
-<button className="text-primary font-label-caps text-label-caps hover:underline">VIEW ALL</button>
+<Link to="/beneficiary-profile" className="text-primary font-label-caps text-label-caps hover:underline">VIEW ALL</Link>
 </div>
 <div className="overflow-x-auto">
 <table className="w-full text-left border-collapse min-w-[800px]">
@@ -104,7 +104,7 @@ export default function Dashboard() {
 </thead>
 <tbody className="font-body-sm text-body-sm text-on-surface">
 <tr className="border-b border-outline-variant/50 hover:bg-surface-container-low transition-colors h-[40px]">
-<td className="p-4 font-label-caps text-primary">C-2023-0891</td>
+<td className="p-4 font-label-caps text-primary"><Link to="/beneficiary-profile" className="hover:underline">C-2023-0891</Link></td>
 <td className="p-4 font-semibold">Elena Rostova</td>
 <td className="p-4">
 <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#e0e7ff] text-[#3730a3]">In Progress</span>
@@ -119,7 +119,7 @@ export default function Dashboard() {
 </td>
 </tr>
 <tr className="border-b border-outline-variant/50 bg-surface-container-lowest/50 hover:bg-surface-container-low transition-colors h-[40px]">
-<td className="p-4 font-label-caps text-primary">C-2023-0892</td>
+<td className="p-4 font-label-caps text-primary"><Link to="/beneficiary-profile" className="hover:underline">C-2023-0892</Link></td>
 <td className="p-4 font-semibold">Kwame Osei</td>
 <td className="p-4">
 <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#dcfce7] text-[#166534]">Assessment Done</span>
@@ -134,7 +134,7 @@ export default function Dashboard() {
 </td>
 </tr>
 <tr className="border-b border-outline-variant/50 hover:bg-surface-container-low transition-colors h-[40px]">
-<td className="p-4 font-label-caps text-primary">C-2023-0885</td>
+<td className="p-4 font-label-caps text-primary"><Link to="/beneficiary-profile" className="hover:underline">C-2023-0885</Link></td>
 <td className="p-4 font-semibold">Ananya Patel</td>
 <td className="p-4">
 <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-error-container text-on-error-container">Urgent Review</span>
@@ -149,7 +149,7 @@ export default function Dashboard() {
 </td>
 </tr>
 <tr className="border-b border-outline-variant/50 bg-surface-container-lowest/50 hover:bg-surface-container-low transition-colors h-[40px]">
-<td className="p-4 font-label-caps text-primary">C-2023-0870</td>
+<td className="p-4 font-label-caps text-primary"><Link to="/beneficiary-profile" className="hover:underline">C-2023-0870</Link></td>
 <td className="p-4 font-semibold">Miguel Hernandez</td>
 <td className="p-4">
 <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#fef3c7] text-[#92400e]">Pending Intake</span>
@@ -164,7 +164,7 @@ export default function Dashboard() {
 </td>
 </tr>
 <tr className="hover:bg-surface-container-low transition-colors h-[40px]">
-<td className="p-4 font-label-caps text-primary">C-2023-0865</td>
+<td className="p-4 font-label-caps text-primary"><Link to="/beneficiary-profile" className="hover:underline">C-2023-0865</Link></td>
 <td className="p-4 font-semibold">Chen Wei</td>
 <td className="p-4">
 <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#e0e7ff] text-[#3730a3]">In Progress</span>
@@ -246,20 +246,20 @@ export default function Dashboard() {
 <div className="relative pl-6">
 <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-surface border-2 border-primary"></div>
 <p className="font-body-sm text-[12px] text-on-surface-variant mb-0.5">10 minutes ago</p>
-<p className="font-body-md text-body-md text-on-surface"><span className="font-semibold">Maria Silva</span> submitted a new case intake <a className="text-primary hover:underline" href="#">C-2023-0893</a></p>
+<p className="font-body-md text-body-md text-on-surface"><span className="font-semibold">Maria Silva</span> submitted a new case intake <Link className="text-primary hover:underline" to="/beneficiary-profile">C-2023-0893</Link></p>
 </div>
 <div className="relative pl-6">
 <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-surface border-2 border-error"></div>
 <p className="font-body-sm text-[12px] text-on-surface-variant mb-0.5">45 minutes ago</p>
 <p className="font-body-md text-body-md text-on-surface flex items-center gap-2">
-            Urgent Referral Triggered for <a className="text-primary font-label-caps text-[11px] hover:underline" href="#">C-2023-0885</a>
+            Urgent Referral Triggered for <Link className="text-primary font-label-caps text-[11px] hover:underline" to="/beneficiary-profile">C-2023-0885</Link>
 <span className="material-symbols-outlined text-error text-[16px]">priority_high</span>
 </p>
 </div>
 <div className="relative pl-6">
 <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-surface border-2 border-[#16A34A]"></div>
 <p className="font-body-sm text-[12px] text-on-surface-variant mb-0.5">2 hours ago</p>
-<p className="font-body-md text-body-md text-on-surface"><span className="font-semibold">John Doe</span> completed Initial Assessment for <a className="text-primary hover:underline" href="#">C-2023-0892</a></p>
+<p className="font-body-md text-body-md text-on-surface"><span className="font-semibold">John Doe</span> completed Initial Assessment for <Link className="text-primary hover:underline" to="/beneficiary-profile">C-2023-0892</Link></p>
 </div>
 <div className="relative pl-6">
 <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-outline-variant"></div>
