@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import RegisterEntityModal from '../components/RegisterEntityModal';
 
 export default function OrganizationManagement() {
+  // If there are tabs (like in BeneficiaryProfile), we can add basic state
   const [activeTab, setActiveTab] = useState('tab-identity');
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
@@ -25,7 +26,7 @@ export default function OrganizationManagement() {
             </button>
             <button onClick={() => setIsRegisterOpen(true)} className="h-10 px-6 rounded-full bg-primary text-on-primary hover:bg-primary/90 shadow-md transition-all font-headline-sm text-[14px] flex items-center gap-2">
               <span className="material-symbols-outlined text-[18px]">add</span>
-              Add Organization
+              Register New Entity / NGO Partner
             </button>
           </div>
         </div>
@@ -214,75 +215,15 @@ export default function OrganizationManagement() {
             </div>
           </div>
         </div>
-        {/* Slide-over Modal Overlay (Organization Configurator) */}
-        <div className="absolute inset-0 bg-inverse-surface/40 backdrop-blur-sm z-50 flex justify-end">
-          <div className="w-[500px] h-full bg-surface-container-lowest shadow-2xl flex flex-col transform translate-x-0 transition-transform duration-300 ease-in-out border-l border-outline-variant">
-            <div className="px-6 py-5 border-b border-outline-variant flex items-center justify-between bg-surface">
-              <h2 className="font-headline-md text-headline-md text-on-surface">Organization Configurator</h2>
-              <button className="text-on-surface-variant hover:bg-surface-variant p-2 rounded-full transition-colors">
-                <span className="material-symbols-outlined">close</span>
-              </button>
-            </div>
-            <div className="flex-1 overflow-y-auto p-6 space-y-8">
-              <div className="flex items-center gap-4 p-4 bg-surface-container-low rounded-xl border border-outline-variant">
-                <div className="w-12 h-12 bg-primary-container rounded-lg flex items-center justify-center text-on-primary-container">
-                  <span className="material-symbols-outlined text-[24px]">domain</span>
-                </div>
-                <div>
-                  <div className="font-headline-sm text-[16px] text-on-surface">New Organization Profile</div>
-                  <div className="font-body-sm text-on-surface-variant">Complete the legal and operational details below.</div>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <h3 className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest border-b border-outline-variant pb-2">Legal Identifiers</h3>
-                <div>
-                  <label className="block font-body-sm text-body-sm text-on-surface mb-1 font-medium">Legal Entity Name</label>
-                  <input className="w-full h-9 rounded bg-surface border border-outline-variant px-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm text-on-surface" placeholder="e.g. Save the Children International" type="text" />
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block font-body-sm text-body-sm text-on-surface mb-1 font-medium">Registration Number</label>
-                    <input className="w-full h-9 rounded bg-surface border border-outline-variant px-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm text-on-surface font-label-caps" placeholder="REG-####" type="text" />
-                  </div>
-                  <div>
-                    <label className="block font-body-sm text-body-sm text-on-surface mb-1 font-medium">Tax ID / PAN</label>
-                    <input className="w-full h-9 rounded bg-surface border border-outline-variant px-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm text-on-surface font-label-caps" placeholder="PAN-####" type="text" />
-                  </div>
-                </div>
-                <div>
-                  <label className="block font-body-sm text-body-sm text-on-surface mb-1 font-medium">Tenant Type</label>
-                  <select className="w-full h-9 rounded bg-surface border border-outline-variant px-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm text-on-surface appearance-none">
-                    <option>Implementing Partner</option>
-                    <option>Oversight Body</option>
-                    <option>Donor</option>
-                  </select>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <h3 className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest border-b border-outline-variant pb-2">Headquarters Address</h3>
-                <div>
-                  <label className="block font-body-sm text-body-sm text-on-surface mb-1 font-medium">Street Address</label>
-                  <input className="w-full h-9 rounded bg-surface border border-outline-variant px-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm text-on-surface" placeholder="123 Main St" type="text" />
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block font-body-sm text-body-sm text-on-surface mb-1 font-medium">City</label>
-                    <input className="w-full h-9 rounded bg-surface border border-outline-variant px-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm text-on-surface" placeholder="City" type="text" />
-                  </div>
-                  <div>
-                    <label className="block font-body-sm text-body-sm text-on-surface mb-1 font-medium">Region / State</label>
-                    <input className="w-full h-9 rounded bg-surface border border-outline-variant px-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm text-on-surface" placeholder="State" type="text" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="p-6 border-t border-outline-variant bg-surface flex justify-end gap-3">
-              <button className="px-6 py-2 rounded border border-outline-variant text-on-surface font-headline-sm text-[14px] hover:bg-surface-variant transition-colors">Cancel</button>
-              <button className="px-6 py-2 rounded bg-primary text-on-primary font-headline-sm text-[14px] shadow-sm hover:bg-primary/90 transition-colors">Save Configuration</button>
-            </div>
-          </div>
-        </div>
       </div>
+
+      <RegisterEntityModal
+        isOpen={isRegisterOpen}
+        onClose={() => setIsRegisterOpen(false)}
+        onSubmit={(data) => {
+          console.log('New entity registered:', data);
+        }}
+      />
     </>
   );
 }
