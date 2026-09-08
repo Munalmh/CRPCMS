@@ -189,7 +189,7 @@ export default function Layout() {
               <img
                 alt="Profile"
                 className="w-9 h-9 rounded-full object-cover ring-2 ring-surface-container-highest"
-                src="https://lh3.googleusercontent.com/aida/AEtjO1W2E9VNXASqqvqflvUSbYcjzDsvJDlBO2SKYrpZ4MZBWWElpw96KwkWgCrdEnEIYhBhK58yT6oH1Q6WtmRt7DuPFtmfJ4lp-OgWTcLRU9QqM0vocOznIb-0o6pND-e8nMh6CeZoMBbkVItyBvHBnsZuK71Toq32KZBLu31JwfPa0brHugHC43iYoIwc58rhQyYDo3h4HMs3OcqUlq8o2CcQVBLFzbHc3w-UyjtBNdsP4AM2y9HV557qlc4"
+                src="https://randomuser.me/api/portraits/men/32.jpg"
               />
             </div>
           </div>

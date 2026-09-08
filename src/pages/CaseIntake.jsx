@@ -257,6 +257,7 @@ export default function CaseIntake() {
                   </div>
 
                   <div className="actions">
+                    <button className="secondary" type="button">Attach Files</button>
                     <button className="secondary" type="button" onClick={handlePrint}>Print / Save PDF</button>
                     <button className="secondary" type="button" onClick={handleClear}>Clear</button>
                     <button className="primary" type="button" onClick={handleSaveDraft}>Save Draft</button>
