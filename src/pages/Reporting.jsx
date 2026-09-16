@@ -290,40 +290,76 @@ export default function ReportingME() {
               </div>
 
               {/* Map Canvas with Interactive Indicators */}
-              <div className="w-full h-64 rounded-lg overflow-hidden border border-outline-variant relative group">
+              <div className="w-full h-[340px] rounded-lg overflow-hidden border border-outline-variant relative group bg-slate-900 mb-4">
                 <div
                   className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                  style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAXWBtaypCppknPYo8d5bRTxDy5HaDHEARuJDFRUtO5w-nL_z65t0qKP_a8ovwrhWR6LyCvXNd0Fw0kBftJd4JveAVjlM1IeATcMAOhHkTlCg71rQLjcapiVScUgZYkop_gPcvKf3g4H03Pk9ikzpoC4eqn8TQvW2XYIjQYbpEDbQ4r2QCeesf6FLFjuP5Ade9Qh7YjZaff9gIBK35kVkgEHL4R79ULMkSf6-0t4g4w1LrREfyRQBkb')" }}
+                  style={{ backgroundImage: "url('/nepal-heatmap.png')" }}
                 ></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/30 to-transparent pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/10 to-transparent pointer-events-none"></div>
 
-                {/* Hotspot Overlays */}
-                <div className="absolute top-6 left-1/3 flex items-center gap-2 bg-slate-900/90 text-white px-2.5 py-1 rounded-full text-xs backdrop-blur-md border border-slate-700 shadow-md">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                  <span className="font-label-caps text-[11px]">Pokhara Sub-hub (348 cases)</span>
+                {/* Hotspot Labels */}
+                <div className="absolute top-[50%] left-[55%] flex items-center gap-2 bg-slate-900/90 text-white px-2.5 py-1 rounded-full text-[10px] backdrop-blur-md border border-error/50 shadow-md transform -translate-x-1/2">
+                  <span className="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+                  <span className="font-label-caps tracking-wider">Kathmandu Central: 1,420 Cases</span>
                 </div>
-                <div className="absolute bottom-16 left-12 flex items-center gap-2 bg-slate-900/90 text-white px-3 py-1 rounded-full text-xs backdrop-blur-md border border-error/50 shadow-md animate-pulse">
-                  <span className="w-2.5 h-2.5 rounded-full bg-error"></span>
-                  <span className="font-label-caps text-[11px]">Kathmandu Central (1,420 cases - Dense)</span>
+                <div className="absolute top-[45%] left-[25%] flex items-center gap-2 bg-slate-900/90 text-white px-2.5 py-1 rounded-full text-[10px] backdrop-blur-md border border-emerald-500/50 shadow-md">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span className="font-label-caps tracking-wider">Pokhara &amp; Gandaki: 94% Stability</span>
                 </div>
 
                 {/* Map Floating Metric Bar */}
-                <div className="absolute bottom-3 left-4 right-4 flex justify-between items-center text-white bg-slate-900/85 backdrop-blur-md px-4 py-2 rounded-lg border border-slate-700/70 text-xs">
-                  <div>
-                    <span className="text-slate-400">Field Teams Active:</span> <strong className="text-white font-label-caps">18 Units</strong>
+                <div className="absolute bottom-3 left-4 right-4 flex justify-between items-center text-white bg-slate-900/85 backdrop-blur-md px-4 py-3 rounded-lg border border-slate-700/70 text-xs shadow-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    <span className="text-slate-400">Field Teams Active:</span> <strong className="text-white font-label-caps text-sm">18 Rapid Units</strong>
                   </div>
-                  <div>
-                    <span className="text-slate-400">Transit Shelters:</span> <strong className="text-white font-label-caps">6 Verified</strong>
+                  <div className="h-4 w-px bg-slate-700"></div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-slate-400">Interception Success:</span> <strong className="text-emerald-400 font-label-caps text-sm">96.8%</strong>
                   </div>
-                  <div>
-                    <span className="text-slate-400">Avg Response:</span> <strong className="text-emerald-400 font-label-caps">3.4 hrs</strong>
+                  <div className="h-4 w-px bg-slate-700"></div>
+                  <div className="flex flex-col">
+                    <span className="text-slate-400 text-[10px] uppercase">Border Transit Shelters: <strong className="text-white text-xs">9 Secured</strong></span>
+                    <span className="text-slate-400 text-[10px] uppercase">Avg Incident Rescue: <strong className="text-emerald-400 text-xs">2.8 hrs</strong></span>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="mt-4 flex items-center justify-between text-xs text-on-surface-variant">
-              <span>Geocoded GPS coordinates aggregated at ward level (No precise home addresses retained).</span>
-              <a className="text-primary hover:underline font-semibold font-label-caps" href="#">View GIS GeoJSON &gt;</a>
+
+              {/* Legend Cards */}
+              <div className="grid grid-cols-4 gap-3 mb-4">
+                <div className="border border-outline-variant/40 rounded-lg p-3 bg-white">
+                  <p className="text-[10px] text-on-surface-variant font-medium">Bagmati Province<br/>(Central)</p>
+                  <p className="font-bold text-red-600 text-sm mt-1">1,745 Active<br/>(Red)</p>
+                  <p className="text-[10px] text-on-surface-variant mt-1">Kathmandu &amp; urban<br/>centers</p>
+                </div>
+                <div className="border border-outline-variant/40 rounded-lg p-3 bg-white">
+                  <p className="text-[10px] text-on-surface-variant font-medium">Madhesh Province<br/>(Border)</p>
+                  <p className="font-bold text-amber-600 text-sm mt-1">982 Active<br/>(Amber)</p>
+                  <p className="text-[10px] text-on-surface-variant mt-1">Birgunj, Janakpur<br/>corridors</p>
+                </div>
+                <div className="border border-outline-variant/40 rounded-lg p-3 bg-white">
+                  <p className="text-[10px] text-on-surface-variant font-medium">Gandaki Province<br/>(Safe)</p>
+                  <p className="font-bold text-emerald-600 text-sm mt-1">428 Active<br/>(Green)</p>
+                  <p className="text-[10px] text-on-surface-variant mt-1">Pokhara 94%<br/>Reintegrated</p>
+                </div>
+                <div className="border border-outline-variant/40 rounded-lg p-3 bg-white">
+                  <p className="text-[10px] text-on-surface-variant font-medium">Lumbini &amp;<br/>Sudurpashchim</p>
+                  <p className="font-bold text-slate-800 text-sm mt-1">1,136 Active<br/>(Mixed)</p>
+                  <p className="text-[10px] text-on-surface-variant mt-1">Nepalgunj &amp; Kailali<br/>post</p>
+                </div>
+              </div>
+
+              {/* Color Key and Link */}
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-4 text-[10px] font-bold tracking-wide uppercase text-on-surface-variant border-b border-outline-variant/30 pb-3">
+                  <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-red-600"></span> Red = Critical Emergency Hubs</div>
+                  <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Yellow/Orange = Moderate Risk / Transit</div>
+                  <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Green = Stabilized / Kinship Placed</div>
+                </div>
+                <a className="text-[#0e3b8a] hover:underline font-bold font-label-caps text-xs flex items-center gap-1 mt-1" href="#">
+                  Export Ward GIS GeoJSON <span className="material-symbols-outlined text-[14px]">chevron_right</span>
+                </a>
+              </div>
             </div>
           </div>
 

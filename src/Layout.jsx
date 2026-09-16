@@ -35,20 +35,43 @@ export default function Layout() {
     { name: 'Organization Management', path: '/organization-management', icon: 'corporate_fare' },
     { name: 'User & Roles', path: '/users-roles', icon: 'group_add' },
     { type: 'divider' },
-    { name: 'Case Intake', path: '/case-intake', icon: 'assignment_ind' },
-    { name: 'Beneficiary Profile', path: '/beneficiary-profile', icon: 'badge' },
-    { name: 'Rescue / Handover', path: '/rescue-handover', icon: 'emergency' },
-    { name: 'Assessment', path: '/assessment', icon: 'fact_check' },
-    { name: 'Case Planning', path: '/case-planning', icon: 'event_note' },
-    { name: 'Support Management', path: '/support-management', icon: 'volunteer_activism' },
-    { name: 'Referral & Transfer', path: '/referral-transfer', icon: 'swap_horiz' },
-    { name: 'Reintegration', path: '/reintegration', icon: 'u_turn_right' },
+    { 
+      name: 'Case Inquiry', 
+      path: '/case-intake', 
+      icon: 'assignment_ind',
+      isParent: true,
+      children: [
+        { name: 'Beneficiary Profile', path: '/beneficiary-profile', icon: 'badge' },
+        { 
+          name: 'Rescue/Handover & Referral', 
+          path: '/rescue-referral', 
+          icon: 'sync_alt',
+          isParent: true,
+          children: [
+            { name: 'Handover', path: '/rescue-handover', icon: 'emergency' },
+            { name: 'Internal Referral', path: '/internal-referral', icon: 'share' },
+            { name: 'External Referral', path: '/external-referral', icon: 'output' }
+          ]
+        },
+        { name: 'Assessment', path: '/assessment', icon: 'fact_check' },
+        { name: 'Case Planning', path: '/case-planning', icon: 'event_note' },
+        { name: 'Support Management', path: '/support-management', icon: 'volunteer_activism' },
+        { name: 'Reintegration', path: '/reintegration', icon: 'u_turn_right' },
+      ]
+    },
     { name: 'Follow-up', path: '/follow-up', icon: 'history_edu' },
     { name: 'Case Closure', path: '/case-closure', icon: 'lock' },
     { type: 'divider' },
     { name: 'Reporting & M&E', path: '/reporting-me', icon: 'analytics' },
     { name: 'Privacy & Audit', path: '/privacy-audit', icon: 'policy' }
   ];
+
+  const [expandedMenus, setExpandedMenus] = useState({ '/case-intake': true });
+
+  const toggleMenu = (path, e) => {
+    e.preventDefault();
+    setExpandedMenus(prev => ({ ...prev, [path]: !prev[path] }));
+  };
 
   return (
     <div className="bg-background font-body-md text-on-surface">
@@ -82,6 +105,112 @@ export default function Layout() {
             if (item.type === 'divider') {
               return <div key={index} className="h-px bg-primary-container/20 my-4 mx-4"></div>;
             }
+            if (item.isParent) {
+              const isExpanded = expandedMenus[item.path];
+              const isChildActive = item.children.some(child => location.pathname === child.path) || location.pathname === item.path;
+              
+              return (
+                <div key={item.path} className="flex flex-col">
+                  <div className="flex items-center">
+                    <NavLink
+                      to={item.path}
+                      className={({ isActive }) =>
+                        `flex items-center flex-1 px-4 py-2.5 rounded-l-lg transition-all gap-3 ${isActive
+                          ? 'bg-primary-container text-white font-semibold'
+                          : 'text-on-primary/70 hover:bg-primary-container/50 hover:text-white'
+                        }`
+                      }
+                    >
+                      <span className="material-symbols-outlined text-xl">{item.icon}</span>
+                      <span className="text-sm font-semibold">{item.name}</span>
+                    </NavLink>
+                    <button 
+                      onClick={(e) => toggleMenu(item.path, e)}
+                      className={`p-2.5 rounded-r-lg transition-all ${isChildActive && !isExpanded ? 'bg-primary-container text-white' : 'text-on-primary/70 hover:bg-primary-container/50 hover:text-white'}`}
+                    >
+                      <span className="material-symbols-outlined text-sm transition-transform duration-200" style={{ transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}>
+                        expand_more
+                      </span>
+                    </button>
+                  </div>
+                  
+                  {isExpanded && (
+                    <div className="ml-4 mt-1 pl-4 border-l border-primary-container/30 space-y-1">
+                      {item.children.map(child => {
+                        if (child.isParent) {
+                          const isChildExpanded = expandedMenus[child.path];
+                          const isSubChildActive = child.children.some(subChild => location.pathname === subChild.path) || location.pathname === child.path;
+                          
+                          return (
+                            <div key={child.path} className="flex flex-col">
+                              <div className="flex items-center">
+                                <NavLink
+                                  to={child.path}
+                                  className={({ isActive }) =>
+                                    `flex items-center flex-1 px-4 py-2 rounded-l-lg transition-all gap-3 ${isActive
+                                      ? 'bg-primary-container/60 text-white font-medium'
+                                      : 'text-on-primary/60 hover:bg-primary-container/40 hover:text-white'
+                                    }`
+                                  }
+                                >
+                                  <span className="material-symbols-outlined text-[18px]">{child.icon}</span>
+                                  <span className="text-xs">{child.name}</span>
+                                </NavLink>
+                                <button 
+                                  onClick={(e) => toggleMenu(child.path, e)}
+                                  className={`p-2 rounded-r-lg transition-all ${isSubChildActive && !isChildExpanded ? 'bg-primary-container/60 text-white' : 'text-on-primary/60 hover:bg-primary-container/40 hover:text-white'}`}
+                                >
+                                  <span className="material-symbols-outlined text-xs transition-transform duration-200" style={{ transform: isChildExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}>
+                                    expand_more
+                                  </span>
+                                </button>
+                              </div>
+                              
+                              {isChildExpanded && (
+                                <div className="ml-4 mt-1 pl-4 border-l border-primary-container/20 space-y-1">
+                                  {child.children.map(subChild => (
+                                    <NavLink
+                                      key={subChild.path}
+                                      to={subChild.path}
+                                      className={({ isActive }) =>
+                                        `flex items-center px-4 py-1.5 rounded-lg transition-all gap-3 ${isActive
+                                          ? 'bg-primary-container/40 text-white font-medium'
+                                          : 'text-on-primary/50 hover:bg-primary-container/30 hover:text-white'
+                                        }`
+                                      }
+                                    >
+                                      <span className="material-symbols-outlined text-[16px]">{subChild.icon}</span>
+                                      <span className="text-[11px]">{subChild.name}</span>
+                                    </NavLink>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        }
+
+                        return (
+                          <NavLink
+                            key={child.path}
+                            to={child.path}
+                            className={({ isActive }) =>
+                              `flex items-center px-4 py-2 rounded-lg transition-all gap-3 ${isActive
+                                ? 'bg-primary-container/60 text-white font-medium'
+                                : 'text-on-primary/60 hover:bg-primary-container/40 hover:text-white'
+                              }`
+                            }
+                          >
+                            <span className="material-symbols-outlined text-[18px]">{child.icon}</span>
+                            <span className="text-xs">{child.name}</span>
+                          </NavLink>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
             return (
               <NavLink
                 key={item.path}

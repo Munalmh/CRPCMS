@@ -26,8 +26,8 @@ export default function Assessment() {
 <div className="absolute -right-4 -top-4 w-24 h-24 bg-error/10 rounded-full blur-xl group-hover:scale-110 transition-transform duration-500"></div>
 <div className="text-sm font-label-caps text-on-surface-variant mb-1">Composite Risk Score</div>
 <div className="flex items-baseline gap-2 mb-2">
-<span className="font-display-lg text-display-lg text-error">7.4</span>
-<span className="font-body-sm text-body-sm text-on-surface-variant">/ 10</span>
+<span className="font-display-lg text-display-lg text-error font-black tracking-tight" style={{ fontWeight: 900, textShadow: '0 2px 4px rgba(220,38,38,0.2)' }}>9.2</span>
+<span className="font-body-sm text-body-sm text-on-surface-variant font-bold">/ 10</span>
 </div>
 <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-error-container text-on-error-container">
 <span className="material-symbols-outlined text-[14px]">warning</span>
@@ -61,12 +61,18 @@ export default function Assessment() {
 </div>
 <div className="w-2 h-2 rounded-full bg-error"></div>
 </button>
+<div className="flex flex-col gap-1">
 <button className="flex items-center justify-between px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container transition-colors text-left group">
 <div className="flex items-center gap-3">
 <span className="material-symbols-outlined opacity-70 group-hover:opacity-100">family_restroom</span>
 <span className="font-headline-sm text-headline-sm">Family / Economic</span>
 </div>
 </button>
+<div className="pl-12 pr-4 py-2 text-on-surface-variant flex items-center gap-3 group cursor-pointer hover:bg-surface-container transition-colors rounded-xl">
+  <span className="material-symbols-outlined text-[18px] opacity-70">remove</span>
+  <span className="font-headline-sm text-headline-sm">Death</span>
+</div>
+</div>
 </nav>
 {/* Score Visualizer Chart */}
 <div className="bg-surface-container-lowest rounded-2xl shadow-sm p-5">

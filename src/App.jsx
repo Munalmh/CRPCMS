@@ -11,6 +11,7 @@ import Assessment from './pages/Assessment';
 import CasePlanning from './pages/CasePlanning';
 import SupportManagement from './pages/SupportManagement';
 import ReferralTransfer from './pages/ReferralTransfer';
+import ExternalReferral from './pages/ExternalReferral';
 import Reintegration from './pages/Reintegration';
 import FollowUp from './pages/FollowUp';
 import CaseClosure from './pages/CaseClosure';
@@ -27,7 +28,10 @@ export default function App() {
           <Route path="/users-roles" element={<UserManagement />} />
           <Route path="/case-intake" element={<CaseIntake />} />
           <Route path="/beneficiary-profile" element={<BeneficiaryProfile />} />
+          <Route path="/rescue-referral" element={<RescueHandover />} />
           <Route path="/rescue-handover" element={<RescueHandover />} />
+          <Route path="/internal-referral" element={<ReferralTransfer />} />
+          <Route path="/external-referral" element={<ExternalReferral />} />
           <Route path="/assessment" element={<Assessment />} />
           <Route path="/case-planning" element={<CasePlanning />} />
           <Route path="/support-management" element={<SupportManagement />} />

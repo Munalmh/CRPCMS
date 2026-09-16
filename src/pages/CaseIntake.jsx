@@ -40,46 +40,279 @@ export default function CaseIntake() {
   return (
     <div className="flex flex-col w-full h-full relative bg-background">
       {/* Landing view */}
-      <div className="px-12 py-10">
-        <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
-          <div className="max-w-2xl">
-            <p className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-2">
-              Intake &amp; Admission
+      <div className="px-6 py-8 sm:px-12 sm:py-10 max-w-[1600px] mx-auto w-full">
+        <div className="flex flex-col xl:flex-row xl:items-end justify-between mb-8 gap-4">
+          <div>
+            <p className="font-label-caps text-sm text-on-surface-variant font-medium tracking-wide mb-1 flex items-center gap-1">
+              Case Inquiry <span className="material-symbols-outlined text-[16px]">chevron_right</span> Overview &amp; Triage
             </p>
-            <h1 className="font-display-lg text-display-lg text-on-surface mb-3">Case Intake</h1>
-            <p className="font-body-lg text-body-lg text-on-surface-variant">
-              Record a new child's entry and admission details, family background, and supporting documentation to open a case file.
+            <h1 className="text-4xl font-bold text-on-surface mb-2">Case Inquiry</h1>
+            <p className="text-on-surface-variant">
+              Initial case registration, intake triage, and unified sub-module pipeline.
             </p>
           </div>
-          <button
-            onClick={() => setIsFormOpen(true)}
-            className="flex items-center gap-2 bg-primary text-on-primary px-5 py-3 rounded-lg font-headline-sm text-sm shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5"
-          >
-            <span className="material-symbols-outlined text-[20px]">add_circle</span>
-            New Intake
+          <div className="flex items-center gap-3">
+            <button className="flex items-center gap-2 bg-surface text-on-surface border border-outline-variant px-4 py-2.5 rounded-lg font-medium text-sm shadow-sm hover:bg-surface-container-low transition-colors">
+              <span className="material-symbols-outlined text-[18px]">filter_list</span>
+              Filter Inquiries
+            </button>
+            <button
+              onClick={() => setIsFormOpen(true)}
+              className="flex items-center gap-2 bg-[#0e3b8a] text-white px-5 py-2.5 rounded-lg font-medium text-sm shadow-md hover:bg-[#0c3175] transition-colors"
+            >
+              <span className="material-symbols-outlined text-[18px]">add</span>
+              New Case Inquiry
+            </button>
+          </div>
+        </div>
+
+        {/* Tabs */}
+        <div className="flex items-center justify-between border-b border-outline-variant/40 mb-8 overflow-x-auto hide-scrollbar">
+          <div className="flex items-center gap-6 min-w-max">
+            <button className="flex items-center gap-2 pb-3 border-b-2 border-[#0e3b8a] text-[#0e3b8a] font-semibold text-sm">
+              <span className="material-symbols-outlined text-[18px]">grid_view</span>
+              All Inquiries
+            </button>
+            <button className="flex items-center gap-2 pb-3 border-b-2 border-transparent text-on-surface-variant font-medium text-sm hover:text-on-surface transition-colors">
+              <span className="material-symbols-outlined text-[18px]">badge</span>
+              Beneficiary Profile
+            </button>
+            <button className="flex items-center gap-2 pb-3 border-b-2 border-transparent text-on-surface-variant font-medium text-sm hover:text-on-surface transition-colors">
+              <span className="material-symbols-outlined text-[18px]">emergency</span>
+              Rescue / Handover
+            </button>
+            <button className="flex items-center gap-2 pb-3 border-b-2 border-transparent text-on-surface-variant font-medium text-sm hover:text-on-surface transition-colors">
+              <span className="material-symbols-outlined text-[18px]">fact_check</span>
+              Assessment
+            </button>
+            <button className="flex items-center gap-2 pb-3 border-b-2 border-transparent text-on-surface-variant font-medium text-sm hover:text-on-surface transition-colors">
+              <span className="material-symbols-outlined text-[18px]">event_note</span>
+              Case Planning
+            </button>
+            <button className="flex items-center gap-2 pb-3 border-b-2 border-transparent text-on-surface-variant font-medium text-sm hover:text-on-surface transition-colors">
+              <span className="material-symbols-outlined text-[18px]">volunteer_activism</span>
+              Support Management
+            </button>
+          </div>
+          <button className="pb-3 text-on-surface-variant">
+            <span className="material-symbols-outlined text-[20px]">swap_horiz</span>
           </button>
         </div>
 
-        <div className="grid grid-cols-3 gap-5 mb-10">
-          <div className="bg-surface rounded-xl border border-outline-variant/40 p-5 shadow-sm">
-            <span className="material-symbols-outlined text-primary text-[28px] mb-2 block">description</span>
-            <h3 className="font-headline-sm text-sm text-on-surface mb-1">Structured Record</h3>
-            <p className="font-body-sm text-body-sm text-on-surface-variant">Captures personal details, family background, and admission circumstances in one place.</p>
+        {/* Metric Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+          <div className="bg-[#f0f6ff] rounded-xl p-5 relative overflow-hidden">
+            <div className="flex justify-between items-start mb-4">
+              <h3 className="font-semibold text-xs tracking-wider text-on-surface-variant uppercase">Active Inquiries</h3>
+              <div className="w-8 h-8 rounded bg-white flex items-center justify-center text-[#0e3b8a] shadow-sm">
+                <span className="material-symbols-outlined text-[20px]">badge</span>
+              </div>
+            </div>
+            <div className="text-4xl font-bold text-on-surface mb-2">1,248</div>
+            <div className="flex items-center gap-1 text-xs font-medium text-green-600">
+              <span className="material-symbols-outlined text-[14px]">trending_up</span>
+              +5.2% from last week
+            </div>
           </div>
-          <div className="bg-surface rounded-xl border border-outline-variant/40 p-5 shadow-sm">
-            <span className="material-symbols-outlined text-primary text-[28px] mb-2 block">fact_check</span>
-            <h3 className="font-headline-sm text-sm text-on-surface mb-1">Supporting Documents</h3>
-            <p className="font-body-sm text-body-sm text-on-surface-variant">Track citizenship, recommendation letters, and other admission paperwork.</p>
+
+          <div className="bg-[#f0f6ff] rounded-xl p-5 relative overflow-hidden">
+            <div className="flex justify-between items-start mb-4">
+              <h3 className="font-semibold text-xs tracking-wider text-on-surface-variant uppercase">New Inquiries This Week</h3>
+              <div className="w-8 h-8 rounded bg-white flex items-center justify-center text-[#0e3b8a] shadow-sm">
+                <span className="material-symbols-outlined text-[20px]">person_add</span>
+              </div>
+            </div>
+            <div className="text-4xl font-bold text-on-surface mb-2">84</div>
+            <div className="text-xs font-medium text-on-surface-variant">Awaiting triage review</div>
           </div>
-          <div className="bg-surface rounded-xl border border-outline-variant/40 p-5 shadow-sm">
-            <span className="material-symbols-outlined text-primary text-[28px] mb-2 block">save</span>
-            <h3 className="font-headline-sm text-sm text-on-surface mb-1">Save as Draft</h3>
-            <p className="font-body-sm text-body-sm text-on-surface-variant">Drafts are saved locally so you can pick up an incomplete intake later.</p>
+
+          <div className="bg-[#f0f6ff] rounded-xl p-5 relative overflow-hidden">
+            <div className="flex justify-between items-start mb-4">
+              <h3 className="font-semibold text-xs tracking-wider text-on-surface-variant uppercase">Pending Assessments</h3>
+              <div className="w-8 h-8 rounded bg-white flex items-center justify-center text-[#0e3b8a] shadow-sm">
+                <span className="material-symbols-outlined text-[20px]">fact_check</span>
+              </div>
+            </div>
+            <div className="text-4xl font-bold text-on-surface mb-2">312</div>
+            <div className="text-xs font-medium text-on-surface-variant">Require immediate review</div>
+          </div>
+
+          <div className="bg-[#fdf0f0] rounded-xl p-5 relative overflow-hidden border border-red-100">
+            <div className="flex justify-between items-start mb-4">
+              <h3 className="font-semibold text-xs tracking-wider text-red-800 uppercase">Urgent Referrals</h3>
+              <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm border border-red-100">
+                <span className="material-symbols-outlined text-[20px]">priority_high</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-4 mb-2">
+              <div className="text-4xl font-bold text-red-600">17</div>
+              <div className="bg-red-400 text-white text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wider uppercase shadow-sm">Action Needed</div>
+            </div>
+            <div className="flex items-center gap-1 text-xs font-medium text-red-600">
+              <span className="material-symbols-outlined text-[14px]">warning</span>
+              Escalated status
+            </div>
           </div>
         </div>
 
-        <div className="bg-surface-container-low border border-outline-variant/30 rounded-xl p-6 text-center">
-          <p className="font-body-md text-body-md text-on-surface-variant">No intake open right now. Click "New Intake" above to begin a new admission record.</p>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-8">
+            {/* Table Section */}
+            <div className="bg-white rounded-xl border border-outline-variant/40 shadow-sm overflow-hidden flex flex-col">
+              <div className="flex items-center justify-between p-5 border-b border-outline-variant/30">
+                <div className="flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[#0e3b8a]">assignment_ind</span>
+                  <h2 className="text-lg font-bold text-on-surface">Case Inquiry Intake Queue</h2>
+                </div>
+                <button className="text-xs font-bold text-[#0e3b8a] tracking-wider uppercase hover:underline">View All</button>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse min-w-[700px]">
+                  <thead>
+                    <tr className="bg-surface-container-lowest border-b border-outline-variant/30">
+                      <th className="px-5 py-3 text-xs font-semibold text-on-surface-variant">Case ID</th>
+                      <th className="px-5 py-3 text-xs font-semibold text-on-surface-variant">Beneficiary Name</th>
+                      <th className="px-5 py-3 text-xs font-semibold text-on-surface-variant">Status</th>
+                      <th className="px-5 py-3 text-xs font-semibold text-on-surface-variant">Last Updated</th>
+                      <th className="px-5 py-3 text-xs font-semibold text-on-surface-variant">Assigned Worker</th>
+                      <th className="px-5 py-3 text-xs font-semibold text-on-surface-variant text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-outline-variant/20">
+                    {[
+                      { id: 'C-2023-0891', name: 'Elena Rostova', status: 'In Progress', statusColor: 'bg-blue-100 text-blue-800', date: 'Oct 12, 09:41 AM', worker: 'Maria Silva', initials: 'MS', bg: 'bg-slate-600' },
+                      { id: 'C-2023-0892', name: 'Kwame Osei', status: 'Assessment Done', statusColor: 'bg-green-100 text-green-800', date: 'Oct 12, 08:30 AM', worker: 'John Doe', initials: 'JD', bg: 'bg-blue-800' },
+                      { id: 'C-2023-0885', name: 'Ananya Patel', status: 'Urgent Review', statusColor: 'bg-red-100 text-red-800', date: 'Oct 11, 16:45 PM', worker: 'Sarah Jones', initials: 'SJ', bg: 'bg-gray-800' },
+                      { id: 'C-2023-0870', name: 'Miguel Hernandez', status: 'Pending Intake', statusColor: 'bg-yellow-100 text-yellow-800', date: 'Oct 10, 11:20 AM', worker: 'Maria Silva', initials: 'MS', bg: 'bg-slate-600' },
+                      { id: 'C-2023-0865', name: 'Chen Wei', status: 'In Progress', statusColor: 'bg-blue-100 text-blue-800', date: 'Oct 09, 14:15 PM', worker: 'John Doe', initials: 'JD', bg: 'bg-blue-800' },
+                    ].map((row, i) => (
+                      <tr key={i} className="hover:bg-surface-container-lowest transition-colors">
+                        <td className="px-5 py-4 text-sm font-semibold text-[#0e3b8a]">{row.id}</td>
+                        <td className="px-5 py-4 text-sm font-medium text-on-surface">{row.name}</td>
+                        <td className="px-5 py-4">
+                          <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${row.statusColor}`}>
+                            {row.status}
+                          </span>
+                        </td>
+                        <td className="px-5 py-4 text-sm text-on-surface-variant">{row.date}</td>
+                        <td className="px-5 py-4">
+                          <div className="flex items-center gap-2">
+                            <div className={`w-6 h-6 rounded-full ${row.bg} text-white flex items-center justify-center text-[10px] font-bold`}>{row.initials}</div>
+                            <span className="text-sm font-medium text-on-surface text-center leading-tight max-w-[60px]">{row.worker}</span>
+                          </div>
+                        </td>
+                        <td className="px-5 py-4 text-center text-on-surface-variant">
+                          <button className="hover:text-primary transition-colors"><span className="material-symbols-outlined text-[20px]">more_vert</span></button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Recent System Activity Section */}
+            <div className="bg-white rounded-xl border border-outline-variant/40 shadow-sm p-6">
+              <div className="flex items-center gap-2 mb-6">
+                <span className="material-symbols-outlined text-[#0e3b8a]">history</span>
+                <h2 className="text-lg font-bold text-on-surface">Recent System Activity</h2>
+              </div>
+              
+              <div className="space-y-6 relative before:absolute before:inset-0 before:ml-2.5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-outline-variant/30 pl-8 md:pl-0">
+                <div className="relative flex items-start justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                  <div className="flex items-center justify-center w-5 h-5 rounded-full border-2 border-blue-600 bg-white shrink-0 absolute -left-8 md:left-1/2 md:-translate-x-1/2 z-10"></div>
+                  <div className="w-full md:w-[calc(50%-2rem)] md:text-right">
+                    <p className="text-xs text-on-surface-variant mb-1">10 minutes ago</p>
+                    <p className="text-sm text-on-surface"><span className="font-semibold">Maria Silva</span> submitted a new case intake C-2023-0893</p>
+                  </div>
+                  <div className="hidden md:block w-[calc(50%-2rem)]"></div>
+                </div>
+
+                <div className="relative flex items-start justify-between md:justify-normal md:odd:flex-row-reverse group">
+                  <div className="flex items-center justify-center w-5 h-5 rounded-full border-2 border-red-500 bg-white shrink-0 absolute -left-8 md:left-1/2 md:-translate-x-1/2 z-10"></div>
+                  <div className="hidden md:block w-[calc(50%-2rem)] text-right"></div>
+                  <div className="w-full md:w-[calc(50%-2rem)] md:text-left">
+                    <p className="text-xs text-on-surface-variant mb-1">45 minutes ago</p>
+                    <p className="text-sm text-on-surface">Urgent Referral Triggered for <span className="font-semibold text-red-600">C-2023-0885</span> <span className="text-red-600 font-bold">!</span></p>
+                  </div>
+                </div>
+
+                <div className="relative flex items-start justify-between md:justify-normal md:odd:flex-row-reverse group">
+                  <div className="flex items-center justify-center w-5 h-5 rounded-full border-2 border-green-500 bg-white shrink-0 absolute -left-8 md:left-1/2 md:-translate-x-1/2 z-10"></div>
+                  <div className="w-full md:w-[calc(50%-2rem)] md:text-right">
+                    <p className="text-xs text-on-surface-variant mb-1">2 hours ago</p>
+                    <p className="text-sm text-on-surface"><span className="font-semibold">John Doe</span> completed Initial Assessment for C-2023-0892</p>
+                  </div>
+                  <div className="hidden md:block w-[calc(50%-2rem)]"></div>
+                </div>
+
+                <div className="relative flex items-start justify-between md:justify-normal md:odd:flex-row-reverse group">
+                  <div className="flex items-center justify-center w-4 h-4 rounded-full bg-gray-300 border-2 border-white shrink-0 absolute -left-[1.125rem] md:left-1/2 md:-translate-x-1/2 z-10 mt-1"></div>
+                  <div className="hidden md:block w-[calc(50%-2rem)] text-right"></div>
+                  <div className="w-full md:w-[calc(50%-2rem)] md:text-left">
+                    <p className="text-xs text-on-surface-variant mb-1">Yesterday, 15:30</p>
+                    <p className="text-sm text-on-surface-variant">System generated automated follow-up reminders for 12 cases.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-1">
+            {/* Upcoming Tasks Section */}
+            <div className="bg-[#f4f7fb] rounded-xl p-5 border border-[#e2e8f0] shadow-sm">
+              <div className="flex items-center gap-2 mb-5">
+                <span className="material-symbols-outlined text-[#0e3b8a]">checklist</span>
+                <h2 className="text-lg font-bold text-on-surface">Upcoming Tasks</h2>
+              </div>
+              
+              <div className="space-y-3">
+                <div className="bg-white p-4 rounded-lg shadow-sm border border-outline-variant/30 flex items-start gap-3">
+                  <div className="pt-0.5">
+                    <div className="w-4 h-4 border border-outline-variant rounded flex-shrink-0 cursor-pointer hover:border-[#0e3b8a]"></div>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-on-surface leading-tight mb-1">Review Assessment for C-2023-...</p>
+                    <div className="flex items-center gap-2 text-xs font-semibold text-red-600">
+                      <span className="flex items-center"><span className="material-symbols-outlined text-[14px] mr-1">flag</span> HIGH</span>
+                      <span className="text-outline-variant font-normal">•</span>
+                      <span className="text-on-surface-variant font-normal">Due: 14:00</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white p-4 rounded-lg shadow-sm border border-outline-variant/30 flex items-start gap-3">
+                  <div className="pt-0.5">
+                    <div className="w-4 h-4 border border-outline-variant rounded flex-shrink-0 cursor-pointer hover:border-[#0e3b8a]"></div>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-on-surface leading-tight mb-1">Client Interview Preparation</p>
+                    <div className="flex items-center gap-2 text-xs font-semibold text-yellow-600">
+                      <span className="flex items-center"><span className="material-symbols-outlined text-[14px] mr-1">flag</span> MEDIUM</span>
+                      <span className="text-outline-variant font-normal">•</span>
+                      <span className="text-on-surface-variant font-normal">Due: 16:30</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white/60 p-4 rounded-lg border border-outline-variant/30 flex items-start gap-3 opacity-70">
+                  <div className="pt-0.5">
+                    <div className="w-4 h-4 bg-[#0e3b8a] border border-[#0e3b8a] rounded flex-shrink-0 flex items-center justify-center">
+                      <span className="material-symbols-outlined text-white text-[12px] font-bold">check</span>
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-on-surface-variant line-through leading-tight mb-1">Submit Monthly M&E Report</p>
+                    <div className="flex items-center gap-2 text-xs text-on-surface-variant">
+                      <span className="flex items-center"><span className="material-symbols-outlined text-[14px] mr-1">flag</span> LOW</span>
+                      <span className="text-outline-variant font-normal">•</span>
+                      <span className="font-normal">Completed</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -260,7 +493,8 @@ export default function CaseIntake() {
                     <button className="secondary" type="button">Attach Files</button>
                     <button className="secondary" type="button" onClick={handlePrint}>Print / Save PDF</button>
                     <button className="secondary" type="button" onClick={handleClear}>Clear</button>
-                    <button className="primary" type="button" onClick={handleSaveDraft}>Save Draft</button>
+                    <button className="secondary" type="button" onClick={handleSaveDraft}>Save Draft</button>
+                    <button className="primary" type="button">Add as Beneficiary</button>
                   </div>
                   <div ref={statusRef} className="status">Draft saved in this browser.</div>
 
