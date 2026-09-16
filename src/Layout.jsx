@@ -39,28 +39,8 @@ export default function Layout() {
       name: 'Case Inquiry', 
       path: '/case-intake', 
       icon: 'assignment_ind',
-      isParent: true,
-      children: [
-        { name: 'Beneficiary Profile', path: '/beneficiary-profile', icon: 'badge' },
-        { 
-          name: 'Rescue/Handover & Referral', 
-          path: '/rescue-referral', 
-          icon: 'sync_alt',
-          isParent: true,
-          children: [
-            { name: 'Handover', path: '/rescue-handover', icon: 'emergency' },
-            { name: 'Internal Referral', path: '/internal-referral', icon: 'share' },
-            { name: 'External Referral', path: '/external-referral', icon: 'output' }
-          ]
-        },
-        { name: 'Assessment', path: '/assessment', icon: 'fact_check' },
-        { name: 'Case Planning', path: '/case-planning', icon: 'event_note' },
-        { name: 'Support Management', path: '/support-management', icon: 'volunteer_activism' },
-        { name: 'Reintegration', path: '/reintegration', icon: 'u_turn_right' },
-      ]
     },
-    { name: 'Follow-up', path: '/follow-up', icon: 'history_edu' },
-    { name: 'Case Closure', path: '/case-closure', icon: 'lock' },
+    { name: 'Beneficiary Profile', path: '/beneficiary-profile', icon: 'badge' },
     { type: 'divider' },
     { name: 'Reporting & M&E', path: '/reporting-me', icon: 'analytics' },
     { name: 'Privacy & Audit', path: '/privacy-audit', icon: 'policy' }

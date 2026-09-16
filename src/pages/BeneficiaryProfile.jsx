@@ -1,48 +1,28 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import FormModal from '../components/FormModal';
+import ChildProfileForm from '../components/ChildProfileForm';
+import ReintegrationActionPlanForm from '../components/ReintegrationActionPlanForm';
+import Assessment from './Assessment';
+import CasePlanning from './CasePlanning';
+import SupportManagement from './SupportManagement';
+import FollowUp from './FollowUp';
+import Reintegration from './Reintegration';
+import RescueHandover from './RescueHandover';
+import CaseClosure from './CaseClosure';
+import ReferralTransfer from './ReferralTransfer';
+import ExternalReferral from './ExternalReferral';
 
 export default function BeneficiaryProfile() {
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const formRef = useRef(null);
-  const statusRef = useRef(null);
-  const STORAGE_KEY = 'Child_Profile_Form';
-
-  const handlePrint = () => window.print();
-
-  const handleClear = () => {
-    if (!window.confirm('Clear all entered information?')) return;
-    const container = formRef.current;
-    if (!container) return;
-    container.querySelectorAll('input, select, textarea').forEach((el) => {
-      if (el.type === 'radio' || el.type === 'checkbox') el.checked = false;
-      else el.value = '';
-    });
-    localStorage.removeItem(STORAGE_KEY);
-  };
-
-  const handleSaveDraft = () => {
-    const container = formRef.current;
-    if (!container) return;
-    const data = {};
-    container.querySelectorAll('input, select, textarea').forEach((el, i) => {
-      const key = el.name || el.id || `f${i}`;
-      data[key] = el.type === 'radio' ? el.checked : el.value;
-    });
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    if (statusRef.current) {
-      statusRef.current.style.display = 'block';
-      setTimeout(() => {
-        if (statusRef.current) statusRef.current.style.display = 'none';
-      }, 2200);
-    }
-  };
+  const [activeTab, setActiveTab] = useState('dossier');
+  const [isProfileFormOpen, setIsProfileFormOpen] = useState(false);
+  const [isReintegrationFormOpen, setIsReintegrationFormOpen] = useState(false);
+  const [isRescueDropdownOpen, setIsRescueDropdownOpen] = useState(false);
 
   return (
-    <div className="flex flex-col w-full h-full relative bg-background">
-      {/* Landing view (Dummy Data Dashboard) */}
-      <div className="px-6 py-8 sm:px-12 sm:py-10 max-w-[1600px] mx-auto w-full">
+    <div className="flex flex-col w-full h-full relative bg-[#f4f7fb] overflow-y-auto">
+      <div className="p-6 md:p-8 max-w-[1400px] mx-auto w-full pb-0">
         {/* Top Header Card */}
-        <div className="bg-white rounded-xl border border-outline-variant/40 shadow-sm p-6 mb-8 flex flex-col lg:flex-row gap-6 relative">
+        <div className="bg-white rounded-xl border border-outline-variant/40 shadow-sm p-6 mb-6 flex flex-col lg:flex-row gap-6 relative">
           
           {/* Profile Image & Badges */}
           <div className="relative shrink-0 flex flex-col items-center">
@@ -115,259 +95,405 @@ export default function BeneficiaryProfile() {
                 <div className="bg-[#0e3b8a] h-1.5 rounded-full" style={{ width: '42%' }}></div>
               </div>
             </div>
-            <div className="flex gap-2">
-              <button className="flex-1 bg-white border border-outline-variant text-on-surface text-xs font-semibold py-2 rounded shadow-sm hover:bg-surface-container-low transition-colors flex items-center justify-center gap-1">
-                <span className="material-symbols-outlined text-[16px]">groups</span> Multi-Disc Review
-              </button>
-              <button className="flex-1 bg-[#0e3b8a] text-white text-xs font-semibold py-2 rounded shadow-sm hover:bg-[#0c3175] transition-colors flex items-center justify-center gap-1">
-                <span className="material-symbols-outlined text-[16px]">double_arrow</span> Advance Stage
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Tabs */}
-        <div className="flex items-center gap-8 border-b border-[#0e3b8a] mb-6 overflow-x-auto hide-scrollbar">
-          <button className="flex items-center gap-2 pb-3 border-b-2 border-[#0e3b8a] text-[#0e3b8a] font-bold text-sm min-w-max">
-            <span className="material-symbols-outlined text-[18px]">shield</span>
-            Overview & Protection Plan
-          </button>
-          <button className="flex items-center gap-2 pb-3 border-b-2 border-transparent text-on-surface-variant font-medium text-sm hover:text-on-surface transition-colors min-w-max">
-            <span className="material-symbols-outlined text-[18px]">account_tree</span>
-            Identity & Household Hierarchy
-          </button>
-          <button className="flex items-center gap-2 pb-3 border-b-2 border-transparent text-on-surface-variant font-medium text-sm hover:text-on-surface transition-colors min-w-max">
-            <span className="material-symbols-outlined text-[18px]">health_and_safety</span>
-            Medical & Psychosocial
-          </button>
-          <button className="flex items-center gap-2 pb-3 border-b-2 border-transparent text-on-surface-variant font-medium text-sm hover:text-on-surface transition-colors min-w-max">
-            <span className="material-symbols-outlined text-[18px]">history_edu</span>
-            Audit Ledger & Chain
-          </button>
-        </div>
-
-        {/* Content Area */}
-        <div className="bg-[#f8fafd] rounded-xl border border-outline-variant/40 p-6 md:p-8 space-y-6">
-          
-          {/* Active Protection Plan */}
-          <div className="bg-white rounded-xl border border-outline-variant/30 p-5 shadow-sm">
-            <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-5 pb-5 border-b border-outline-variant/20">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-[#0e3b8a] rounded-lg flex items-center justify-center text-white shrink-0">
-                  <span className="material-symbols-outlined">verified_user</span>
-                </div>
-                <div>
-                  <h2 className="font-bold text-on-surface text-lg">Active Statutory Protection Plan (SOP v3.2)</h2>
-                  <p className="text-xs text-on-surface-variant mt-0.5">Phase 2: Assessment & Profiling • Next Milestone: Court Interim Care Order Review (Nov 28, 2023)</p>
-                </div>
+            <div className="flex flex-col gap-2">
+              <div className="flex gap-2">
+                <button className="flex-1 bg-white border border-outline-variant text-on-surface text-xs font-semibold py-2 rounded shadow-sm hover:bg-surface-container-low transition-colors flex items-center justify-center gap-1">
+                  <span className="material-symbols-outlined text-[16px]">groups</span> Multi-Disc Review
+                </button>
+                <button className="flex-1 bg-[#0e3b8a] text-white text-xs font-semibold py-2 rounded shadow-sm hover:bg-[#0c3175] transition-colors flex items-center justify-center gap-1">
+                  <span className="material-symbols-outlined text-[16px]">double_arrow</span> Advance Stage
+                </button>
               </div>
-              <button className="flex items-center justify-center gap-2 bg-white border border-outline-variant text-[#0e3b8a] text-xs font-semibold px-4 py-2 rounded shadow-sm hover:bg-surface-container-low transition-colors shrink-0">
-                <span className="material-symbols-outlined text-[16px]">download</span> Export Statutory Dossier
-              </button>
-            </div>
-
-            <div>
-              <h3 className="text-xs font-bold text-on-surface-variant tracking-wider uppercase mb-2">Strategic Case Objective</h3>
-              <p className="text-sm text-on-surface leading-relaxed">Immediate stabilization in safe transit shelter, trauma-informed counseling, formal kinship tracing for maternal aunt in Kaski, and statutory education reintegration.</p>
-            </div>
-          </div>
-
-          {/* Risk and Protective Factors */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-[#fdf3f3] rounded-xl border border-red-100 p-5 shadow-sm">
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="text-xs font-bold text-red-800 tracking-wider uppercase flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[16px]">local_fire_department</span> Assessed Risk Index
-                </h3>
-                <span className="bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded">7.4 / 10</span>
-              </div>
-              <p className="text-sm text-red-900 leading-relaxed">High Priority Intervention — Malnutrition history, transit interception, separation from parental supervision, active legal custody restriction order on biological mother.</p>
-            </div>
-            
-            <div className="bg-[#f0fdf4] rounded-xl border border-green-100 p-5 shadow-sm">
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="text-xs font-bold text-green-800 tracking-wider uppercase flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[16px]">verified</span> Key Protective Factors
-                </h3>
-                <span className="bg-green-700 text-white text-xs font-bold px-2 py-0.5 rounded tracking-wide">Verified Kinship</span>
-              </div>
-              <p className="text-sm text-green-900 leading-relaxed">Cooperative maternal aunt Tara Devi Shrestha, verified biometric fingerprint match (AFIS #8F71E-9C), clean municipal background check, willing foster accommodation readiness.</p>
-            </div>
-          </div>
-
-          {/* Immediate Next Actions */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <span className="material-symbols-outlined text-[#0e3b8a]">checklist</span>
-              <h2 className="text-sm font-bold text-on-surface uppercase tracking-wider">Immediate Next Actions & Compliance Checklist</h2>
-            </div>
-            
-            <div className="space-y-3">
-              {/* Task 1 */}
-              <div className="bg-white rounded-lg border border-outline-variant/30 p-4 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="flex items-start gap-4">
-                  <div className="text-orange-500 mt-0.5 shrink-0"><span className="material-symbols-outlined">medical_services</span></div>
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <p className="font-bold text-sm text-on-surface">Urgent: Complete Pediatric Dental & Nutritional Panel</p>
-                      <span className="bg-red-100 text-red-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">High / Level 1 Medical</span>
-                    </div>
-                    <p className="text-xs text-on-surface-variant">Assigned to: <span className="font-medium text-on-surface">Dr. V. Menon (District Health Clinic)</span> • Due: <span className="font-bold text-on-surface">Nov 18, 2023</span></p>
-                  </div>
-                </div>
-                <button className="bg-[#f0f6ff] text-[#0e3b8a] text-xs font-bold px-4 py-2 rounded hover:bg-[#e1edff] transition-colors shrink-0 sm:ml-auto">Log Findings</button>
-              </div>
-
-              {/* Task 2 */}
-              <div className="bg-white rounded-lg border border-outline-variant/30 p-4 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="flex items-start gap-4">
-                  <div className="text-[#0e3b8a] mt-0.5 shrink-0"><span className="material-symbols-outlined">location_on</span></div>
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <p className="font-bold text-sm text-on-surface">Family Tracing & Kinship Readiness Home Visit (Maternal Aunt Tara Devi)</p>
-                      <span className="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Kinship Assessment</span>
-                    </div>
-                    <p className="text-xs text-on-surface-variant">Assigned to: <span className="font-medium text-on-surface">Bikash Karki (Field Ops)</span> • Due: <span className="font-bold text-on-surface">Nov 21, 2023</span></p>
-                  </div>
-                </div>
-                <button className="bg-[#f0f6ff] text-[#0e3b8a] text-xs font-bold px-4 py-2 rounded hover:bg-[#e1edff] transition-colors shrink-0 sm:ml-auto">Submit Report</button>
-              </div>
-
-              {/* Task 3 */}
-              <div className="bg-white rounded-lg border border-outline-variant/30 p-4 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="flex items-start gap-4">
-                  <div className="text-purple-600 mt-0.5 shrink-0"><span className="material-symbols-outlined">psychology</span></div>
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <p className="font-bold text-sm text-on-surface">Trauma Counseling Intake Session 2/5</p>
-                      <span className="bg-purple-100 text-purple-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Psychosocial</span>
-                    </div>
-                    <p className="text-xs text-on-surface-variant">Assigned to: <span className="font-medium text-on-surface">Maya Shrestha (Clinical Psychologist)</span> • Due: <span className="font-bold text-on-surface">Nov 24, 2023</span></p>
-                  </div>
-                </div>
-                <button className="bg-[#f0f6ff] text-[#0e3b8a] text-xs font-bold px-4 py-2 rounded hover:bg-[#e1edff] transition-colors shrink-0 sm:ml-auto">Review Notes</button>
-              </div>
-
-              {/* Task 4 */}
-              <div className="bg-white rounded-lg border border-outline-variant/30 p-4 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="flex items-start gap-4">
-                  <div className="text-fuchsia-600 mt-0.5 shrink-0"><span className="material-symbols-outlined">gavel</span></div>
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <p className="font-bold text-sm text-on-surface">Interim Custody Extension Filing at Juvenile Court</p>
-                      <span className="bg-fuchsia-100 text-fuchsia-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Judicial Order</span>
-                    </div>
-                    <p className="text-xs text-on-surface-variant">Assigned to: <span className="font-medium text-on-surface">Advocate T. Sen (Legal Aid)</span> • Due: <span className="font-bold text-on-surface">Nov 30, 2023</span></p>
-                  </div>
-                </div>
-                <button className="bg-[#f0f6ff] text-[#0e3b8a] text-xs font-bold px-4 py-2 rounded hover:bg-[#e1edff] transition-colors shrink-0 sm:ml-auto">View Motion</button>
+              <div className="flex gap-2">
+                <button onClick={() => setIsProfileFormOpen(true)} className="flex-1 bg-white border border-outline-variant text-[#0e3b8a] text-[10px] font-bold py-1.5 rounded shadow-sm hover:bg-surface-container-low transition-colors flex items-center justify-center gap-1 uppercase tracking-wider">
+                  <span className="material-symbols-outlined text-[14px]">edit_document</span> Child Profile Form
+                </button>
+                <button onClick={() => setIsReintegrationFormOpen(true)} className="flex-1 bg-white border border-outline-variant text-[#0e3b8a] text-[10px] font-bold py-1.5 rounded shadow-sm hover:bg-surface-container-low transition-colors flex items-center justify-center gap-1 uppercase tracking-wider">
+                  <span className="material-symbols-outlined text-[14px]">family_restroom</span> Reintegration Form
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Form modal */}
-      <FormModal isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} title="Child Profile Form">
-        <div ref={formRef}>
-          <style>{`
-            .beneficiary-shell{--p:#234a7c;--pl:#e8eef5;--b:#d7dee8;--t:#1f2937;--bg:#f4f7fb;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--t)}
-            .beneficiary-shell *{box-sizing:border-box}
-            .beneficiary-shell .shell{max-width:1180px;margin:0 auto;padding:0 18px}
-            .beneficiary-shell .card{background:#fff;overflow:hidden}
-            .beneficiary-shell .body{padding:25px}
-            .beneficiary-shell .section{margin:0 0 18px;padding:10px 14px;background:var(--pl);color:var(--p);border-left:5px solid var(--p);border-radius:5px;font-size:15px;font-weight:700}
-            .beneficiary-shell .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:24px}
-            .beneficiary-shell .full{grid-column:1/-1}
-            .beneficiary-shell .field{display:flex;flex-direction:column;gap:6px}
-            .beneficiary-shell label{font-size:13px;font-weight:700}
-            .beneficiary-shell input,.beneficiary-shell select,.beneficiary-shell textarea{width:100%;border:1px solid #cfd7e3;border-radius:8px;padding:10px 11px;font:inherit;font-size:13px;background:#fff;outline:none}
-            .beneficiary-shell input:focus,.beneficiary-shell select:focus,.beneficiary-shell textarea:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(35,74,124,.1)}
-            .beneficiary-shell textarea{min-height:105px;resize:vertical}
-            .beneficiary-shell .actions{display:flex;justify-content:flex-end;gap:9px;border-top:1px solid var(--b);padding-top:18px}
-            .beneficiary-shell button{border:0;border-radius:8px;padding:10px 17px;font-weight:700;cursor:pointer}
-            .beneficiary-shell .primary{background:var(--p);color:white}
-            .beneficiary-shell .secondary{background:#eef2f7;color:#26364a}
-            .beneficiary-shell .status{display:none;margin-top:12px;padding:9px 11px;border-radius:8px;background:#edf7ef;color:#25613a;font-size:13px}
-            @media(max-width:760px){
-              .beneficiary-shell .grid{grid-template-columns:1fr}
-              .beneficiary-shell .full{grid-column:auto}
-              .beneficiary-shell .body{padding:17px}
-            }
-          `}</style>
+      {/* Top Tabs */}
+      <div className="bg-white px-8 pt-4 border-b border-outline-variant/30 sticky top-0 z-10 flex items-center gap-6 overflow-x-auto">
+        <button 
+          onClick={() => setActiveTab('dossier')}
+          className={`flex items-center gap-2 pb-3 font-semibold text-sm border-b-2 transition-colors min-w-max ${activeTab === 'dossier' ? 'border-[#0e3b8a] text-[#0e3b8a]' : 'border-transparent text-on-surface-variant hover:text-on-surface'}`}
+        >
+          <span className="material-symbols-outlined text-[18px]">dashboard</span>
+          Unified Protection Dossier
+        </button>
+        <button 
+          onClick={() => setActiveTab('assessment')}
+          className={`flex items-center gap-2 pb-3 font-semibold text-sm border-b-2 transition-colors min-w-max ${activeTab === 'assessment' ? 'border-[#0e3b8a] text-[#0e3b8a]' : 'border-transparent text-on-surface-variant hover:text-on-surface'}`}
+        >
+          <span className="material-symbols-outlined text-[18px]">fact_check</span>
+          Assessment
+        </button>
+        <button 
+          onClick={() => setActiveTab('planning')}
+          className={`flex items-center gap-2 pb-3 font-semibold text-sm border-b-2 transition-colors min-w-max ${activeTab === 'planning' ? 'border-[#0e3b8a] text-[#0e3b8a]' : 'border-transparent text-on-surface-variant hover:text-on-surface'}`}
+        >
+          <span className="material-symbols-outlined text-[18px]">event_note</span>
+          Case Planning
+        </button>
+        <button 
+          onClick={() => setActiveTab('support')}
+          className={`flex items-center gap-2 pb-3 font-semibold text-sm border-b-2 transition-colors min-w-max ${activeTab === 'support' ? 'border-[#0e3b8a] text-[#0e3b8a]' : 'border-transparent text-on-surface-variant hover:text-on-surface'}`}
+        >
+          <span className="material-symbols-outlined text-[18px]">volunteer_activism</span>
+          Support Management
+        </button>
+        <button 
+          onClick={() => setActiveTab('followup')}
+          className={`flex items-center gap-2 pb-3 font-semibold text-sm border-b-2 transition-colors min-w-max ${activeTab === 'followup' ? 'border-[#0e3b8a] text-[#0e3b8a]' : 'border-transparent text-on-surface-variant hover:text-on-surface'}`}
+        >
+          <span className="material-symbols-outlined text-[18px]">calendar_month</span>
+          Follow-up &amp; Monitoring
+        </button>
+        <button 
+          onClick={() => setActiveTab('reintegration')}
+          className={`flex items-center gap-2 pb-3 font-semibold text-sm border-b-2 transition-colors min-w-max ${activeTab === 'reintegration' ? 'border-[#0e3b8a] text-[#0e3b8a]' : 'border-transparent text-on-surface-variant hover:text-on-surface'}`}
+        >
+          <span className="material-symbols-outlined text-[18px]">u_turn_right</span>
+          Reintegration
+        </button>
+        <button 
+          onClick={() => setActiveTab('rescue-handover')}
+          className={`flex items-center gap-2 pb-3 font-semibold text-sm border-b-2 transition-colors min-w-max ${['rescue-handover', 'internal-referral', 'external-referral'].includes(activeTab) ? 'border-[#0e3b8a] text-[#0e3b8a]' : 'border-transparent text-on-surface-variant hover:text-on-surface'}`}
+        >
+          <span className="material-symbols-outlined text-[18px]">emergency</span>
+          Rescue/Handover &amp; Referral
+        </button>
+        <button 
+          onClick={() => setActiveTab('case-closure')}
+          className={`flex items-center gap-2 pb-3 font-semibold text-sm border-b-2 transition-colors min-w-max ${activeTab === 'case-closure' ? 'border-[#0e3b8a] text-[#0e3b8a]' : 'border-transparent text-on-surface-variant hover:text-on-surface'}`}
+        >
+          <span className="material-symbols-outlined text-[18px]">lock</span>
+          Case Closure
+        </button>
+      </div>
 
-          <div className="beneficiary-shell">
-            <div className="shell">
-              <div className="card">
-                <div className="body">
-
-                  <div className="section">1. Basic Information</div>
-                  <div className="grid">
-                    <div className="field"><label>Profile Intake Date</label><input type="date" /></div>
-                    <div></div>
-                    <div className="field"><label>Name of Child</label><input /></div>
-                    <div className="field"><label>Date of Birth (DD/MM/YYYY)</label><input placeholder="DD/MM/YYYY" /></div>
-                    <div className="field">
-                      <label>Sex</label>
-                      <select><option></option><option>Male</option><option>Female</option><option>Other</option></select>
-                    </div>
-                    <div className="field full"><label>Address</label><textarea></textarea></div>
-                    <div className="field full"><label>Previous Academic Status / School</label><textarea></textarea></div>
-                    <div className="field"><label>Father's Name (name, age etc.)</label><input /></div>
-                    <div className="field"><label>Mother's Name</label><input /></div>
-                    <div className="field"><label>Grandfather's Name</label><input /></div>
-                    <div className="field"><label>Grandmother's Name</label><input /></div>
-                    <div className="field full"><label>Legal Documents of Child</label><textarea></textarea></div>
-                    <div className="field"><label>Occupation of Family</label><input /></div>
-                    <div className="field"><label>Primary Income Source of Family</label><input /></div>
-                    <div className="field full"><label>Siblings</label><textarea placeholder="Name, age, sex and other relevant details"></textarea></div>
-                    <div className="field full"><label>Other Relatives (Name and Relationship with the Child)</label><textarea></textarea></div>
-                    <div className="field full"><label>Any Other Information Provided by Child</label><textarea></textarea></div>
-                    <div className="field"><label>Height and Weight</label><input /></div>
-                    <div className="field"><label>Health Status</label><textarea></textarea></div>
-                    <div className="field"><label>Relationship with Family</label><textarea></textarea></div>
-                    <div className="field"><label>Contact Details</label><input placeholder="Phone / Mobile / Email" /></div>
+      {/* Main Content */}
+      <div className="p-6 md:p-8 max-w-[1400px] mx-auto w-full">
+        {activeTab === 'dossier' && (
+          <div className="space-y-6">
+            
+            {/* Header Module Card */}
+            <div className="bg-[#f5f7fc] rounded-xl border border-outline-variant/50 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-[#0e3b8a] rounded-lg text-white flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-[28px]">account_tree</span>
+                </div>
+                <div>
+                  <div className="flex items-center gap-3 mb-1">
+                    <h1 className="text-xl font-bold text-on-surface">Comprehensive Case Dossier: Internal Modules Architecture</h1>
+                    <span className="bg-blue-100 text-[#0e3b8a] text-[10px] font-bold px-2 py-1 rounded tracking-wider uppercase">Case # CAS-8982-NPT</span>
                   </div>
-
-                  <div className="section">2. Rescue / Handover Information</div>
-                  <div className="grid">
-                    <div className="field"><label>Date of Rescue / Handover</label><input type="date" /></div>
-                    <div className="field full"><label>Circumstance of Rescue / Handover</label><textarea></textarea></div>
-                    <div className="field full"><label>Organization / Place from Where Child Was Rescued From / Handed Over</label><input /></div>
-                    <div className="field"><label>Time Spent in Organization Before Handover</label><input /></div>
-                    <div className="field"><label>Reason Why Child Was in the Organization / Job</label><textarea></textarea></div>
-                    <div className="field full"><label>With Whom the Child Travelled to India / Work Location</label><input /></div>
-                  </div>
-
-                  <div className="section">3. Case Study and Assessment</div>
-                  <div className="grid">
-                    <div className="field full"><label>Case Study</label><textarea></textarea></div>
-                    <div className="field"><label>Reintegration Status</label><textarea></textarea></div>
-                    <div className="field"><label>Education</label><textarea></textarea></div>
-                    <div className="field"><label>Vocational Training</label><textarea></textarea></div>
-                    <div className="field"><label>Risk Factors</label><textarea placeholder="Child labor; other identified risks..."></textarea></div>
-                    <div className="field"><label>Immediate Support</label><textarea></textarea></div>
-                    <div className="field full">
-                      <label>Future Plan</label>
-                      <textarea placeholder={'Short term:\nMedium term:\nLong term:'}></textarea>
-                    </div>
-                    <div className="field"><label>Follow Up Plan</label><textarea></textarea></div>
-                    <div className="field"><label>Observation by Team</label><textarea></textarea></div>
-                  </div>
-
-                  <div className="actions">
-                    <button className="secondary" type="button">Attach Files</button>
-                    <button className="secondary" type="button" onClick={handlePrint}>Print / Save PDF</button>
-                    <button className="secondary" type="button" onClick={handleClear}>Clear</button>
-                    <button className="primary" type="button" onClick={handleSaveDraft}>Save Draft</button>
-                  </div>
-                  <div ref={statusRef} className="status">Draft saved in this browser.</div>
-
+                  <p className="text-sm text-on-surface-variant">Integrated operational status across statutory Assessment, Sequenced Planning, Interventions Delivery, and Field Follow-up.</p>
                 </div>
               </div>
+              <div className="flex items-center gap-3 shrink-0">
+                <button className="bg-white text-[#0e3b8a] border border-outline-variant px-4 py-2 rounded shadow-sm text-xs font-bold flex items-center gap-2 hover:bg-surface-container-low transition-colors">
+                  <span className="material-symbols-outlined text-[16px]">print</span>
+                  Case Summary
+                </button>
+                <button className="bg-[#0e3b8a] text-white border border-[#0e3b8a] px-4 py-2 rounded shadow-sm text-xs font-bold flex items-center gap-2 hover:bg-[#0c3175] transition-colors">
+                  <span className="material-symbols-outlined text-[16px]">download</span>
+                  Export Full Dossier
+                </button>
+              </div>
+            </div>
+
+            {/* Grid Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              
+              {/* Left Column */}
+              <div className="space-y-6">
+                
+                {/* Panel A */}
+                <div className="bg-white rounded-xl border border-outline-variant/40 shadow-sm p-6 h-full">
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="flex items-center gap-2 text-[#d32f2f]">
+                      <span className="material-symbols-outlined">track_changes</span>
+                      <h2 className="font-bold text-sm text-on-surface">Panel A: Standardized Risk &amp; Needs Assessment</h2>
+                    </div>
+                    <div className="bg-[#fdf0f0] text-red-800 text-[10px] font-bold px-2 py-1 rounded border border-red-100 tracking-wider">
+                      Score: 7.4 / 10
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="border border-red-100 bg-[#fdfafb] rounded-lg p-4">
+                      <div className="flex items-center gap-1.5 text-red-700 text-[10px] font-bold tracking-wider uppercase mb-3">
+                        <span className="material-symbols-outlined text-[14px]">warning</span> Identified Vulnerabilities
+                      </div>
+                      <ul className="text-[11px] text-red-900 space-y-2 list-disc pl-3">
+                        <li>Transit interception without parental guardian</li>
+                        <li>Chronic early malnutrition &amp; mild anemia</li>
+                        <li>Mother legal custody restriction order active</li>
+                      </ul>
+                    </div>
+                    <div className="border border-green-100 bg-[#f4fcf6] rounded-lg p-4">
+                      <div className="flex items-center gap-1.5 text-green-700 text-[10px] font-bold tracking-wider uppercase mb-3">
+                        <span className="material-symbols-outlined text-[14px]">verified</span> Key Protective Factors
+                      </div>
+                      <ul className="text-[11px] text-green-900 space-y-2 list-disc pl-3">
+                        <li>Maternal Aunt Tara Devi (AFIS Biometric Verified)</li>
+                        <li>Clean municipal record &amp; home readiness</li>
+                        <li>Child demonstrates safe rapport with caseworkers</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="border-t border-outline-variant/30 pt-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="text-xs font-bold text-on-surface">Standardized Diagnostic Matrices</h3>
+                      <span className="text-[10px] text-on-surface-variant">Last re-scored: Nov 14, 2023</span>
+                    </div>
+                    <div className="grid grid-cols-3 gap-3 text-center">
+                      <div className="bg-[#f8fafd] rounded border border-outline-variant/30 p-2">
+                        <div className="text-[9px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Trauma Index</div>
+                        <div className="text-orange-500 font-bold text-lg leading-none mb-1">6.2 <span className="text-[10px] text-on-surface-variant">/ 10</span></div>
+                        <div className="text-[9px] text-on-surface-variant">Moderate</div>
+                      </div>
+                      <div className="bg-[#f8fafd] rounded border border-outline-variant/30 p-2">
+                        <div className="text-[9px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Safety Margin</div>
+                        <div className="text-green-600 font-bold text-sm leading-tight mb-1">High (8.5)</div>
+                        <div className="text-[9px] text-on-surface-variant text-green-700">Shelter Tier 1</div>
+                      </div>
+                      <div className="bg-[#f8fafd] rounded border border-outline-variant/30 p-2">
+                        <div className="text-[9px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Kinship Fit</div>
+                        <div className="text-[#0e3b8a] font-bold text-lg leading-none mb-1">8.9 <span className="text-[10px] text-on-surface-variant">/ 10</span></div>
+                        <div className="text-[9px] text-on-surface-variant">Trial Ready</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Panel C */}
+                <div className="bg-white rounded-xl border border-outline-variant/40 shadow-sm p-6">
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="flex items-center gap-2 text-[#4a148c]">
+                      <span className="material-symbols-outlined">medical_services</span>
+                      <h2 className="font-bold text-sm text-on-surface">Panel C: Support Services &amp; Interventions Delivery</h2>
+                    </div>
+                    <div className="bg-[#e8eaf6] text-[#3f51b5] text-[10px] font-bold px-2 py-1 rounded tracking-wider">
+                      4 Active Referrals
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-4 bg-[#f8f9fa] rounded-lg p-3 border border-outline-variant/20">
+                      <div className="w-8 h-8 rounded bg-yellow-100 text-yellow-700 flex items-center justify-center shrink-0">
+                        <span className="material-symbols-outlined text-[16px]">medication</span>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-xs font-bold text-on-surface">Pediatric Nutrition &amp; Dental Therapy</h4>
+                        <p className="text-[10px] text-on-surface-variant">Dr. V. Menon • District Health Clinic • Micronutrient bundle</p>
+                      </div>
+                      <div className="bg-yellow-100 text-yellow-800 text-[9px] font-bold px-2 py-0.5 rounded tracking-wider uppercase shrink-0">
+                        Active / Nov 18
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-4 bg-[#f8f9fa] rounded-lg p-3 border border-outline-variant/20">
+                      <div className="w-8 h-8 rounded bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
+                        <span className="material-symbols-outlined text-[16px]">psychology</span>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-xs font-bold text-on-surface">Trauma-Informed Art Counseling (2 of 5)</h4>
+                        <p className="text-[10px] text-on-surface-variant">Maya Shrestha (Clinical Psych) • Weekly sessions</p>
+                      </div>
+                      <div className="bg-blue-100 text-blue-800 text-[9px] font-bold px-2 py-0.5 rounded tracking-wider uppercase shrink-0">
+                        Session Nov 24
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-4 bg-[#f8f9fa] rounded-lg p-3 border border-outline-variant/20">
+                      <div className="w-8 h-8 rounded bg-purple-100 text-purple-700 flex items-center justify-center shrink-0">
+                        <span className="material-symbols-outlined text-[16px]">gavel</span>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-xs font-bold text-on-surface">Interim Custody Legal Representation</h4>
+                        <p className="text-[10px] text-on-surface-variant">Advocate T. Sen • Legal Aid Board #LA-4410</p>
+                      </div>
+                      <div className="bg-purple-100 text-purple-800 text-[9px] font-bold px-2 py-0.5 rounded tracking-wider uppercase shrink-0">
+                        Filing Nov 30
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Right Column */}
+              <div className="space-y-6">
+                
+                {/* Panel B */}
+                <div className="bg-white rounded-xl border border-outline-variant/40 shadow-sm p-6 h-full flex flex-col">
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="flex items-center gap-2 text-[#0e3b8a]">
+                      <span className="material-symbols-outlined">calendar_today</span>
+                      <h2 className="font-bold text-sm text-on-surface">Panel B: Active Sequenced Case Plan (19 Steps)</h2>
+                    </div>
+                    <div className="bg-[#e3f2fd] text-[#1565c0] text-[10px] font-bold px-2 py-1 rounded text-right tracking-wider">
+                      Step 7 of 19<br/>(42%)
+                    </div>
+                  </div>
+
+                  <div className="flex-1 relative ml-2 mt-2">
+                    {/* Timeline Line */}
+                    <div className="absolute left-3 top-2 bottom-6 w-0.5 bg-outline-variant/30"></div>
+
+                    {/* Step 6 */}
+                    <div className="relative pl-10 pb-6">
+                      <div className="absolute left-1 top-1 w-4 h-4 rounded-full bg-green-500 border-2 border-white shadow-sm z-10"></div>
+                      <div className="bg-[#f8fafd] rounded-lg p-3 border border-outline-variant/20 flex justify-between">
+                        <div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <h4 className="text-xs font-bold text-on-surface">Step 6: Kinship Home Background Clearance</h4>
+                            <span className="bg-green-100 text-green-700 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">Completed</span>
+                          </div>
+                          <p className="text-[10px] text-on-surface-variant">Maternal Aunt Tara Devi verified by Field Ops &amp; Ward Council.</p>
+                        </div>
+                        <div className="text-[9px] text-on-surface-variant font-medium text-right shrink-0">Nov<br/>12</div>
+                      </div>
+                    </div>
+
+                    {/* Step 7 */}
+                    <div className="relative pl-10 pb-6">
+                      <div className="absolute left-1 top-1 w-4 h-4 rounded-full bg-[#0e3b8a] border-2 border-white shadow-sm z-10 flex items-center justify-center">
+                        <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></div>
+                      </div>
+                      <div className="absolute left-3 top-1 bottom-0 w-0.5 bg-[#0e3b8a] z-0"></div>
+                      <div className="bg-blue-50 rounded-lg p-3 border border-blue-200 shadow-sm flex justify-between">
+                        <div>
+                          <div className="flex flex-wrap items-center gap-2 mb-1">
+                            <h4 className="text-xs font-bold text-[#0e3b8a]">Step 7: Comprehensive Needs &amp; Health Assessment</h4>
+                            <span className="bg-[#0e3b8a] text-white text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">In Progress</span>
+                          </div>
+                          <p className="text-[10px] text-blue-800">Dental, nutritional &amp; trauma screening sign-off pending.</p>
+                        </div>
+                        <div className="text-[10px] font-bold text-[#0e3b8a] text-right shrink-0">Nov<br/>20</div>
+                      </div>
+                    </div>
+
+                    {/* Step 8 */}
+                    <div className="relative pl-10">
+                      <div className="absolute left-1 top-1 w-4 h-4 rounded-full bg-outline-variant border-2 border-white shadow-sm z-10"></div>
+                      <div className="p-3 flex justify-between opacity-60 grayscale">
+                        <div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <h4 className="text-xs font-bold text-on-surface">Step 8: Court Interim Care Order Review</h4>
+                            <span className="bg-surface-variant text-on-surface-variant text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">Pending</span>
+                          </div>
+                          <p className="text-[10px] text-on-surface-variant">Filing extension motion to Juvenile Court by Legal Aid.</p>
+                        </div>
+                        <div className="text-[9px] text-on-surface-variant font-medium text-right shrink-0">Nov 28</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-outline-variant/30 flex justify-between items-center text-xs">
+                    <span className="text-on-surface-variant">Next Multidisciplinary Conference:</span>
+                    <span className="font-bold text-[#0e3b8a] flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">groups</span> Nov 26, 2023 (10:00 AM)</span>
+                  </div>
+                </div>
+
+                {/* Panel D */}
+                <div className="bg-white rounded-xl border border-outline-variant/40 shadow-sm p-6">
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="flex items-center gap-2 text-[#2e7d32]">
+                      <span className="material-symbols-outlined">edit_calendar</span>
+                      <h2 className="font-bold text-sm text-on-surface">Panel D: Monitoring &amp; Scheduled Follow-up Visits</h2>
+                    </div>
+                    <button className="text-[#0e3b8a] hover:bg-blue-50 text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1 transition-colors">
+                      <span className="material-symbols-outlined text-[14px]">add</span> Schedule Visit
+                    </button>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="border border-green-200 bg-[#f4fcf6] rounded-lg p-3">
+                      <div className="flex justify-between items-start mb-1">
+                        <div className="flex items-center gap-2">
+                          <span className="material-symbols-outlined text-green-700 text-[14px]">check_circle</span>
+                          <h4 className="text-xs font-bold text-green-900">Shelter Transit Check-in #04 (Weekly Review)</h4>
+                        </div>
+                        <span className="bg-green-700 text-white text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">Passed</span>
+                      </div>
+                      <p className="text-[10px] text-green-800 mb-2 pl-6">Conducted by Caseworker A. Gurung. Health and sleep routine stable. Child calm.</p>
+                      <p className="text-[9px] text-green-600 font-medium pl-6">Completed: Nov 14, 2023 (02:30 PM) • Verified Safe</p>
+                    </div>
+
+                    <div className="border border-blue-200 bg-blue-50/50 rounded-lg p-3">
+                      <div className="flex justify-between items-start mb-1">
+                        <div className="flex items-center gap-2">
+                          <span className="material-symbols-outlined text-[#0e3b8a] text-[14px]">event</span>
+                          <h4 className="text-xs font-bold text-on-surface">Kinship Trial Home Safety Inspection #01</h4>
+                        </div>
+                        <span className="bg-[#0e3b8a] text-white text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">Upcoming</span>
+                      </div>
+                      <p className="text-[10px] text-on-surface-variant mb-2 pl-6">Inspector: Bikash Karki (Field Ops) • Aunt Tara Devi's residence, Kaski.</p>
+                      <p className="text-[9px] text-on-surface font-bold pl-6">Scheduled: Nov 21, 2023 (11:00 AM)</p>
+                    </div>
+
+                    <div className="border border-outline-variant/30 bg-[#f8fafd] rounded-lg p-3 opacity-70">
+                      <div className="flex justify-between items-start mb-1">
+                        <div className="flex items-center gap-2">
+                          <span className="material-symbols-outlined text-on-surface-variant text-[14px]">pending_actions</span>
+                          <h4 className="text-xs font-bold text-on-surface">Post-Placement Unannounced Check-in #01</h4>
+                        </div>
+                        <span className="bg-surface-variant text-on-surface-variant text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">Queued</span>
+                      </div>
+                      <p className="text-[10px] text-on-surface-variant mb-2 pl-6">Caseworker &amp; Municipal Child Welfare Inspector joint visit.</p>
+                      <p className="text-[9px] text-on-surface-variant pl-6">Target window: Dec 05 - Dec 08, 2023</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
           </div>
-        </div>
+        )}
+
+        {/* Sub-navigation Dropdown for Rescue/Handover */}
+        {['rescue-handover', 'internal-referral', 'external-referral'].includes(activeTab) && (
+          <div className="flex justify-end mb-4">
+            <select 
+              value={activeTab} 
+              onChange={(e) => setActiveTab(e.target.value)}
+              className="border border-outline-variant rounded-lg px-4 py-2 text-sm font-semibold text-on-surface bg-white shadow-sm focus:outline-none focus:border-[#0e3b8a] cursor-pointer"
+            >
+              <option value="rescue-handover">Handover</option>
+              <option value="internal-referral">Internal Referral</option>
+              <option value="external-referral">External Referral</option>
+            </select>
+          </div>
+        )}
+
+        {/* Tab Contents */}
+        {activeTab === 'assessment' && <div className="-mx-6 md:-mx-8"><Assessment /></div>}
+        {activeTab === 'planning' && <div className="-mx-6 md:-mx-8"><CasePlanning /></div>}
+        {activeTab === 'support' && <div className="-mx-6 md:-mx-8"><SupportManagement /></div>}
+        {activeTab === 'followup' && <div className="-mx-6 md:-mx-8"><FollowUp /></div>}
+        {activeTab === 'reintegration' && <div className="-mx-6 md:-mx-8"><Reintegration /></div>}
+        {activeTab === 'rescue-handover' && <div className="-mx-6 md:-mx-8"><RescueHandover /></div>}
+        {activeTab === 'internal-referral' && <div className="-mx-6 md:-mx-8"><ReferralTransfer /></div>}
+        {activeTab === 'external-referral' && <div className="-mx-6 md:-mx-8"><ExternalReferral /></div>}
+        {activeTab === 'case-closure' && <div className="-mx-6 md:-mx-8"><CaseClosure /></div>}
+      </div>
+
+      <FormModal isOpen={isProfileFormOpen} onClose={() => setIsProfileFormOpen(false)} title="Child Profile Form">
+        <ChildProfileForm />
+      </FormModal>
+
+      <FormModal isOpen={isReintegrationFormOpen} onClose={() => setIsReintegrationFormOpen(false)} title="Child Reunification / Reintegration Forms">
+        <ReintegrationActionPlanForm />
       </FormModal>
     </div>
   );
