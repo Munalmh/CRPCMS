@@ -13,7 +13,7 @@ export default function SupportManagement() {
 <div className="flex items-end justify-between mb-8">
 <div>
 <div className="flex items-center gap-2 mb-2">
-<span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest bg-surface-variant px-2 py-1 rounded">Beneficiary: Sarah Johnson</span>
+<span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest bg-surface-variant px-2 py-1 rounded">Beneficiary: Aarati Shrestha</span>
 <span className="font-label-caps text-label-caps text-on-primary uppercase tracking-widest bg-primary px-2 py-1 rounded flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">warning</span> High Priority</span>
 </div>
 <h1 className="font-display-lg text-display-lg text-on-surface m-0 p-0 leading-none">Support Management</h1>

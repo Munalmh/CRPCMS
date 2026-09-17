@@ -28,7 +28,7 @@ export default function BeneficiaryProfile() {
           <div className="relative shrink-0 flex flex-col items-center">
             <img 
               src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=300&h=300&fit=crop" 
-              alt="Sarah Johnson" 
+              alt="Aarati Shrestha" 
               className="w-32 h-32 rounded-lg object-cover shadow-md border border-outline-variant/30"
             />
             <div className="absolute -bottom-3 flex items-center gap-1 bg-white border border-[#0e3b8a] text-[#0e3b8a] text-[10px] font-bold px-2 py-1 rounded shadow-sm tracking-wider">
@@ -47,11 +47,11 @@ export default function BeneficiaryProfile() {
                 </span>
                 <span className="bg-red-100 text-red-800 text-[10px] font-bold px-2 py-0.5 rounded tracking-wider uppercase ml-auto lg:ml-0 border border-red-200">Tier 1 High Intervention</span>
               </div>
-              <h1 className="text-3xl font-bold text-on-surface mb-4">Sarah Johnson</h1>
+              <h1 className="text-3xl font-bold text-on-surface mb-4">Aarati Shrestha</h1>
               
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-on-surface-variant">
                 <div>
-                  <p className="text-xs font-medium text-outline">DOB: Mar 14, 2015</p>
+                  <p className="text-xs font-medium text-outline">DOB: 2071-12-01 BS</p>
                   <p className="font-semibold text-on-surface text-xs">(8y 8m)</p>
                 </div>
                 <div>
