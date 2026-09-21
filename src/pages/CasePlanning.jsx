@@ -205,43 +205,6 @@ export default function CasePlanning() {
 </section>
 {/* Right Column: Context & Metadata */}
 <aside className="lg:col-span-4 flex flex-col gap-6">
-{/* Beneficiary Snapshot Card */}
-<div className="bg-surface-container rounded-3xl p-6 shadow-sm flex flex-col gap-4 relative overflow-hidden">
-<div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
-<span className="material-symbols-outlined text-[100px]">face</span>
-</div>
-<div className="flex items-center gap-4 relative z-10">
-<div className="w-16 h-16 rounded-full overflow-hidden border-2 border-surface shadow-sm">
-<img className="w-full h-full object-cover" alt="Aarati Shrestha" src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=300&h=300&fit=crop"/>
-</div>
-<div>
-<h3 className="font-headline-md text-headline-md text-on-surface">Aarati Shrestha</h3>
-<div className="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
-<span className="material-symbols-outlined text-[14px]">cake</span> Age: 8
-              </div>
-</div>
-</div>
-<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2 relative z-10">
-<div className="flex flex-col">
-<span className="font-label-caps text-label-caps text-on-surface-variant uppercase">Risk Level</span>
-<span className="font-body-md text-body-md text-error font-semibold flex items-center gap-1">
-<span className="material-symbols-outlined text-[14px]">warning</span> High
-              </span>
-</div>
-<div className="flex flex-col">
-<span className="font-label-caps text-label-caps text-on-surface-variant uppercase">Placement</span>
-<span className="font-body-md text-body-md text-on-surface font-semibold">District 4 Transit Shelter</span>
-</div>
-<div className="flex flex-col">
-<span className="font-label-caps text-label-caps text-on-surface-variant uppercase">Case Worker</span>
-<span className="font-body-md text-body-md text-on-surface font-semibold">Anjali Gurung</span>
-</div>
-<div className="flex flex-col">
-<span className="font-label-caps text-label-caps text-on-surface-variant uppercase">Days in System</span>
-<span className="font-body-md text-body-md text-on-surface font-semibold">14 Days</span>
-</div>
-</div>
-</div>
 {/* Plan Team */}
 <div className="bg-surface-container-low rounded-2xl p-6 shadow-sm">
 <h3 className="font-headline-sm text-headline-sm text-on-surface mb-4">Multi-Disciplinary Team</h3>
