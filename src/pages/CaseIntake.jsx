@@ -3,6 +3,7 @@ import FormModal from '../components/FormModal';
 
 export default function CaseIntake() {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('All Inquiries');
   const formRef = useRef(null);
   const statusRef = useRef(null);
   const STORAGE_KEY = 'Child_Entry___Admission_Form';
@@ -69,7 +70,9 @@ export default function CaseIntake() {
         {/* Tabs */}
         <div className="flex items-center justify-between border-b border-outline-variant/40 mb-8 overflow-x-auto hide-scrollbar">
           <div className="flex items-center gap-6 min-w-max">
-            <button className="flex items-center gap-2 pb-3 border-b-2 border-[#0e3b8a] text-[#0e3b8a] font-semibold text-sm">
+            <button 
+              onClick={() => setActiveTab('All Inquiries')}
+              className={`flex items-center gap-2 pb-3 border-b-2 font-medium text-sm transition-colors ${activeTab === 'All Inquiries' ? 'border-[#0e3b8a] text-[#0e3b8a] font-semibold' : 'border-transparent text-on-surface-variant hover:text-on-surface'}`}>
               <span className="material-symbols-outlined text-[18px]">grid_view</span>
               All Inquiries
             </button>
@@ -93,6 +96,12 @@ export default function CaseIntake() {
               <span className="material-symbols-outlined text-[18px]">volunteer_activism</span>
               Support Management
             </button>
+            <button 
+              onClick={() => setActiveTab('Activity')}
+              className={`flex items-center gap-2 pb-3 border-b-2 font-medium text-sm transition-colors ${activeTab === 'Activity' ? 'border-[#0e3b8a] text-[#0e3b8a] font-semibold' : 'border-transparent text-on-surface-variant hover:text-on-surface'}`}>
+              <span className="material-symbols-outlined text-[18px]">history</span>
+              Activity
+            </button>
           </div>
           <button className="pb-3 text-on-surface-variant">
             <span className="material-symbols-outlined text-[20px]">swap_horiz</span>
@@ -100,6 +109,7 @@ export default function CaseIntake() {
         </div>
 
         {/* Metric Cards */}
+        {activeTab === 'All Inquiries' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
           <div className="bg-[#f0f6ff] rounded-xl p-5 relative overflow-hidden">
             <div className="flex justify-between items-start mb-4">
@@ -154,10 +164,12 @@ export default function CaseIntake() {
             </div>
           </div>
         </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             {/* Table Section */}
+            {activeTab === 'All Inquiries' && (
             <div className="bg-white rounded-xl border border-outline-variant/40 shadow-sm overflow-hidden flex flex-col">
               <div className="flex items-center justify-between p-5 border-b border-outline-variant/30">
                 <div className="flex items-center gap-2">
@@ -210,8 +222,10 @@ export default function CaseIntake() {
                 </table>
               </div>
             </div>
+            )}
 
             {/* Recent System Activity Section */}
+            {activeTab === 'Activity' && (
             <div className="bg-white rounded-xl border border-outline-variant/40 shadow-sm p-6">
               <div className="flex items-center gap-2 mb-6">
                 <span className="material-symbols-outlined text-[#0e3b8a]">history</span>
@@ -256,6 +270,7 @@ export default function CaseIntake() {
                 </div>
               </div>
             </div>
+            )}
           </div>
 
           <div className="lg:col-span-1">
