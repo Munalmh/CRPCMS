@@ -212,12 +212,12 @@ export default function CasePlanning() {
 </div>
 <div className="flex items-center gap-4 relative z-10">
 <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-surface shadow-sm">
-<img className="w-full h-full object-cover" data-alt="A softly lit, sensitive portrait placeholder showing the silhouette or obscured face of a youth to maintain anonymity, warm tones, professional clinical setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0LlRhVKhIyrNgIS3o1P1H3Wp_gBxwSYd2njKCkoMP_e99MSCXpuCd-R_hP45Wmh9tv0uT7f0wwDJ0DRtHUvy2i0RIyekNbfT4GHF760z20x51lIBcek0gnym5hkBoYMeWrxLaWQMfXxoCQHA9ANWtHSmiROMkwg18SdNQqBgDyRp02fGvqWz6LiaMnvGxJYd7zj_fD_nPq8wAiPYrUz4ZH4Xp62S5-SCpbF3qz0h6c8yaIMUGQ1GZ"/>
+<img className="w-full h-full object-cover" alt="Aarati Shrestha" src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=300&h=300&fit=crop"/>
 </div>
 <div>
-<h3 className="font-headline-md text-headline-md text-on-surface">Maya T.</h3>
+<h3 className="font-headline-md text-headline-md text-on-surface">Aarati Shrestha</h3>
 <div className="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
-<span className="material-symbols-outlined text-[14px]">cake</span> Age: 14
+<span className="material-symbols-outlined text-[14px]">cake</span> Age: 8
               </div>
 </div>
 </div>
@@ -230,11 +230,11 @@ export default function CasePlanning() {
 </div>
 <div className="flex flex-col">
 <span className="font-label-caps text-label-caps text-on-surface-variant uppercase">Placement</span>
-<span className="font-body-md text-body-md text-on-surface font-semibold">Safe House A</span>
+<span className="font-body-md text-body-md text-on-surface font-semibold">District 4 Transit Shelter</span>
 </div>
 <div className="flex flex-col">
 <span className="font-label-caps text-label-caps text-on-surface-variant uppercase">Case Worker</span>
-<span className="font-body-md text-body-md text-on-surface font-semibold">Sarah Jenkins</span>
+<span className="font-body-md text-body-md text-on-surface font-semibold">Anjali Gurung</span>
 </div>
 <div className="flex flex-col">
 <span className="font-label-caps text-label-caps text-on-surface-variant uppercase">Days in System</span>
@@ -247,9 +247,9 @@ export default function CasePlanning() {
 <h3 className="font-headline-sm text-headline-sm text-on-surface mb-4">Multi-Disciplinary Team</h3>
 <div className="flex flex-col gap-3">
 <div className="flex items-center gap-3 p-2 hover:bg-surface-container rounded-lg transition-colors cursor-pointer">
-<div className="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">SJ</div>
+<div className="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">AG</div>
 <div className="flex-1 min-w-0">
-<div className="font-body-md text-body-md text-on-surface truncate">Sarah Jenkins</div>
+<div className="font-body-md text-body-md text-on-surface truncate">Anjali Gurung</div>
 <div className="font-label-caps text-label-caps text-on-surface-variant truncate">Lead Case Worker</div>
 </div>
 <span className="material-symbols-outlined text-on-surface-variant">mail</span>
