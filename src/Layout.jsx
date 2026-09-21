@@ -292,13 +292,13 @@ export default function Layout() {
             <div className="h-8 w-px bg-outline-variant hidden sm:block"></div>
             <div className="flex items-center gap-3 sm:pl-2">
               <div className="text-right hidden sm:block">
-                <p className="text-sm font-semibold text-on-surface leading-none">John Doe</p>
-                <p className="font-label-caps text-[10px] text-primary mt-1">CMS-4920</p>
+                <p className="text-sm font-semibold text-on-surface leading-none">Anjali Gurung</p>
+                <p className="text-[10px] text-on-surface-variant mt-1">Lead Caseworker - CMS-4920</p>
               </div>
               <img
                 alt="Profile"
                 className="w-9 h-9 rounded-full object-cover ring-2 ring-surface-container-highest"
-                src="https://randomuser.me/api/portraits/men/32.jpg"
+                src="https://randomuser.me/api/portraits/women/44.jpg"
               />
             </div>
           </div>

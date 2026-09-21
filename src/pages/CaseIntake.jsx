@@ -362,39 +362,39 @@ export default function CaseIntake() {
 
                   <div className="section">A. Child's Personal Details</div>
                   <div className="grid">
-                    <div className="field"><label>Entry / Intake Date</label><input type="date" /></div>
-                    <div className="field"><label>Name of Child</label><input /></div>
-                    <div className="field"><label>Date of Birth</label><input placeholder="DD/MM/YYYY" /></div>
-                    <div className="field"><label>Place of Birth</label><input /></div>
-                    <div className="field full"><label>Address at Birth</label><input placeholder="District / Municipality or Rural Municipality / Ward No." /></div>
-                    <div className="field full"><label>Current / Permanent Address</label><input placeholder="District / Municipality or Rural Municipality / Ward No." /></div>
-                    <div className="field"><label>Religion</label><input /></div>
-                    <div className="field"><label>Weight</label><input /></div>
-                    <div className="field"><label>Height</label><input /></div>
-                    <div className="field"><label>Health Status</label><textarea></textarea></div>
-                    <div className="field full"><label>Doctor's General Report</label><textarea></textarea></div>
+                    <div className="field"><label>Entry / Intake Date</label><input type="date" defaultValue="2023-10-28" /></div>
+                    <div className="field"><label>Name of Child</label><input defaultValue="Aarati Shrestha" /></div>
+                    <div className="field"><label>Date of Birth</label><input placeholder="DD/MM/YYYY" defaultValue="15/03/2014" /></div>
+                    <div className="field"><label>Place of Birth</label><input defaultValue="Pokhara, Kaski" /></div>
+                    <div className="field full"><label>Address at Birth</label><input placeholder="District / Municipality or Rural Municipality / Ward No." defaultValue="Pokhara Metropolitan Ward 4, Kaski District" /></div>
+                    <div className="field full"><label>Current / Permanent Address</label><input placeholder="District / Municipality or Rural Municipality / Ward No." defaultValue="Pokhara Metropolitan Ward 4, Kaski District" /></div>
+                    <div className="field"><label>Religion</label><input defaultValue="Hinduism" /></div>
+                    <div className="field"><label>Weight</label><input defaultValue="22 kg" /></div>
+                    <div className="field"><label>Height</label><input defaultValue="120 cm" /></div>
+                    <div className="field"><label>Health Status</label><textarea defaultValue="Mild anemia, otherwise healthy."></textarea></div>
+                    <div className="field full"><label>Doctor's General Report</label><textarea defaultValue="Cleared for standard intake process. Recommended iron supplements."></textarea></div>
                     <div className="field full"><label>Photo</label><input type="file" accept="image/*" /></div>
                   </div>
 
                   <div className="section">B. Educational Status</div>
                   <div className="grid">
-                    <div className="field full"><label>Educational Status</label><textarea></textarea></div>
-                    <div className="field"><label>School Name (if previously attended)</label><input /></div>
-                    <div className="field"><label>School Address</label><input /></div>
-                    <div className="field"><label>Class / Grade</label><input /></div>
+                    <div className="field full"><label>Educational Status</label><textarea defaultValue="Dropped out from Grade 2. Out of school for 1 year."></textarea></div>
+                    <div className="field"><label>School Name (if previously attended)</label><input defaultValue="Pokhara-4 Community Basic School" /></div>
+                    <div className="field"><label>School Address</label><input defaultValue="Pokhara-4" /></div>
+                    <div className="field"><label>Class / Grade</label><input defaultValue="2" /></div>
                   </div>
 
                   <div className="section">C. Father's / Male Guardian's Details</div>
                   <div className="grid">
-                    <div className="field"><label>Name</label><input /></div>
-                    <div className="field"><label>Age</label><input /></div>
-                    <div className="field full"><label>Physical Condition</label><textarea></textarea></div>
-                    <div className="field full"><label>Address</label><input /></div>
+                    <div className="field"><label>Name</label><input defaultValue="Ramesh Shrestha" /></div>
+                    <div className="field"><label>Age</label><input defaultValue="35" /></div>
+                    <div className="field full"><label>Physical Condition</label><textarea defaultValue="Healthy"></textarea></div>
+                    <div className="field full"><label>Address</label><input defaultValue="Unknown (Currently away for work)" /></div>
                     <div className="field">
                       <label>Is Father Alive?</label>
-                      <select><option></option><option>Yes</option><option>No</option></select>
+                      <select defaultValue="Yes"><option></option><option>Yes</option><option>No</option></select>
                     </div>
-                    <div className="field"><label>If Alive, Occupation</label><input /></div>
+                    <div className="field"><label>If Alive, Occupation</label><input defaultValue="Laborer" /></div>
                     <div className="field"><label>If Deceased, Year of Death</label><input /></div>
                     <div className="field"><label>If Deceased, Place of Death</label><input /></div>
                     <div className="field full"><label>Reason / Circumstances of Death</label><textarea></textarea></div>
@@ -404,15 +404,15 @@ export default function CaseIntake() {
 
                   <div className="section">D. Mother's / Female Guardian's Details</div>
                   <div className="grid">
-                    <div className="field"><label>Name</label><input /></div>
-                    <div className="field"><label>Age</label><input /></div>
-                    <div className="field full"><label>Physical Condition</label><textarea></textarea></div>
-                    <div className="field full"><label>Address</label><input /></div>
+                    <div className="field"><label>Name</label><input defaultValue="Sita Shrestha" /></div>
+                    <div className="field"><label>Age</label><input defaultValue="32" /></div>
+                    <div className="field full"><label>Physical Condition</label><textarea defaultValue="Healthy"></textarea></div>
+                    <div className="field full"><label>Address</label><input defaultValue="Unknown (Missing)" /></div>
                     <div className="field">
                       <label>Is Mother Alive?</label>
-                      <select><option></option><option>Yes</option><option>No</option></select>
+                      <select defaultValue="Yes"><option></option><option>Yes</option><option>No</option></select>
                     </div>
-                    <div className="field"><label>If Alive, Occupation</label><input /></div>
+                    <div className="field"><label>If Alive, Occupation</label><input defaultValue="Domestic Worker" /></div>
                     <div className="field"><label>If Deceased, Year of Death</label><input /></div>
                     <div className="field"><label>If Deceased, Place of Death</label><input /></div>
                     <div className="field full"><label>Reason / Circumstances of Death</label><textarea></textarea></div>
@@ -429,11 +429,11 @@ export default function CaseIntake() {
                       {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
                         <tr key={n}>
                           <td>{n}</td>
-                          <td><input /></td>
-                          <td><input /></td>
-                          <td><input /></td>
-                          <td><input /></td>
-                          <td><input /></td>
+                          <td><input defaultValue={n === 1 ? "Tara Devi Shrestha" : ""} /></td>
+                          <td><input defaultValue={n === 1 ? "42" : ""} /></td>
+                          <td><input defaultValue={n === 1 ? "Aunt" : ""} /></td>
+                          <td><input defaultValue={n === 1 ? "Tailoring" : ""} /></td>
+                          <td><input defaultValue={n === 1 ? "Pokhara Metropolitan Ward 4" : ""} /></td>
                         </tr>
                       ))}
                     </tbody>
@@ -441,52 +441,52 @@ export default function CaseIntake() {
 
                   <div className="field full">
                     <label>F. Other Family Background / Reason for the Child's Admission to the Child Home</label>
-                    <textarea style={{ minHeight: '180px' }}></textarea>
+                    <textarea style={{ minHeight: '180px' }} defaultValue="Child was separated from aunt at the bus park. Found wandering alone by local police and brought to the child care home for temporary protection pending family tracing."></textarea>
                   </div>
 
                   <div className="section">G. Person / Organization Bringing the Child for Admission</div>
                   <div className="grid">
-                    <div className="field"><label>Name</label><input /></div>
-                    <div className="field"><label>If Individual — Age</label><input /></div>
-                    <div className="field full"><label>Address</label><textarea></textarea></div>
-                    <div className="field full"><label>Occupation / Organizational Details</label><textarea></textarea></div>
-                    <div className="field full"><label>Official / Business Address</label><textarea></textarea></div>
-                    <div className="field full"><label>If the Child Came for Admission Voluntarily — Details</label><textarea></textarea></div>
-                    <div className="field full"><label>Undertaking / Verification</label><textarea></textarea></div>
-                    <div className="field"><label>Thumbprint (if individual)</label><input /></div>
-                    <div className="field"><label>Official Stamp (if organization)</label><input /></div>
+                    <div className="field"><label>Name</label><input defaultValue="Officer Ram Karki" /></div>
+                    <div className="field"><label>If Individual — Age</label><input defaultValue="38" /></div>
+                    <div className="field full"><label>Address</label><textarea defaultValue="Pokhara Police Station"></textarea></div>
+                    <div className="field full"><label>Occupation / Organizational Details</label><textarea defaultValue="Police Officer, Local Police Unit"></textarea></div>
+                    <div className="field full"><label>Official / Business Address</label><textarea defaultValue="Pokhara Bus Park Police Post"></textarea></div>
+                    <div className="field full"><label>If the Child Came for Admission Voluntarily — Details</label><textarea defaultValue="N/A"></textarea></div>
+                    <div className="field full"><label>Undertaking / Verification</label><textarea defaultValue="Handed over to Child Welfare safely for temporary shelter."></textarea></div>
+                    <div className="field"><label>Thumbprint (if individual)</label><input defaultValue="Signed" /></div>
+                    <div className="field"><label>Official Stamp (if organization)</label><input defaultValue="Police Station Seal" /></div>
                   </div>
 
                   <div className="section">H. Recommendation / Supporting Documents</div>
                   <div className="grid">
                     <div className="field">
                       <label>Copy of Citizenship Certificate</label>
-                      <select><option></option><option>Attached</option><option>Not Attached</option></select>
+                      <select defaultValue="Not Attached"><option></option><option>Attached</option><option>Not Attached</option></select>
                     </div>
                     <div className="field">
                       <label>Recommendation by Any Authority</label>
-                      <select><option></option><option>Yes</option><option>No</option></select>
+                      <select defaultValue="Yes"><option></option><option>Yes</option><option>No</option></select>
                     </div>
                     <div className="field full">
                       <label>If Yes — Recommending Authority</label>
                       <div className="options">
                         <label className="option"><input type="checkbox" /> Local Administration</label>
-                        <label className="option"><input type="checkbox" /> Local Police</label>
+                        <label className="option"><input type="checkbox" defaultChecked /> Local Police</label>
                         <label className="option"><input type="checkbox" /> Government / Registered Organization</label>
                       </div>
                     </div>
-                    <div className="field"><label>Date of Application / Submission</label><input type="date" /></div>
-                    <div className="field"><label>Name of Applicant / Person Submitting</label><input /></div>
-                    <div className="field full"><label>Other Legal Documents</label><textarea></textarea></div>
-                    <div className="field"><label>Date of Child's Admission</label><input type="date" /></div>
+                    <div className="field"><label>Date of Application / Submission</label><input type="date" defaultValue="2023-10-25" /></div>
+                    <div className="field"><label>Name of Applicant / Person Submitting</label><input defaultValue="Ram Karki" /></div>
+                    <div className="field full"><label>Other Legal Documents</label><textarea defaultValue="Police Report No. 1245"></textarea></div>
+                    <div className="field"><label>Date of Child's Admission</label><input type="date" defaultValue="2023-10-28" /></div>
                   </div>
 
                   <div className="section">I. Staff Member Conducting the Admission</div>
                   <div className="grid">
-                    <div className="field"><label>Signature</label><input /></div>
-                    <div className="field"><label>Full Name</label><input /></div>
-                    <div className="field"><label>Designation / Position</label><input /></div>
-                    <div className="field"><label>Grade / Level</label><input /></div>
+                    <div className="field"><label>Signature</label><input defaultValue="M.Silva" /></div>
+                    <div className="field"><label>Full Name</label><input defaultValue="Maria Silva" /></div>
+                    <div className="field"><label>Designation / Position</label><input defaultValue="Intake Officer" /></div>
+                    <div className="field"><label>Grade / Level</label><input defaultValue="Level 4" /></div>
                   </div>
 
                   <div className="actions">

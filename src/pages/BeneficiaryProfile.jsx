@@ -19,96 +19,132 @@ export default function BeneficiaryProfile() {
   const [isRescueDropdownOpen, setIsRescueDropdownOpen] = useState(false);
 
   return (
-    <div className="flex flex-col w-full h-full relative bg-[#f4f7fb] overflow-y-auto">
+    <div className="flex flex-col w-full h-full relative bg-[#edf2f9] overflow-y-auto">
       <div className="p-6 md:p-8 max-w-[1400px] mx-auto w-full pb-0">
-        {/* Top Header Card */}
-        <div className="bg-white rounded-xl border border-outline-variant/40 shadow-sm p-6 mb-6 flex flex-col lg:flex-row gap-6 relative">
+        {/* Top Header Section */}
+        <div className="mb-6 flex flex-col lg:flex-row gap-8 relative mt-2">
           
           {/* Profile Image & Badges */}
-          <div className="relative shrink-0 flex flex-col items-center">
+          <div className="relative shrink-0 flex flex-col items-center self-start">
             <img 
               src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=300&h=300&fit=crop" 
               alt="Aarati Shrestha" 
-              className="w-32 h-32 rounded-lg object-cover shadow-md border border-outline-variant/30"
+              className="w-32 h-32 md:w-36 md:h-36 rounded-xl object-cover shadow-sm border border-outline-variant/30"
             />
-            <div className="absolute -bottom-3 flex items-center gap-1 bg-white border border-[#0e3b8a] text-[#0e3b8a] text-[10px] font-bold px-2 py-1 rounded shadow-sm tracking-wider">
+            <div className="absolute -bottom-3.5 flex items-center gap-1.5 bg-white text-[#0e3b8a] text-[10px] font-bold px-3 py-1.5 rounded-full shadow-sm tracking-widest uppercase">
               <span className="material-symbols-outlined text-[14px]">fingerprint</span>
               AFIS VERIFIED
             </div>
           </div>
 
           {/* Profile Info */}
-          <div className="flex-1 flex flex-col justify-between">
-            <div>
-              <div className="flex items-center gap-3 mb-2 flex-wrap">
-                <span className="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded tracking-wider">CAS-8902-NPT</span>
-                <span className="flex items-center gap-1 bg-green-100 text-green-800 text-xs font-bold px-2 py-0.5 rounded tracking-wider">
-                  <span className="w-2 h-2 rounded-full bg-green-500"></span> Active Monitoring
-                </span>
-                <span className="bg-red-100 text-red-800 text-[10px] font-bold px-2 py-0.5 rounded tracking-wider uppercase ml-auto lg:ml-0 border border-red-200">Tier 1 High Intervention</span>
+          <div className="flex-1 flex flex-col">
+            <div className="flex items-center gap-3 mb-2 flex-wrap">
+              <span className="bg-[#e4ebf5] text-[#0e3b8a] text-[11px] font-bold px-2 py-1 rounded tracking-widest uppercase border border-[#d0dcf0]">CAS-8902-NPT</span>
+              <span className="flex items-center gap-1.5 bg-[#e6f4ea] text-green-800 text-[11px] font-bold px-2 py-1 rounded tracking-wider border border-green-200">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span> Active Monitoring
+              </span>
+            </div>
+            
+            <div className="flex items-center gap-3 mb-3 flex-wrap">
+              <span className="bg-[#fce8e6] text-red-800 text-[10px] font-bold px-2 py-1 rounded tracking-widest uppercase border border-red-200">Tier 1 High Intervention</span>
+              <span className="text-[11px] font-medium text-on-surface-variant">Province 4 • Gandaki</span>
+            </div>
+
+            <div className="flex items-baseline gap-3 mb-5">
+              <h1 className="text-[28px] md:text-[32px] font-bold text-on-surface tracking-tight leading-none">Aarati Shrestha</h1>
+              <span className="text-[16px] text-on-surface-variant/80 font-medium">(आरती श्रेष्ठ)</span>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4 text-sm text-on-surface-variant">
+              <div className="flex flex-col gap-4">
+                <div>
+                  <p className="text-[11px] font-medium text-on-surface-variant/70 mb-0.5">DOB (BS): 2071-12-01 BS <span className="font-semibold text-on-surface-variant/50">(8y 8m)</span></p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="material-symbols-outlined text-[16px] text-[#0e3b8a]/70 mt-0.5 shrink-0">location_on</span>
+                  <div>
+                    <p className="text-[11px] font-medium text-on-surface-variant/70 mb-0.5">Jurisdiction:</p>
+                    <p className="text-[11px] font-medium text-on-surface">Pokhara Metropolitan<br/>Ward 4, Kaski District</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="material-symbols-outlined text-[16px] text-[#0e3b8a]/70 mt-0.5 shrink-0">badge</span>
+                  <div>
+                    <p className="text-[11px] font-medium text-on-surface-variant/70 mb-0.5">Lead Caseworker:</p>
+                    <p className="text-[11px] font-medium text-on-surface">Anjali Gurung (CMS-4920)</p>
+                  </div>
+                </div>
               </div>
-              <h1 className="text-3xl font-bold text-on-surface mb-4">Aarati Shrestha</h1>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-on-surface-variant">
+              <div className="flex flex-col gap-4">
                 <div>
-                  <p className="text-xs font-medium text-outline">DOB: 2071-12-01 BS</p>
-                  <p className="font-semibold text-on-surface text-xs">(8y 8m)</p>
+                  <p className="text-[11px] font-medium text-on-surface-variant/70 mb-0.5">Gender: Female</p>
                 </div>
-                <div>
-                  <p className="text-xs font-medium text-outline">Gender: Female</p>
-                </div>
-                <div className="col-span-2">
-                  <p className="text-xs font-medium text-outline">National ID: BC-992-8810-KA</p>
-                </div>
-                
-                <div className="col-span-2 flex items-start gap-1">
-                  <span className="material-symbols-outlined text-[16px] text-outline mt-0.5">location_city</span>
+                <div className="flex items-start gap-2">
+                  <span className="material-symbols-outlined text-[16px] text-[#0e3b8a]/70 mt-0.5 shrink-0">domain</span>
                   <div>
-                    <p className="text-xs font-medium text-outline">Placement:</p>
-                    <p className="font-semibold text-on-surface text-xs">District 4 Transit Shelter<br/>(Care Placement 02)</p>
+                    <p className="text-[11px] font-medium text-on-surface-variant/70 mb-0.5">Placement:</p>
+                    <p className="text-[11px] font-medium text-on-surface">District 4 Transit Shelter<br/>(Kaski Care-02)</p>
                   </div>
                 </div>
-                <div className="col-span-2 flex items-start gap-1">
-                  <span className="material-symbols-outlined text-[16px] text-outline mt-0.5">assignment_ind</span>
+                <div className="flex items-start gap-2">
+                  <span className="material-symbols-outlined text-[16px] text-[#0e3b8a]/70 mt-0.5 shrink-0">family_restroom</span>
                   <div>
-                    <p className="text-xs font-medium text-outline">Lead:</p>
-                    <p className="font-semibold text-on-surface text-xs">A. Gurung<br/>(CMS-4920)</p>
+                    <p className="text-[11px] font-medium text-on-surface-variant/70 mb-0.5">Kinship Anchor:</p>
+                    <p className="text-[11px] font-medium text-on-surface">Aunt Tara Devi Shrestha</p>
                   </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-4">
+                <div>
+                  <p className="text-[11px] font-medium text-on-surface-variant/70 mb-0.5">National ID: BC-992-8810-KA</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Workflow Stage */}
-          <div className="lg:w-80 bg-surface-container-lowest border border-outline-variant/40 rounded-lg p-5 flex flex-col justify-between shrink-0">
+          <div className="lg:w-80 bg-white border border-outline-variant/30 rounded-xl p-5 flex flex-col justify-between shrink-0 shadow-[0_4px_20px_rgb(0,0,0,0.03)] self-start mt-4 lg:mt-0">
             <div>
-              <div className="flex justify-between items-center mb-3">
-                <p className="text-xs font-bold text-on-surface-variant tracking-wider uppercase">Statutory Workflow Stage</p>
-                <span className="bg-blue-100 text-[#0e3b8a] text-xs font-bold px-2 py-1 rounded">42%</span>
+              <div className="flex justify-between items-start mb-4">
+                <p className="text-[10px] font-bold text-on-surface-variant tracking-widest uppercase mt-1">Statutory Workflow Stage</p>
+                <div className="bg-[#e4ebf5] text-[#0e3b8a] flex flex-col items-center px-2 py-1 rounded border border-[#d0dcf0]">
+                  <span className="text-xs font-bold leading-none mb-0.5">42%</span>
+                  <span className="text-[8px] font-bold tracking-wider uppercase">Overall</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="material-symbols-outlined text-[#0e3b8a]">fact_check</span>
-                <p className="font-bold text-[#0e3b8a] text-sm">Comprehensive Needs Assessment</p>
+              <div className="flex items-start gap-2 mb-2">
+                <span className="material-symbols-outlined text-[#0e3b8a] shrink-0 mt-0.5">fact_check</span>
+                <p className="font-bold text-[#0e3b8a] text-sm leading-tight">Comprehensive Needs &amp; Risk Assessment</p>
               </div>
-              <p className="text-xs text-on-surface-variant mb-4">Step 7 of 19 in Protection Protocol</p>
-              <div className="w-full bg-blue-100 rounded-full h-1.5 mb-5">
+              <p className="text-[10px] text-on-surface-variant mb-4 leading-relaxed">Stage 07 of 19 in National Child Protection Protocol</p>
+              
+              <div className="w-full bg-[#e0e8f5] rounded-full h-1.5 mb-3">
                 <div className="bg-[#0e3b8a] h-1.5 rounded-full" style={{ width: '42%' }}></div>
+              </div>
+              
+              <div className="flex justify-between items-center text-[9px] font-bold mb-5">
+                <span className="text-green-700 flex items-center gap-1"><span className="material-symbols-outlined text-[10px]">check_circle</span> 6 Completed</span>
+                <span className="text-[#0e3b8a] flex items-center gap-1"><span className="w-1 h-1 bg-[#0e3b8a] rounded-full"></span> Stage 07 Active</span>
+                <span className="text-on-surface-variant/60">12 Remaining</span>
               </div>
             </div>
             <div className="flex flex-col gap-2">
               <div className="flex gap-2">
-                <button className="flex-1 bg-white border border-outline-variant text-on-surface text-xs font-semibold py-2 rounded shadow-sm hover:bg-surface-container-low transition-colors flex items-center justify-center gap-1">
-                  <span className="material-symbols-outlined text-[16px]">groups</span> Multi-Disc Review
+                <button className="flex-1 bg-white border border-outline-variant text-on-surface text-[10px] font-bold py-2 rounded hover:bg-surface-container-low transition-colors flex items-center justify-center gap-1">
+                  <span className="material-symbols-outlined text-[12px]">groups</span> MDT Review (Nov 26)
                 </button>
-                <button className="flex-1 bg-[#0e3b8a] text-white text-xs font-semibold py-2 rounded shadow-sm hover:bg-[#0c3175] transition-colors flex items-center justify-center gap-1">
-                  <span className="material-symbols-outlined text-[16px]">double_arrow</span> Advance Stage
+                <button className="flex-[1.2] bg-[#0e3b8a] text-white text-[10px] font-bold py-2 rounded hover:bg-[#0c3175] transition-colors flex items-center justify-center gap-1">
+                  <span className="material-symbols-outlined text-[12px]">double_arrow</span> Advance Stage
                 </button>
               </div>
-              <div className="flex gap-2">
-                <button onClick={() => setIsProfileFormOpen(true)} className="flex-1 bg-white border border-outline-variant text-[#0e3b8a] text-[10px] font-bold py-1.5 rounded shadow-sm hover:bg-surface-container-low transition-colors flex items-center justify-center gap-1 uppercase tracking-wider">
+              <div className="flex gap-2 mt-1">
+                <button onClick={() => setIsProfileFormOpen(true)} className="flex-1 bg-white border border-outline-variant text-[#0e3b8a] text-[9px] font-bold py-1.5 rounded shadow-sm hover:bg-surface-container-low transition-colors flex items-center justify-center gap-1 uppercase tracking-wider">
                   <span className="material-symbols-outlined text-[14px]">edit_document</span> Child Profile Form
                 </button>
-                <button onClick={() => setIsReintegrationFormOpen(true)} className="flex-1 bg-white border border-outline-variant text-[#0e3b8a] text-[10px] font-bold py-1.5 rounded shadow-sm hover:bg-surface-container-low transition-colors flex items-center justify-center gap-1 uppercase tracking-wider">
+                <button onClick={() => setIsReintegrationFormOpen(true)} className="flex-1 bg-white border border-outline-variant text-[#0e3b8a] text-[9px] font-bold py-1.5 rounded shadow-sm hover:bg-surface-container-low transition-colors flex items-center justify-center gap-1 uppercase tracking-wider">
                   <span className="material-symbols-outlined text-[14px]">family_restroom</span> Reintegration Form
                 </button>
               </div>
@@ -183,26 +219,32 @@ export default function BeneficiaryProfile() {
           <div className="space-y-6">
             
             {/* Header Module Card */}
-            <div className="bg-[#f8fafd] rounded-xl border border-outline-variant/40 p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="bg-[#f8fafd] rounded-xl border border-outline-variant/50 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-[#0e3b8a] rounded text-white flex items-center justify-center shrink-0 mt-1">
-                  <span className="material-symbols-outlined text-[20px]">account_tree</span>
+                <div className="w-12 h-12 bg-[#0e3b8a] rounded-lg text-white flex items-center justify-center shrink-0 mt-1 md:mt-0">
+                  <span className="material-symbols-outlined text-[28px]">account_tree</span>
                 </div>
                 <div>
-                  <div className="flex flex-wrap items-center gap-3 mb-1">
-                    <h1 className="text-lg font-bold text-on-surface">Comprehensive Case Dossier: Aarati Shrestha <br/><span className="text-sm font-normal text-on-surface-variant">(Pokhara Metro-04, Kaski)</span></h1>
-                    <span className="bg-blue-50 border border-blue-200 text-[#0e3b8a] text-[9px] font-bold px-1.5 py-0.5 rounded tracking-wider uppercase self-start mt-1">CASE #: CAS-8902-NPT</span>
+                  <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mb-2">
+                    <h1 className="text-xl font-bold text-[#0e3b8a] leading-tight max-w-2xl">
+                      Comprehensive Case Dossier: Aarati Shrestha (Pokhara Metro-04, Kaski)
+                    </h1>
+                    <span className="bg-blue-100 text-[#0e3b8a] text-[10px] font-bold px-2 py-1 rounded tracking-widest uppercase border border-blue-200 whitespace-nowrap w-max">
+                      CASE # CAS-8902-NPT
+                    </span>
                   </div>
-                  <p className="text-xs text-on-surface-variant max-w-2xl">Integrated operational status across statutory Assessment, Sequenced Planning, Interventions Delivery, and Field Follow-up.</p>
+                  <p className="text-sm text-on-surface-variant max-w-3xl">
+                    Integrated operational status across statutory Assessment, Sequenced Planning, Interventions Delivery, and Field Follow-up.
+                  </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <button className="bg-white text-[#0e3b8a] border border-outline-variant px-3 py-1.5 rounded shadow-sm text-[11px] font-bold flex items-center gap-1.5 hover:bg-surface-container-low transition-colors">
-                  <span className="material-symbols-outlined text-[14px]">print</span>
+              <div className="flex items-center gap-3 shrink-0 mt-2 md:mt-0">
+                <button className="bg-white text-[#0e3b8a] border border-outline-variant px-4 py-2 rounded shadow-sm text-xs font-bold flex items-center gap-2 hover:bg-surface-container-low transition-colors">
+                  <span className="material-symbols-outlined text-[16px]">print</span>
                   Case Summary
                 </button>
-                <button className="bg-[#0e3b8a] text-white border border-[#0e3b8a] px-3 py-1.5 rounded shadow-sm text-[11px] font-bold flex items-center gap-1.5 hover:bg-[#0c3175] transition-colors">
-                  <span className="material-symbols-outlined text-[14px]">download</span>
+                <button className="bg-[#0e3b8a] text-white border border-[#0e3b8a] px-4 py-2 rounded shadow-sm text-xs font-bold flex items-center gap-2 hover:bg-[#0c3175] transition-colors">
+                  <span className="material-symbols-outlined text-[16px]">download</span>
                   Export Full Dossier
                 </button>
               </div>
@@ -210,96 +252,107 @@ export default function BeneficiaryProfile() {
 
             {/* Case Lifecycle Progression & Statutory Stages Tracker */}
             <div className="bg-white rounded-xl border border-outline-variant/40 shadow-sm p-6">
-              
-              <div className="flex flex-col lg:flex-row justify-between lg:items-center gap-4 mb-6">
+              {/* Tracker Header */}
+              <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
                 <div>
-                  <div className="flex items-center gap-3 mb-1">
-                    <span className="material-symbols-outlined text-[#0e3b8a] text-[20px]">sync_alt</span>
-                    <h2 className="text-base font-bold text-on-surface">Case Lifecycle Progression &amp; Statutory Stages Tracker</h2>
-                    <span className="bg-[#e8eaf6] text-[#3f51b5] text-[10px] font-bold px-2 py-0.5 rounded tracking-wider border border-[#c5cae9]">19-Step Protection Pathway</span>
+                  <div className="flex flex-wrap items-center gap-2 text-[#0e3b8a] mb-2">
+                    <span className="material-symbols-outlined">sync_alt</span>
+                    <h2 className="text-lg font-bold">Case Lifecycle Progression &amp; Statutory Stages Tracker</h2>
+                    <span className="bg-blue-100 text-[#0e3b8a] text-[10px] font-bold px-2 py-1 rounded border border-blue-200 ml-0 lg:ml-2">19-Step Protection Pathway</span>
                   </div>
-                  <p className="text-xs text-on-surface-variant ml-8 max-w-3xl">Standardized statutory roadmap pursuant to Nepal National Child Rights Act 2075 &amp; Municipal Care Guidelines. Real-time transition tracking from interception to statutory closure.</p>
+                  <p className="text-xs text-on-surface-variant max-w-3xl">
+                    Standardized statutory roadmap pursuant to Nepal National Child Rights Act 2075 &amp; Municipal Care Guidelines. Real-time transition tracking from interception to statutory closure.
+                  </p>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-semibold shrink-0">
-                  <button className="px-3 py-1 rounded-full border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors">All (19)</button>
-                  <button className="px-3 py-1 rounded-full border border-[#b2dfdb] bg-[#e0f2f1] text-[#00695c]">Completed (6)</button>
-                  <button className="px-3 py-1 rounded-full border border-[#bbdefb] bg-[#e3f2fd] text-[#1565c0]">Active (1)</button>
-                  <button className="px-3 py-1 rounded-full border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors">Remaining (12)</button>
+                <div className="flex items-center gap-2 shrink-0 bg-surface-container-lowest p-1 rounded-lg border border-outline-variant/30 overflow-x-auto max-w-full">
+                  <button className="px-3 py-1.5 text-xs font-bold text-on-surface-variant hover:text-on-surface rounded whitespace-nowrap">All (19)</button>
+                  <button className="px-3 py-1.5 text-xs font-bold bg-[#e8f5e9] text-green-800 rounded border border-green-200 shadow-sm whitespace-nowrap">Completed (6)</button>
+                  <button className="px-3 py-1.5 text-xs font-bold bg-[#e3f2fd] text-[#0e3b8a] rounded border border-blue-200 shadow-sm whitespace-nowrap">Active (1)</button>
+                  <button className="px-3 py-1.5 text-xs font-bold text-on-surface-variant hover:text-on-surface rounded whitespace-nowrap">Remaining (12)</button>
                 </div>
               </div>
 
-              {/* Status Overview Boxes */}
+              {/* Summary Cards */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div className="bg-[#f0fdf4] border border-[#bbf7d0] rounded-lg p-4 flex items-center justify-between">
+                <div className="bg-[#f0fdf4] border border-green-200 rounded-lg p-4 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-green-500 rounded text-white flex items-center justify-center shrink-0">
-                      <span className="material-symbols-outlined text-[18px]">check</span>
+                    <div className="w-10 h-10 bg-green-100 text-green-700 rounded flex items-center justify-center shrink-0">
+                      <span className="material-symbols-outlined">check_circle</span>
                     </div>
                     <div>
                       <div className="text-[10px] font-bold text-green-800 tracking-wider uppercase mb-0.5">Completed Stages</div>
-                      <div className="text-sm font-bold text-green-900">Stages 01 - 06 [100%]</div>
+                      <div className="text-sm font-bold text-green-900">Stages 01 – 06 <br className="md:hidden" />[100%]</div>
                     </div>
                   </div>
-                  <span className="bg-green-100 text-green-800 text-[10px] font-bold px-2 py-1 rounded border border-green-200">6 Cleared</span>
+                  <div className="bg-green-100 text-green-800 text-[10px] font-bold px-2 py-1 rounded border border-green-200 flex flex-col items-center ml-2">
+                    <span className="text-sm leading-none mb-0.5">6</span>
+                    <span>Cleared</span>
+                  </div>
                 </div>
 
-                <div className="bg-[#eff6ff] border border-[#bfdbfe] rounded-lg p-4 flex items-center justify-between relative overflow-hidden shadow-sm">
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#2563eb]"></div>
-                  <div className="flex items-center gap-3 pl-2">
-                    <div className="w-8 h-8 bg-[#2563eb] rounded text-white flex items-center justify-center shrink-0">
-                      <span className="material-symbols-outlined text-[18px] animate-spin-slow">autorenew</span>
+                <div className="bg-[#0e3b8a] border border-[#0c3175] rounded-lg p-4 flex items-center justify-between text-white shadow-md relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                  <div className="flex items-center gap-3 relative z-10">
+                    <div className="w-10 h-10 bg-white/20 text-white rounded flex items-center justify-center shrink-0">
+                      <span className="material-symbols-outlined">autorenew</span>
                     </div>
                     <div>
-                      <div className="text-[10px] font-bold text-blue-800 tracking-wider uppercase mb-0.5">Active Operational Stage</div>
-                      <div className="text-sm font-bold text-blue-900">Stage 07: Needs &amp; Risk Matrix</div>
+                      <div className="text-[10px] font-bold text-blue-200 tracking-wider uppercase mb-0.5">Active Operational Stage</div>
+                      <div className="text-sm font-bold text-white">Stage 07: Needs &amp; Risk Matrix</div>
                     </div>
                   </div>
-                  <span className="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-1 rounded border border-blue-200 whitespace-nowrap">42% Done</span>
+                  <div className="bg-white/20 text-white text-[10px] font-bold px-2 py-1 rounded border border-white/30 flex flex-col items-center relative z-10 ml-2">
+                    <span className="text-sm leading-none mb-0.5">60%</span>
+                    <span>Done</span>
+                  </div>
                 </div>
 
-                <div className="bg-[#f8fafc] border border-[#e2e8f0] rounded-lg p-4 flex items-center justify-between opacity-80">
+                <div className="bg-[#f8f9fa] border border-outline-variant/30 rounded-lg p-4 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-slate-200 rounded text-slate-500 flex items-center justify-center shrink-0">
-                      <span className="material-symbols-outlined text-[18px]">map</span>
+                    <div className="w-10 h-10 bg-surface-variant text-on-surface-variant rounded flex items-center justify-center shrink-0">
+                      <span className="material-symbols-outlined">pending_actions</span>
                     </div>
                     <div>
-                      <div className="text-[10px] font-bold text-slate-500 tracking-wider uppercase mb-0.5">Remaining Roadmap</div>
-                      <div className="text-sm font-bold text-slate-700">Stages 08 - 19 (Sequential)</div>
+                      <div className="text-[10px] font-bold text-on-surface-variant tracking-wider uppercase mb-0.5">Remaining Roadmap</div>
+                      <div className="text-sm font-bold text-on-surface">Stages 08 – 19 <br className="md:hidden" />(Sequential)</div>
                     </div>
                   </div>
-                  <span className="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-1 rounded border border-slate-200">12 Pending</span>
+                  <div className="bg-surface-variant text-on-surface-variant text-[10px] font-bold px-2 py-1 rounded border border-outline-variant/30 flex flex-col items-center ml-2">
+                    <span className="text-sm leading-none mb-0.5">12</span>
+                    <span>Pending</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Part 1: Completed Stages */}
+              {/* Part 1: Completed */}
               <div className="mb-8">
-                <div className="flex items-center justify-between mb-4 border-b border-outline-variant/30 pb-2">
-                  <div className="flex items-center gap-2 text-green-700">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4 border-b border-outline-variant/30 pb-2">
+                  <h3 className="text-xs font-bold text-green-800 flex items-center gap-1.5 tracking-wider uppercase">
                     <span className="material-symbols-outlined text-[16px]">task_alt</span>
-                    <h3 className="text-[11px] font-bold tracking-wider uppercase">Part 1: Completed Statutory Stages (6)</h3>
-                  </div>
-                  <span className="text-[10px] text-on-surface-variant uppercase tracking-wider">Formal Transit &amp; Identification Data Cleared</span>
+                    Part 1: Completed Statutory Stages (6)
+                  </h3>
+                  <span className="text-[10px] text-on-surface-variant uppercase tracking-wider">Formal transit &amp; identification data cleared</span>
                 </div>
-
+                
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                   {[
-                    { stage: '01', title: 'Initial First Information & Interception', desc: 'Nepal police/border transit monitor interception by border vigilance unit.', id: 'RPT: T-4472', date: 'Oct 28, 2023' },
-                    { stage: '02', title: 'Emergency Shelter Admission', desc: 'Emergency admission into District Transit Shelter; basic quarantine & hygiene intake.', id: 'Shelter: Bed 04A', date: 'Oct 28, 2023' },
-                    { stage: '03', title: 'Identity & Biometric AFIS Verification', desc: 'National AFIS database biometric match to confirmed civil identity & ancestry.', id: 'BC-992-8810-KA', date: 'Nov 02, 2023' },
-                    { stage: '04', title: 'Child Profile & Initial Triage Assessment', desc: 'Intake dossier compiled by Lead Caseworker A. Gurung. Risk category assigned.', id: 'Tier: 1 Flagged', date: 'Nov 05, 2023' },
-                    { stage: '05', title: 'Pediatric & Health Screening', desc: 'Comprehensive clinical evaluation; diagnosed mild anemia, dental therapy begun.', id: 'Dr. V. Menon Clinic', date: 'Nov 08, 2023' },
-                    { stage: '06', title: 'Kinship Tracing & Family Inquiries', desc: 'Maternal Aunt Tara Devi located in Pokhara-4, Kaski. Verified by Ward Council 04.', id: 'Ward Clearance 04', date: 'Nov 12, 2023' },
-                  ].map((item, idx) => (
-                    <div key={idx} className="border border-green-200 bg-[#f4fcf6] rounded-lg p-3 relative hover:shadow-sm transition-shadow">
-                      <div className="flex justify-between items-start mb-2">
-                        <span className="bg-green-100 text-green-800 text-[9px] font-bold px-1.5 py-0.5 rounded tracking-wider uppercase border border-green-200">Stage {item.stage}</span>
-                        <span className="material-symbols-outlined text-green-600 text-[14px]">check_circle</span>
+                    { id: '01', title: 'Initial File Information & Interception', desc: 'Nepal police / border transit interception by border vigilance unit.', date: 'Oct 28, 2023', ref: 'Ref: T-8972' },
+                    { id: '02', title: 'Emergency Shelter Admission', desc: 'Emergency admission in transit shelter, basic quarantine & hygiene intake.', date: 'Oct 28, 2023', ref: 'Shelter Bed: 40A' },
+                    { id: '03', title: 'Identity & Biometric AFIS Verification', desc: 'National AFIS database match (#892-8) to confirmed civil identity & ancestry.', date: 'Nov 02, 2023', ref: 'BC-992-8810-KA' },
+                    { id: '04', title: 'Child Profile & Initial Triage Assessment', desc: 'Intake dossier compiled by Case Caseworker A. Gurung. Risk category assigned.', date: 'Nov 05, 2023', ref: 'Tier-1 Flagged' },
+                    { id: '05', title: 'Pediatric & Health Screening', desc: 'Comprehensive clinical evaluation: diagnosed mild anemia, dental therapy begun.', date: 'Nov 08, 2023', ref: 'Dr. V. Menon Clinic' },
+                    { id: '06', title: 'Kinship Tracing & Family Inquiries', desc: 'Maternal Aunt Tara Devi located in Pokhara-4, Kaski; verified by Ward Council 04.', date: 'Nov 12, 2023', ref: 'Ward Clearance 04' }
+                  ].map(stage => (
+                    <div key={stage.id} className="border border-green-200 bg-[#f4fcf6] rounded-lg p-3 relative hover:shadow-sm transition-shadow">
+                      <div className="absolute top-3 right-3 text-green-600">
+                        <span className="material-symbols-outlined text-[16px]">check_circle</span>
                       </div>
-                      <h4 className="text-[11px] font-bold text-green-900 mb-1 leading-tight">{item.title}</h4>
-                      <p className="text-[9px] text-green-800 mb-3 opacity-80 leading-snug h-6 line-clamp-2">{item.desc}</p>
-                      <div className="flex justify-between items-center text-[9px] text-green-700/70 border-t border-green-200/50 pt-2 font-mono">
-                        <span>{item.id}</span>
-                        <span>{item.date}</span>
+                      <div className="bg-green-100 text-green-800 text-[9px] font-bold px-1.5 py-0.5 rounded w-max mb-2 uppercase tracking-wider">Stage {stage.id}</div>
+                      <h4 className="text-xs font-bold text-green-900 mb-1 pr-6">{stage.title}</h4>
+                      <p className="text-[10px] text-green-800/80 mb-3 line-clamp-2">{stage.desc}</p>
+                      <div className="flex justify-between items-center text-[9px] font-bold text-green-700/70 uppercase tracking-widest pt-2 border-t border-green-200/50">
+                        <span>{stage.ref}</span>
+                        <span>{stage.date}</span>
                       </div>
                     </div>
                   ))}
@@ -307,98 +360,93 @@ export default function BeneficiaryProfile() {
               </div>
 
               {/* Stage 07: Current In Progress */}
-              <div className="mb-8 relative">
-                {/* Connecting Line (visual only) */}
-                <div className="absolute left-8 -top-4 bottom-auto w-0.5 h-4 bg-blue-200"></div>
-
-                <div className="border-2 border-[#2563eb] rounded-xl overflow-hidden shadow-sm">
-                  <div className="bg-[#eff6ff] border-b border-[#2563eb]/20 px-4 py-2.5 flex justify-between items-center">
-                    <div className="flex items-center gap-3">
-                      <span className="bg-[#2563eb] text-white text-[10px] font-bold px-2 py-1 rounded tracking-wider uppercase">Stage 07: Current In Progress</span>
-                      <span className="bg-yellow-100 text-yellow-800 border border-yellow-300 text-[9px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full animate-pulse"></span> Under Statutory Review
+              <div className="mb-8">
+                <div className="bg-white border-2 border-[#0e3b8a] rounded-xl shadow-sm overflow-hidden">
+                  <div className="bg-blue-50 border-b border-blue-100 px-4 py-2.5 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                      <span className="bg-[#0e3b8a] text-white text-[10px] font-bold px-2 py-1 rounded tracking-wider uppercase">Stage 07: Current In Progress</span>
+                      <span className="bg-orange-100 text-orange-800 text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1.5 border border-orange-200 tracking-wider uppercase">
+                        <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse"></span> Under Statutory Review
                       </span>
                     </div>
-                    <div className="text-[10px] font-bold text-[#2563eb] font-mono">Deadline: Nov 30, 2023 (42% Complete)</div>
-                  </div>
-                  
-                  <div className="p-5 bg-white">
-                    <div className="flex flex-col lg:flex-row justify-between gap-6 mb-5">
-                      <div className="flex-1">
-                        <h3 className="text-sm font-bold text-[#1e3a8a] mb-2">Comprehensive Needs &amp; Risk Assessment</h3>
-                        <p className="text-[11px] text-on-surface-variant leading-relaxed max-w-4xl">
-                          Statutory assessment covering psychometric trauma scoring (T.2x19), maternal restraint legal filings (FCR-2021-11) and maternal aunt household readiness indexing. Awaiting dental clearance and Case Conference sign-off.
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-3 shrink-0">
-                        <button className="px-4 py-2 border border-[#2563eb] text-[#2563eb] rounded text-xs font-bold hover:bg-blue-50 transition-colors flex items-center gap-1.5">
-                          <span className="material-symbols-outlined text-[16px]">grid_view</span> View Full Matrix
-                        </button>
-                        <button className="px-4 py-2 bg-[#2563eb] text-white rounded text-xs font-bold hover:bg-[#1d4ed8] shadow-sm transition-colors flex items-center gap-1.5">
-                          <span className="material-symbols-outlined text-[16px]">double_arrow</span> Sign Off &amp; Transition
-                        </button>
-                      </div>
+                    <div className="text-[10px] font-bold text-[#0e3b8a] tracking-wider uppercase">
+                      Deadline: Nov 30, 2023 (60% Complete)
                     </div>
-
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-blue-100">
-                      <div>
-                        <div className="text-[9px] text-on-surface-variant uppercase tracking-wider mb-1">Clinical Sign-off</div>
-                        <div className="text-[11px] font-semibold text-on-surface">Complete (Nov 14)</div>
-                      </div>
-                      <div>
-                        <div className="text-[9px] text-on-surface-variant uppercase tracking-wider mb-1">Kinship Feasibility</div>
-                        <div className="text-[11px] font-semibold text-on-surface">Cleared (High Fit)</div>
-                      </div>
-                      <div>
-                        <div className="text-[9px] text-on-surface-variant uppercase tracking-wider mb-1">Trauma Screening</div>
-                        <div className="text-[11px] font-semibold text-orange-600">2/3 Sessions Done</div>
-                      </div>
-                      <div>
-                        <div className="text-[9px] text-on-surface-variant uppercase tracking-wider mb-1">MDT Case Conference</div>
-                        <div className="text-[11px] font-semibold text-on-surface">Scheduled Nov 26</div>
-                      </div>
+                  </div>
+                  <div className="p-5 flex flex-col md:flex-row justify-between gap-6">
+                    <div className="flex-1">
+                      <h3 className="text-base font-bold text-on-surface mb-2">Comprehensive Case Dossier: Aarati Shrestha (Pokhara Metro-04, Kaski)</h3>
+                      <p className="text-xs text-on-surface-variant max-w-3xl leading-relaxed">
+                        Statutory assessment covering psychometric trauma scoring (T.A.P.S), maternal relevant legal filings (FCR-2021-11) and maternal aunt's household protection indices. Pending dental clearance and Case Conference sign-off.
+                      </p>
+                    </div>
+                    <div className="flex flex-col gap-2 shrink-0 md:min-w-[180px]">
+                      <button className="w-full bg-white border border-outline-variant text-[#0e3b8a] text-xs font-bold py-2 px-4 rounded shadow-sm hover:bg-blue-50 transition-colors flex items-center justify-center gap-2">
+                        <span className="material-symbols-outlined text-[16px]">visibility</span> View Full Matrix
+                      </button>
+                      <button className="w-full bg-[#0e3b8a] text-white text-xs font-bold py-2 px-4 rounded shadow-sm hover:bg-[#0c3175] transition-colors flex items-center justify-center gap-2">
+                        <span className="material-symbols-outlined text-[16px]">task</span> Sign-Off &amp; Transition
+                      </button>
+                    </div>
+                  </div>
+                  <div className="bg-[#f8fafd] border-t border-blue-100 p-4 grid grid-cols-2 md:grid-cols-4 gap-4 divide-y md:divide-y-0 md:divide-x divide-blue-100">
+                    <div className="pl-0 md:pl-4 first:pl-0 pt-2 md:pt-0 first:pt-0">
+                      <div className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Clinical Sign-off</div>
+                      <div className="text-xs font-bold text-green-700">Complete (Nov 14)</div>
+                    </div>
+                    <div className="pl-0 md:pl-4 pt-2 md:pt-0">
+                      <div className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Kinship Feasibility</div>
+                      <div className="text-xs font-bold text-[#0e3b8a]">Cleared (High 8.9)</div>
+                    </div>
+                    <div className="pl-0 md:pl-4 pt-2 md:pt-0">
+                      <div className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Trauma Screening</div>
+                      <div className="text-xs font-bold text-orange-600">2/3 Sessions Done</div>
+                    </div>
+                    <div className="pl-0 md:pl-4 pt-2 md:pt-0">
+                      <div className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">MDT Case Conference</div>
+                      <div className="text-xs font-bold text-on-surface">Scheduled Nov 26</div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Part 2: Remaining Stages */}
+              {/* Part 3: Remaining */}
               <div>
-                <div className="flex items-center justify-between mb-4 border-b border-outline-variant/30 pb-2">
-                  <div className="flex items-center gap-2 text-on-surface-variant">
-                    <span className="material-symbols-outlined text-[16px]">route</span>
-                    <h3 className="text-[11px] font-bold tracking-wider uppercase">Part 2: Remaining Statutory Stages (Stages 08 - 19)</h3>
-                  </div>
-                  <span className="text-[10px] text-on-surface-variant uppercase tracking-wider">Sequential Judicial, Care, &amp; Post-Reintegration Pipeline</span>
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4 border-b border-outline-variant/30 pb-2">
+                  <h3 className="text-xs font-bold text-on-surface-variant flex items-center gap-1.5 tracking-wider uppercase">
+                    <span className="material-symbols-outlined text-[16px]">pending_actions</span>
+                    Part 3: Remaining Statutory Stages (Stages 08 – 19)
+                  </h3>
+                  <span className="text-[10px] text-on-surface-variant uppercase tracking-wider">Sequential judicial, care, &amp; post-reintegration pipeline</span>
                 </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 opacity-80">
                   {[
-                    { stage: '08', title: 'Court Interim Protection Order Filing', desc: 'Motion to Juvenile Court bench via Legal Aid Advocate T. Sen.', status: 'Next Step', est: 'Est. Nov 28, 2023', highlight: true },
-                    { stage: '09', title: 'Individualized Care & Protection Plan (ICPP)', desc: 'Standard ICPP with intervention mapping, education & welfare.', status: 'Queued', est: 'Est. Dec 04, 2023' },
-                    { stage: '10', title: 'MDT Case Review & Statutory Sign Off', desc: 'Interdisciplinary committee consensus before trial home visit.', status: 'Queued', est: 'Est. Dec 08, 2023' },
-                    { stage: '11', title: 'Trauma-Informed Psychosocial Counseling', desc: 'Completion of all 5 clinical therapy sessions with Maya Shrestha.', status: 'Queued', est: 'Est. Dec 15, 2023' },
-                    { stage: '12', title: 'School Re-Enrollment & Bridge Program', desc: 'Formal re-admission in Pokhara-4 Community Basic School.', status: 'Queued', est: 'Est. Dec 20, 2023' },
-                    { stage: '13', title: 'Caregiver Readiness & Home Feasibility', desc: 'On-site household assessment at Aunt Tara Devi\'s residence, Kaski.', status: 'Queued', est: 'Est. Dec 24, 2023' },
-                    { stage: '14', title: 'Sub-Committee Approval for Reunification', desc: 'Municipal Child Rights Committee formal decree for kinship foster.', status: 'Queued', est: 'Est. Jan 05, 2024' },
-                    { stage: '15', title: 'Formal Handover Protocol & Legal Accord', desc: 'Tri-party legal guardianship signing (Ward Chair, Shelter, Aunt).', status: 'Queued', est: 'Est. Jan 12, 2024' },
-                    { stage: '16', title: 'Month 1 Unannounced Inspection', desc: 'First 30-day surprise safety audit at kinship residence in Kaski.', status: 'Queued', est: 'Est. Feb 12, 2024' },
-                    { stage: '17', title: 'Month 3 School & Community Review', desc: 'Attendance records check & local ward child protection committee review.', status: 'Queued', est: 'Est. Apr 12, 2024' },
-                    { stage: '18', title: 'Month 6 Resolution & Welfare Clearance', desc: 'Multi-sectoral safe reintegration audit with psychiatric clearance.', status: 'Queued', est: 'Est. Jul 12, 2024' },
-                    { stage: '19', title: 'Formal Statutory Case Closure & Archival', desc: 'Judicial discharge order & permanent archive into National CRPCMS.', status: 'Final', est: 'Est. Aug 05, 2024', isFinal: true },
-                  ].map((item, idx) => (
-                    <div key={idx} className={`border ${item.highlight ? 'border-orange-200 bg-[#fff8f1]' : 'border-outline-variant/30 bg-[#fbfcfd] grayscale-[50%]'} rounded-lg p-3 relative hover:shadow-sm transition-shadow opacity-90`}>
-                      <div className="flex justify-between items-start mb-2">
-                        <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded tracking-wider uppercase border ${item.highlight ? 'bg-orange-100 text-orange-800 border-orange-200' : 'bg-surface-variant/50 text-on-surface-variant border-outline-variant/30'}`}>Stage {item.stage}</span>
-                        <span className={`text-[9px] font-bold ${item.highlight ? 'text-orange-600' : (item.isFinal ? 'text-blue-600 flex items-center gap-1' : 'text-on-surface-variant/70')}`}>
-                          {item.isFinal && <span className="material-symbols-outlined text-[12px]">lock</span>}
-                          {item.status}
-                        </span>
+                    { id: '08', title: 'Court Interim Protection Order Filing', desc: 'Motion to Juvenile Court bench via Legal Aid Advocate T. Sen.', date: 'Est: Nov 28, 2023', badge: 'Next Step', badgeColor: 'bg-orange-100 text-orange-800 border-orange-200' },
+                    { id: '09', title: 'Individualized Care & Protection Plan (ICPP)', desc: 'Standard ICPP with intervention mapping, education & welfare.', date: 'Est: Dec 04, 2023', badge: 'Queued' },
+                    { id: '10', title: 'MDT Case Review & Statutory Sign-Off', desc: 'Interdisciplinary committee clearance before trial home visit.', date: 'Est: Dec 06, 2023', badge: 'Queued' },
+                    { id: '11', title: 'Trauma-Informed Psychosocial Counseling', desc: 'Completion of all 5 clinical therapy sessions with Maya Shrestha.', date: 'Est: Dec 15, 2023', badge: 'Queued' },
+                    { id: '12', title: 'School Re-Enrollment & Bridge Program', desc: 'Formal re-admission in Pokhara-4 Community Basic School.', date: 'Est: Dec 20, 2023', badge: 'Queued' },
+                    { id: '13', title: 'Caregiver Readiness & Home Feasibility', desc: 'On-site household assessment at Aunt Tara Devi\'s residence, Kaski.', date: 'Est: Dec 24, 2023', badge: 'Queued' },
+                    { id: '14', title: 'Sub-Committee Approval for Reunification', desc: 'Municipal Child Rights Committee formal decree for kinship foster.', date: 'Est: Jan 05, 2024', badge: 'Queued' },
+                    { id: '15', title: 'Formal Handover Protocol & Legal Accord', desc: 'Tri-party legal guardianship signing (Ward Chair, Shelter, Aunt).', date: 'Est: Jan 12, 2024', badge: 'Queued' },
+                    { id: '16', title: 'Month 1 Unannounced Inspection', desc: 'First 30-day surprise safety audit at kinship residence in Kaski.', date: 'Est: Feb 12, 2024', badge: 'Queued' },
+                    { id: '17', title: 'Month 3 School & Community Review', desc: 'Attendance records check & local ward child protection committee review.', date: 'Est: Apr 12, 2024', badge: 'Queued' },
+                    { id: '18', title: 'Month 6 Resiliency & Welfare Clearance', desc: 'Multi-sectoral safe reintegration audit with psychiatric clearance.', date: 'Est: Jul 12, 2024', badge: 'Queued' },
+                    { id: '19', title: 'Formal Statutory Case Closure & Archival', desc: 'Judicial discharge order & permanent archive into National CRPCMS.', date: 'Est: Aug 04, 2024', badge: 'Final', icon: 'lock', badgeColor: 'bg-blue-100 text-[#0e3b8a] border-blue-200' }
+                  ].map(stage => (
+                    <div key={stage.id} className="border border-outline-variant/40 bg-[#fbfcfd] rounded-lg p-3 relative flex flex-col hover:border-outline-variant transition-colors">
+                      <div className="flex justify-between items-center mb-2">
+                        <div className="bg-surface-variant text-on-surface-variant text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider">Stage {stage.id}</div>
+                        <div className={`text-[9px] font-bold px-1.5 py-0.5 rounded border uppercase tracking-wider flex items-center gap-1 ${stage.badgeColor || 'bg-surface-variant text-on-surface-variant border-outline-variant/30'}`}>
+                          {stage.icon && <span className="material-symbols-outlined text-[10px]">{stage.icon}</span>}
+                          {stage.badge}
+                        </div>
                       </div>
-                      <h4 className={`text-[11px] font-bold mb-1 leading-tight ${item.highlight ? 'text-orange-900' : 'text-on-surface'}`}>{item.title}</h4>
-                      <p className="text-[9px] text-on-surface-variant mb-3 leading-snug h-6 line-clamp-2">{item.desc}</p>
-                      <div className="text-[9px] text-on-surface-variant/70 border-t border-outline-variant/30 pt-2 font-mono">
-                        {item.est}
+                      <h4 className="text-xs font-bold text-on-surface mb-1">{stage.title}</h4>
+                      <p className="text-[10px] text-on-surface-variant mb-3 flex-1 line-clamp-3">{stage.desc}</p>
+                      <div className="text-[9px] font-bold text-on-surface-variant/70 uppercase tracking-widest pt-2 border-t border-outline-variant/30">
+                        {stage.date}
                       </div>
                     </div>
                   ))}

@@ -84,24 +84,24 @@ export default function ReintegrationActionPlanForm() {
 
               <div className="section">A. Child Information</div>
               <div className="grid">
-                <div className="field"><label>Child's Full Name</label><input type="text" /></div>
-                <div className="field"><label>Address</label><input type="text" /></div>
-                <div className="field"><label>Date of Leaving Child Care Home</label><input type="date" /></div>
-                <div className="field"><label>Age</label><input type="text" /></div>
-                <div className="field"><label>Class / Grade</label><input type="text" /></div>
-                <div className="field"><label>Father's Name</label><input type="text" /></div>
-                <div className="field"><label>Mother's Name</label><input type="text" /></div>
-                <div className="field"><label>Contact Number</label><input type="text" /></div>
-                <div className="field full"><label>Reason for Leaving the Child Care Home</label><textarea></textarea></div>
+                <div className="field"><label>Child's Full Name</label><input type="text" defaultValue="Aarati Shrestha" /></div>
+                <div className="field"><label>Address</label><input type="text" defaultValue="Pokhara Metropolitan Ward 4, Kaski" /></div>
+                <div className="field"><label>Date of Leaving Child Care Home</label><input type="date" defaultValue="2023-11-15" /></div>
+                <div className="field"><label>Age</label><input type="text" defaultValue="8" /></div>
+                <div className="field"><label>Class / Grade</label><input type="text" defaultValue="2" /></div>
+                <div className="field"><label>Father's Name</label><input type="text" defaultValue="Ramesh Shrestha" /></div>
+                <div className="field"><label>Mother's Name</label><input type="text" defaultValue="Sita Shrestha" /></div>
+                <div className="field"><label>Contact Number</label><input type="text" defaultValue="9800000000" /></div>
+                <div className="field full"><label>Reason for Leaving the Child Care Home</label><textarea defaultValue="Reintegration with Kinship Anchor (Aunt)"></textarea></div>
               </div>
 
               <div className="section">B. Person Receiving the Child</div>
               <div className="grid">
-                <div className="field"><label>Name of Person Receiving the Child</label><input type="text" /></div>
-                <div className="field"><label>Contact Number</label><input type="text" /></div>
-                <div className="field"><label>Address</label><input type="text" /></div>
-                <div className="field"><label>Relationship with Child</label><input type="text" /></div>
-                <div className="field full"><label>Destination / Intended Occupation or Work After Leaving the Child Care Home</label><textarea></textarea></div>
+                <div className="field"><label>Name of Person Receiving the Child</label><input type="text" defaultValue="Tara Devi Shrestha" /></div>
+                <div className="field"><label>Contact Number</label><input type="text" defaultValue="9800000000" /></div>
+                <div className="field"><label>Address</label><input type="text" defaultValue="Pokhara Metropolitan Ward 4, Kaski" /></div>
+                <div className="field"><label>Relationship with Child</label><input type="text" defaultValue="Aunt" /></div>
+                <div className="field full"><label>Destination / Intended Occupation or Work After Leaving the Child Care Home</label><textarea defaultValue="Return to formal education at local community school."></textarea></div>
               </div>
 
               <div className="section">C. Information Regarding Other Family Members (Living Members Only)</div>
@@ -113,12 +113,12 @@ export default function ReintegrationActionPlanForm() {
                   {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
                     <tr key={n}>
                       <td>{n}</td>
-                      <td><input /></td>
-                      <td><input /></td>
-                      <td><input /></td>
-                      <td><input /></td>
-                      <td><input /></td>
-                      <td><input /></td>
+                      <td><input defaultValue={n === 1 ? "Tara Devi Shrestha" : ""} /></td>
+                      <td><input defaultValue={n === 1 ? "42" : ""} /></td>
+                      <td><input defaultValue={n === 1 ? "Aunt" : ""} /></td>
+                      <td><input defaultValue={n === 1 ? "Secondary" : ""} /></td>
+                      <td><input defaultValue={n === 1 ? "Tailoring" : ""} /></td>
+                      <td><input defaultValue={n === 1 ? "9800000000" : ""} /></td>
                     </tr>
                   ))}
                 </tbody>
@@ -126,45 +126,45 @@ export default function ReintegrationActionPlanForm() {
 
               <div className="section">D. Visit / Follow-up Plan</div>
               <div className="grid">
-                <div className="field"><label>Visit Frequency</label><input type="text" placeholder="Monthly / Quarterly / Semi-annual / Annual" /></div>
-                <div className="field"><label>Planned Visit Date</label><input type="date" /></div>
-                <div className="field"><label>Staff / Support Person</label><input type="text" /></div>
-                <div className="field"><label>Signature</label><input type="text" /></div>
+                <div className="field"><label>Visit Frequency</label><input type="text" placeholder="Monthly / Quarterly / Semi-annual / Annual" defaultValue="Monthly" /></div>
+                <div className="field"><label>Planned Visit Date</label><input type="date" defaultValue="2023-12-15" /></div>
+                <div className="field"><label>Staff / Support Person</label><input type="text" defaultValue="Anjali Gurung (CMS-4920)" /></div>
+                <div className="field"><label>Signature</label><input type="text" defaultValue="A.Gurung" /></div>
               </div>
 
               <div className="section">E. Financial Support Plan</div>
               <div className="grid">
                 <div className="field">
                   <label>Is financial support required for reintegration?</label>
-                  <select><option></option><option>Yes</option><option>No</option></select>
+                  <select defaultValue="Yes"><option></option><option>Yes</option><option>No</option></select>
                 </div>
-                <div className="field"><label>Reason / Purpose for Financial Support</label><input type="text" /></div>
-                <div className="field"><label>Estimated Amount (NPR)</label><input type="number" /></div>
-                <div className="field"><label>Duration of Support</label><input type="text" /></div>
-                <div className="field full"><label>Other Financial Support Details</label><textarea></textarea></div>
+                <div className="field"><label>Reason / Purpose for Financial Support</label><input type="text" defaultValue="School enrollment and supplies" /></div>
+                <div className="field"><label>Estimated Amount (NPR)</label><input type="number" defaultValue="5000" /></div>
+                <div className="field"><label>Duration of Support</label><input type="text" defaultValue="One-time" /></div>
+                <div className="field full"><label>Other Financial Support Details</label><textarea defaultValue="Funds will be directly transferred to school for enrollment fees."></textarea></div>
               </div>
 
               <div className="section">F. Educational Support Plan</div>
               <div className="grid">
-                <div className="field"><label>Who Will Provide Educational Support?</label><input type="text" /></div>
-                <div className="field"><label>Duration of Support</label><input type="text" /></div>
-                <div className="field full"><label>What Educational Support Is Required?</label><textarea></textarea></div>
-                <div className="field full"><label>Other Educational Support Details</label><textarea></textarea></div>
+                <div className="field"><label>Who Will Provide Educational Support?</label><input type="text" defaultValue="Child Welfare NGO" /></div>
+                <div className="field"><label>Duration of Support</label><input type="text" defaultValue="1 Year" /></div>
+                <div className="field full"><label>What Educational Support Is Required?</label><textarea defaultValue="Books, uniforms, and stationary."></textarea></div>
+                <div className="field full"><label>Other Educational Support Details</label><textarea defaultValue="Periodic review of attendance records required."></textarea></div>
               </div>
 
               <div className="section">G. Skill-Based Training Plan</div>
               <div className="grid">
-                <div className="field"><label>Skill / Vocational Training Required</label><input type="text" /></div>
-                <div className="field"><label>Training Provider / Location</label><input type="text" /></div>
-                <div className="field"><label>Training Duration</label><input type="text" /></div>
-                <div className="field"><label>Who Will Provide / Fund the Training?</label><input type="text" /></div>
+                <div className="field"><label>Skill / Vocational Training Required</label><input type="text" defaultValue="N/A" /></div>
+                <div className="field"><label>Training Provider / Location</label><input type="text" defaultValue="N/A" /></div>
+                <div className="field"><label>Training Duration</label><input type="text" defaultValue="N/A" /></div>
+                <div className="field"><label>Who Will Provide / Fund the Training?</label><input type="text" defaultValue="N/A" /></div>
               </div>
 
               <div className="section">H. Possible Employment Plan (Only for Children Requiring Employment Support)</div>
               <div className="grid">
-                <div className="field"><label>Agency / Institution Coordinating Employment</label><input type="text" /></div>
-                <div className="field"><label>Agency / Institution Able to Provide Employment</label><input type="text" /></div>
-                <div className="field full"><label>Other Employment Plan / Details</label><textarea></textarea></div>
+                <div className="field"><label>Agency / Institution Coordinating Employment</label><input type="text" defaultValue="N/A" /></div>
+                <div className="field"><label>Agency / Institution Able to Provide Employment</label><input type="text" defaultValue="N/A" /></div>
+                <div className="field full"><label>Other Employment Plan / Details</label><textarea defaultValue="Child is under working age. Focus is on education."></textarea></div>
               </div>
 
               <div className="section">I. Family Support Plan (Only for Families in Extreme Poverty — Short-Term Support)</div>
@@ -184,22 +184,22 @@ export default function ReintegrationActionPlanForm() {
                 />
               </div>
               <div className="grid">
-                <div className="field"><label>Name of Person Giving Consent</label><input type="text" /></div>
-                <div className="field"><label>Relationship with Child</label><input type="text" /></div>
-                <div className="field"><label>Address</label><input type="text" /></div>
-                <div className="field"><label>Contact Number</label><input type="text" /></div>
-                <div className="field"><label>Date</label><input type="date" /></div>
-                <div className="field"><label>Signature</label><input type="text" /></div>
-                <div className="field"><label>Thumbprint / Other Verification</label><input type="text" /></div>
-                <div className="field"><label>Child's Relationship with Signatory</label><input type="text" /></div>
+                <div className="field"><label>Name of Person Giving Consent</label><input type="text" defaultValue="Tara Devi Shrestha" /></div>
+                <div className="field"><label>Relationship with Child</label><input type="text" defaultValue="Aunt" /></div>
+                <div className="field"><label>Address</label><input type="text" defaultValue="Pokhara Metropolitan Ward 4, Kaski" /></div>
+                <div className="field"><label>Contact Number</label><input type="text" defaultValue="9800000000" /></div>
+                <div className="field"><label>Date</label><input type="date" defaultValue="2023-11-20" /></div>
+                <div className="field"><label>Signature</label><input type="text" defaultValue="T.D.Shrestha" /></div>
+                <div className="field"><label>Thumbprint / Other Verification</label><input type="text" defaultValue="Verified" /></div>
+                <div className="field"><label>Child's Relationship with Signatory</label><input type="text" defaultValue="Niece" /></div>
               </div>
 
               <div className="section">K. On Behalf of the Child Care Home</div>
               <div className="grid">
-                <div className="field"><label>Name of Representative</label><input type="text" /></div>
-                <div className="field"><label>Position</label><input type="text" /></div>
-                <div className="field"><label>Signature</label><input type="text" /></div>
-                <div className="field"><label>Organization Stamp / Seal</label><input type="text" /></div>
+                <div className="field"><label>Name of Representative</label><input type="text" defaultValue="Anjali Gurung" /></div>
+                <div className="field"><label>Position</label><input type="text" defaultValue="Lead Caseworker" /></div>
+                <div className="field"><label>Signature</label><input type="text" defaultValue="A.Gurung" /></div>
+                <div className="field"><label>Organization Stamp / Seal</label><input type="text" defaultValue="Child Welfare Organization Seal" /></div>
               </div>
 
               <hr style={{ border: 0, borderTop: '2px solid #d7dee8', margin: '32px 0' }} />
@@ -211,77 +211,77 @@ export default function ReintegrationActionPlanForm() {
 
               <div className="section">A. Complete Child Information</div>
               <div className="grid">
-                <div className="field"><label>Child's Full Name</label><input type="text" /></div>
-                <div className="field"><label>Address</label><input type="text" /></div>
-                <div className="field"><label>Date of Arrival at Child Care Home</label><input type="date" /></div>
-                <div className="field full"><label>Reason for Arrival at Child Care Home</label><textarea></textarea></div>
+                <div className="field"><label>Child's Full Name</label><input type="text" defaultValue="Aarati Shrestha" /></div>
+                <div className="field"><label>Address</label><input type="text" defaultValue="Pokhara Metropolitan Ward 4" /></div>
+                <div className="field"><label>Date of Arrival at Child Care Home</label><input type="date" defaultValue="2023-10-28" /></div>
+                <div className="field full"><label>Reason for Arrival at Child Care Home</label><textarea defaultValue="Found unattended at bus park, transferred by police."></textarea></div>
               </div>
 
               <div className="section">B. Family Information</div>
               <div className="grid">
-                <div className="field"><label>Father's Name</label><input type="text" /></div>
-                <div className="field"><label>Father's Current Condition</label><input type="text" /></div>
-                <div className="field"><label>Father's Occupation</label><input type="text" /></div>
-                <div className="field"><label>Mother's Name</label><input type="text" /></div>
-                <div className="field"><label>Mother's Current Condition</label><input type="text" /></div>
-                <div className="field"><label>Mother's Occupation</label><input type="text" /></div>
-                <div className="field"><label>Number of Brothers</label><input type="text" /></div>
-                <div className="field"><label>Number of Sisters</label><input type="text" /></div>
-                <div className="field"><label>Total Family Members</label><input type="text" /></div>
-                <div className="field full"><label>Other Employed / Income-Earning Persons in the Family</label><textarea></textarea></div>
+                <div className="field"><label>Father's Name</label><input type="text" defaultValue="Ramesh Shrestha" /></div>
+                <div className="field"><label>Father's Current Condition</label><input type="text" defaultValue="Away for work" /></div>
+                <div className="field"><label>Father's Occupation</label><input type="text" defaultValue="Laborer" /></div>
+                <div className="field"><label>Mother's Name</label><input type="text" defaultValue="Sita Shrestha" /></div>
+                <div className="field"><label>Mother's Current Condition</label><input type="text" defaultValue="Missing" /></div>
+                <div className="field"><label>Mother's Occupation</label><input type="text" defaultValue="Domestic Worker" /></div>
+                <div className="field"><label>Number of Brothers</label><input type="text" defaultValue="1" /></div>
+                <div className="field"><label>Number of Sisters</label><input type="text" defaultValue="0" /></div>
+                <div className="field"><label>Total Family Members</label><input type="text" defaultValue="3" /></div>
+                <div className="field full"><label>Other Employed / Income-Earning Persons in the Family</label><textarea defaultValue="None known"></textarea></div>
               </div>
 
               <div className="section">C. Economic Information</div>
               <div className="grid">
-                <div className="field"><label>Monthly Family Income (NPR)</label><input type="number" /></div>
-                <div className="field"><label>Monthly Family Expenditure (NPR)</label><input type="number" /></div>
-                <div className="field"><label>Monthly Savings (NPR)</label><input type="number" /></div>
+                <div className="field"><label>Monthly Family Income (NPR)</label><input type="number" defaultValue="8000" /></div>
+                <div className="field"><label>Monthly Family Expenditure (NPR)</label><input type="number" defaultValue="8500" /></div>
+                <div className="field"><label>Monthly Savings (NPR)</label><input type="number" defaultValue="0" /></div>
               </div>
               <div className="field">
                 <label>House Condition</label>
                 <div className="checks">
                   <label className="check"><input type="checkbox" /> Permanent / Concrete</label>
-                  <label className="check"><input type="checkbox" /> Temporary / Mud</label>
+                  <label className="check"><input type="checkbox" defaultChecked /> Temporary / Mud</label>
                   <label className="check"><input type="checkbox" /> Tin / Other</label>
                 </div>
               </div>
               <div className="grid">
-                <div className="field"><label>Number of Rooms</label><input type="text" /></div>
-                <div className="field"><label>Land / Property Details</label><input type="text" placeholder="Khet / Bari / Ghaderi / Other" /></div>
+                <div className="field"><label>Number of Rooms</label><input type="text" defaultValue="2" /></div>
+                <div className="field"><label>Land / Property Details</label><input type="text" placeholder="Khet / Bari / Ghaderi / Other" defaultValue="Small Bari" /></div>
               </div>
 
               <div className="section">D. Method Used for the Survey</div>
               <div className="checks">
                 <label className="check"><input type="checkbox" /> Community Interaction</label>
-                <label className="check"><input type="checkbox" /> Family Discussion / Home Visit</label>
+                <label className="check"><input type="checkbox" defaultChecked /> Family Discussion / Home Visit</label>
                 <label className="check"><input type="checkbox" /> Direct Observation</label>
                 <label className="check"><input type="checkbox" /> Telephone Interview</label>
               </div>
 
               <div className="section">E. Type of Support Desired by the Family</div>
-              <div className="field full"><label>Support Required by Family</label><textarea></textarea></div>
+              <div className="field full"><label>Support Required by Family</label><textarea defaultValue="Educational materials for the child to re-enroll in school."></textarea></div>
 
               <div className="section">F. Surveyor's Opinion / Recommendation</div>
               <div className="field full">
                 <label>Opinion on Whether Reunification / Reintegration Is Possible, With Reasons</label>
-                <textarea style={{ minHeight: '180px' }}></textarea>
+                <textarea style={{ minHeight: '180px' }} defaultValue="Reintegration is highly recommended. The aunt is willing and capable of caring for Aarati, provided short-term educational support is granted."></textarea>
               </div>
 
               <div className="section">G. Person Providing Information</div>
               <div className="grid">
-                <div className="field"><label>Name</label><input type="text" /></div>
-                <div className="field"><label>Relationship with Child</label><input type="text" /></div>
-                <div className="field"><label>Address</label><input type="text" /></div>
-                <div className="field"><label>Contact Number</label><input type="text" /></div>
-                <div className="field"><label>Signature</label><input type="text" /></div>
-                <div className="field"><label>Date</label><input type="date" /></div>
+                <div className="field"><label>Name</label><input type="text" defaultValue="Tara Devi Shrestha" /></div>
+                <div className="field"><label>Relationship with Child</label><input type="text" defaultValue="Aunt" /></div>
+                <div className="field"><label>Address</label><input type="text" defaultValue="Pokhara Metropolitan Ward 4" /></div>
+                <div className="field"><label>Contact Number</label><input type="text" defaultValue="9800000000" /></div>
+                <div className="field"><label>Signature</label><input type="text" defaultValue="T.D.Shrestha" /></div>
+                <div className="field"><label>Date</label><input type="date" defaultValue="2023-11-20" /></div>
               </div>
 
               <div className="section">H. Staff Member Collecting Information</div>
               <div className="grid">
-                <div className="field"><label>Name</label><input type="text" /></div>
-                <div className="field"><label>Position</label><input type="text" /></div>
-                <div className="field"><label>Signature</label><input type="text" /></div>
+                <div className="field"><label>Name</label><input type="text" defaultValue="Anjali Gurung" /></div>
+                <div className="field"><label>Position</label><input type="text" defaultValue="Lead Caseworker" /></div>
+                <div className="field"><label>Signature</label><input type="text" defaultValue="A.Gurung" /></div>
               </div>
 
               <div className="actions">

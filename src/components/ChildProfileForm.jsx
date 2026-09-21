@@ -70,56 +70,56 @@ export default function ChildProfileForm() {
 
               <div className="section">1. Basic Information</div>
               <div className="grid">
-                <div className="field"><label>Profile Intake Date</label><input type="date" /></div>
+                <div className="field"><label>Profile Intake Date</label><input type="date" defaultValue="2023-10-28" /></div>
                 <div></div>
-                <div className="field"><label>Name of Child</label><input /></div>
-                <div className="field"><label>Date of Birth (DD/MM/YYYY)</label><input placeholder="DD/MM/YYYY" /></div>
+                <div className="field"><label>Name of Child</label><input defaultValue="Aarati Shrestha" /></div>
+                <div className="field"><label>Date of Birth (DD/MM/YYYY)</label><input placeholder="DD/MM/YYYY" defaultValue="15/03/2014" /></div>
                 <div className="field">
                   <label>Sex</label>
-                  <select><option></option><option>Male</option><option>Female</option><option>Other</option></select>
+                  <select defaultValue="Female"><option></option><option>Male</option><option>Female</option><option>Other</option></select>
                 </div>
-                <div className="field full"><label>Address</label><textarea></textarea></div>
-                <div className="field full"><label>Previous Academic Status / School</label><textarea></textarea></div>
-                <div className="field"><label>Father's Name (name, age etc.)</label><input /></div>
-                <div className="field"><label>Mother's Name</label><input /></div>
-                <div className="field"><label>Grandfather's Name</label><input /></div>
-                <div className="field"><label>Grandmother's Name</label><input /></div>
-                <div className="field full"><label>Legal Documents of Child</label><textarea></textarea></div>
-                <div className="field"><label>Occupation of Family</label><input /></div>
-                <div className="field"><label>Primary Income Source of Family</label><input /></div>
-                <div className="field full"><label>Siblings</label><textarea placeholder="Name, age, sex and other relevant details"></textarea></div>
-                <div className="field full"><label>Other Relatives (Name and Relationship with the Child)</label><textarea></textarea></div>
-                <div className="field full"><label>Any Other Information Provided by Child</label><textarea></textarea></div>
-                <div className="field"><label>Height and Weight</label><input /></div>
-                <div className="field"><label>Health Status</label><textarea></textarea></div>
-                <div className="field"><label>Relationship with Family</label><textarea></textarea></div>
-                <div className="field"><label>Contact Details</label><input placeholder="Phone / Mobile / Email" /></div>
+                <div className="field full"><label>Address</label><textarea defaultValue="Pokhara Metropolitan Ward 4, Kaski District"></textarea></div>
+                <div className="field full"><label>Previous Academic Status / School</label><textarea defaultValue="Dropped out in Class 2, Pokhara-4 Community Basic School"></textarea></div>
+                <div className="field"><label>Father's Name (name, age etc.)</label><input defaultValue="Ramesh Shrestha, 35" /></div>
+                <div className="field"><label>Mother's Name</label><input defaultValue="Sita Shrestha, 32" /></div>
+                <div className="field"><label>Grandfather's Name</label><input defaultValue="Hari Shrestha" /></div>
+                <div className="field"><label>Grandmother's Name</label><input defaultValue="Gita Shrestha" /></div>
+                <div className="field full"><label>Legal Documents of Child</label><textarea defaultValue="Birth Certificate (National ID: BC-992-8810-KA)"></textarea></div>
+                <div className="field"><label>Occupation of Family</label><input defaultValue="Agriculture / Day Labor" /></div>
+                <div className="field"><label>Primary Income Source of Family</label><input defaultValue="Wage labor" /></div>
+                <div className="field full"><label>Siblings</label><textarea placeholder="Name, age, sex and other relevant details" defaultValue="Raju Shrestha, 6, Male"></textarea></div>
+                <div className="field full"><label>Other Relatives (Name and Relationship with the Child)</label><textarea defaultValue="Aunt Tara Devi Shrestha (Kinship Anchor)"></textarea></div>
+                <div className="field full"><label>Any Other Information Provided by Child</label><textarea defaultValue="Expresses desire to return to school."></textarea></div>
+                <div className="field"><label>Height and Weight</label><input defaultValue="120 cm, 22 kg" /></div>
+                <div className="field"><label>Health Status</label><textarea defaultValue="Mild anemia, requires nutritional support."></textarea></div>
+                <div className="field"><label>Relationship with Family</label><textarea defaultValue="Strong bond with Aunt Tara."></textarea></div>
+                <div className="field"><label>Contact Details</label><input placeholder="Phone / Mobile / Email" defaultValue="9800000000 (Aunt)" /></div>
               </div>
 
               <div className="section">2. Rescue / Handover Information</div>
               <div className="grid">
-                <div className="field"><label>Date of Rescue / Handover</label><input type="date" /></div>
-                <div className="field full"><label>Circumstance of Rescue / Handover</label><textarea></textarea></div>
-                <div className="field full"><label>Organization / Place from Where Child Was Rescued From / Handed Over</label><input /></div>
-                <div className="field"><label>Time Spent in Organization Before Handover</label><input /></div>
-                <div className="field"><label>Reason Why Child Was in the Organization / Job</label><textarea></textarea></div>
-                <div className="field full"><label>With Whom the Child Travelled to India / Work Location</label><input /></div>
+                <div className="field"><label>Date of Rescue / Handover</label><input type="date" defaultValue="2023-10-25" /></div>
+                <div className="field full"><label>Circumstance of Rescue / Handover</label><textarea defaultValue="Identified during routine screening at bus park."></textarea></div>
+                <div className="field full"><label>Organization / Place from Where Child Was Rescued From / Handed Over</label><input defaultValue="Pokhara Bus Park Police Post" /></div>
+                <div className="field"><label>Time Spent in Organization Before Handover</label><input defaultValue="2 hours" /></div>
+                <div className="field"><label>Reason Why Child Was in the Organization / Job</label><textarea defaultValue="Found unaccompanied."></textarea></div>
+                <div className="field full"><label>With Whom the Child Travelled to India / Work Location</label><input defaultValue="N/A" /></div>
               </div>
 
               <div className="section">3. Case Study and Assessment</div>
               <div className="grid">
-                <div className="field full"><label>Case Study</label><textarea></textarea></div>
-                <div className="field"><label>Reintegration Status</label><textarea></textarea></div>
-                <div className="field"><label>Education</label><textarea></textarea></div>
-                <div className="field"><label>Vocational Training</label><textarea></textarea></div>
-                <div className="field"><label>Risk Factors</label><textarea placeholder="Child labor; other identified risks..."></textarea></div>
-                <div className="field"><label>Immediate Support</label><textarea></textarea></div>
+                <div className="field full"><label>Case Study</label><textarea defaultValue="Aarati was found alone at the bus park. Upon investigation, she had been separated from her aunt."></textarea></div>
+                <div className="field"><label>Reintegration Status</label><textarea defaultValue="Pending. Aunt identified and verified."></textarea></div>
+                <div className="field"><label>Education</label><textarea defaultValue="Will be re-enrolled in local school near Aunt's residence."></textarea></div>
+                <div className="field"><label>Vocational Training</label><textarea defaultValue="N/A (underage)"></textarea></div>
+                <div className="field"><label>Risk Factors</label><textarea placeholder="Child labor; other identified risks..." defaultValue="High risk of drop-out without financial support."></textarea></div>
+                <div className="field"><label>Immediate Support</label><textarea defaultValue="Provided temporary shelter (Kaski Care-02), medical screening."></textarea></div>
                 <div className="field full">
                   <label>Future Plan</label>
-                  <textarea placeholder={'Short term:\nMedium term:\nLong term:'}></textarea>
+                  <textarea placeholder={'Short term:\nMedium term:\nLong term:'} defaultValue={"Short term: Reintegrate with Aunt.\nMedium term: Ensure school enrollment.\nLong term: Regular monitoring and family support."}></textarea>
                 </div>
-                <div className="field"><label>Follow Up Plan</label><textarea></textarea></div>
-                <div className="field"><label>Observation by Team</label><textarea></textarea></div>
+                <div className="field"><label>Follow Up Plan</label><textarea defaultValue="Monthly visits for 6 months."></textarea></div>
+                <div className="field"><label>Observation by Team</label><textarea defaultValue="Child is cooperative and eager to stay with her aunt."></textarea></div>
               </div>
 
               <div className="actions">

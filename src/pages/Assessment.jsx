@@ -69,8 +69,8 @@ export default function Assessment() {
 </div>
 </button>
 <div className="pl-12 pr-4 py-2 text-on-surface-variant flex items-center gap-3 group cursor-pointer hover:bg-surface-container transition-colors rounded-xl">
-  <span className="material-symbols-outlined text-[18px] opacity-70">remove</span>
-  <span className="font-headline-sm text-headline-sm">Death</span>
+  <span className="material-symbols-outlined text-[18px] text-red-500 opacity-70">heart_broken</span>
+  <span className="font-headline-sm text-headline-sm">Death Factor</span>
 </div>
 </div>
 </nav>
